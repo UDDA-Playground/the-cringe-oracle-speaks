@@ -1,7 +1,12 @@
 
 import React from 'react';
-import { Mic, MessageSquare } from 'lucide-react';
+import { Mic, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const HeroSection: React.FC = () => {
   return (
@@ -31,10 +36,6 @@ const HeroSection: React.FC = () => {
             </span>
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-udda-green">✓</span> 
-              Conflict Resolution
-            </span>
-            <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
-              <span className="text-udda-green">✓</span> 
               Mental Health Support
             </span>
           </div>
@@ -43,9 +44,26 @@ const HeroSection: React.FC = () => {
             <button className="bg-udda-purple text-white font-bold py-3 px-8 rounded-full hover:bg-udda-lavender transition-colors shadow-md flex items-center justify-center gap-2">
               <Mic className="w-5 h-5" /> Start a Conversation
             </button>
-            <Link to="#conversations" className="btn-outline text-lg">
-              <MessageSquare className="w-5 h-5" /> See All Conversations
-            </Link>
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="btn-outline text-lg flex items-center justify-center">
+                  <Play className="w-5 h-5" /> See How It Works
+                </button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[800px] p-0">
+                <div className="aspect-video w-full">
+                  <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="How UDDA Works" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
           <p className="text-sm text-gray-500 mt-6">
             Proudly European 🇪🇺 · GDPR Compliant · Not a replacement for licensed therapy
