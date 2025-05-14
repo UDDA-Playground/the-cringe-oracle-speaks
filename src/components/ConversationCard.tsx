@@ -6,8 +6,6 @@ import { ArrowRight } from 'lucide-react';
 interface ConversationCardProps {
   title: string;
   description: string;
-  icon: string;
-  color: string;
   gradient: string;
   path: string;
   illustration?: string;
@@ -16,8 +14,6 @@ interface ConversationCardProps {
 const ConversationCard: React.FC<ConversationCardProps> = ({ 
   title, 
   description, 
-  icon, 
-  color, 
   gradient, 
   path,
   illustration
@@ -30,11 +26,8 @@ const ConversationCard: React.FC<ConversationCardProps> = ({
         <div className="absolute -left-4 -bottom-4 w-16 h-16 rounded-full bg-gradient-to-tl from-white/10 to-white/5 z-0"></div>
         
         <div className="flex items-center gap-4 mb-4">
-          <div className={`w-16 h-16 rounded-full ${color} flex items-center justify-center transform transition-all duration-500 hover:rotate-12 relative z-10 flex-shrink-0`}>
-            <span className="text-white text-3xl">{icon}</span>
-          </div>
           {illustration && (
-            <div className="w-20 h-20 overflow-hidden rounded-lg flex-shrink-0 hidden md:block">
+            <div className="w-20 h-20 overflow-hidden rounded-lg flex-shrink-0">
               <img src={illustration} alt={title} className="w-full h-full object-cover" />
             </div>
           )}

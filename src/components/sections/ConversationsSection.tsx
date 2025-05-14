@@ -22,8 +22,6 @@ const ConversationsSection: React.FC = () => {
           <ConversationCard 
             title="Party Conversation" 
             description="Let three friends chat freely while the AI secretly annotates subtext. Pop up hilarious (and mortifying) insights into insecurities, phobias, and crushes."
-            icon="🎭" 
-            color="bg-udda-coral" 
             gradient="bg-gradient-to-br from-udda-coral to-udda-yellow"
             path="/party-conversation" 
             illustration="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=240&auto=format&fit=crop"
@@ -31,8 +29,6 @@ const ConversationsSection: React.FC = () => {
           <ConversationCard 
             title="Self Discovery Mood-Muffin" 
             description="Your growth-focused partner, guiding self-reflection and insight. Help you pinpoint recurring thoughts, blocks, and limiting beliefs."
-            icon="🧠" 
-            color="bg-udda-green" 
             gradient="bg-gradient-to-br from-udda-green to-udda-mint"
             path="/self-discovery" 
             illustration="https://images.unsplash.com/photo-1546027031-83f112827114?q=80&w=240&auto=format&fit=crop"
@@ -40,8 +36,6 @@ const ConversationsSection: React.FC = () => {
           <ConversationCard 
             title="Couple's Blame Buffer" 
             description="A seasoned steward, steering dialogue toward deeper connection. Surface unspoken expectations and help partners own their roles in conflicts."
-            icon="❤️" 
-            color="bg-udda-lavender" 
             gradient="bg-gradient-to-br from-udda-lavender to-udda-blush"
             path="/couples-blame-buffer" 
             illustration="https://images.unsplash.com/photo-1516589091380-5d8e87df6999?q=80&w=240&auto=format&fit=crop"
@@ -49,8 +43,6 @@ const ConversationsSection: React.FC = () => {
           <ConversationCard 
             title="Ex-Couple Entanglement Sheriff" 
             description="An impartial 'nanny-boss,' laying down clear rules for ex-couples. Diffuse conflicts around kids, money, and assets with firm but fair guidance."
-            icon="👮" 
-            color="bg-udda-yellow" 
             gradient="bg-gradient-to-br from-udda-yellow to-yellow-300"
             path="/ex-couple-entanglement" 
             illustration="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=240&auto=format&fit=crop"
@@ -58,8 +50,6 @@ const ConversationsSection: React.FC = () => {
           <ConversationCard 
             title="Conflict & Friction Fixer" 
             description="A neutral mediator to structure tense exchanges and keep discussions on track. Uncover underlying needs and reframe blame into constructive dialogue."
-            icon="🤝" 
-            color="bg-blue-400" 
             gradient="bg-gradient-to-br from-blue-400 to-udda-mint"
             path="/conflict-fixer" 
             illustration="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?q=80&w=240&auto=format&fit=crop"
