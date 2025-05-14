@@ -20,11 +20,23 @@ const HeroSection: React.FC = () => {
             Available when you are, not when someone else is.
           </p>
           
-          <div className="bg-white/80 backdrop-blur-sm p-4 md:p-6 rounded-2xl mb-8 shadow-sm">
-            <h3 className="font-cabinet font-bold text-xl mb-2 text-udda-green">Expert Knowledge at Your Fingertips</h3>
-            <p className="text-gray-700">
-              Our AI is trained on insights from top psychologists, relationship coaches, and mental health experts to provide guidance that's both effective <span className="font-bold">and</span> entertaining.
-            </p>
+          <div className="flex flex-wrap gap-3 justify-center mb-8">
+            <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
+              <span className="text-udda-green">✓</span> 
+              Expert Psychological Insights
+            </span>
+            <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
+              <span className="text-udda-green">✓</span> 
+              Relationship Coaching
+            </span>
+            <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
+              <span className="text-udda-green">✓</span> 
+              Conflict Resolution
+            </span>
+            <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
+              <span className="text-udda-green">✓</span> 
+              Mental Health Support
+            </span>
           </div>
           
           <div className="flex flex-col md:flex-row gap-4 justify-center">

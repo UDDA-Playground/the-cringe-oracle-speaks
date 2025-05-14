@@ -46,7 +46,9 @@ const Header: React.FC = () => {
           <Link to="/conflict-fixer" className="font-cabinet font-medium hover:text-udda-green transition-colors">
             Conflict Fixer
           </Link>
-          <button className="btn-primary text-sm py-2 px-4">Log In</button>
+          <button className="bg-udda-purple text-white font-bold py-2 px-5 rounded-full hover:bg-udda-lavender transition-colors shadow-md">
+            Log In
+          </button>
         </nav>
         
         {/* Mobile menu button */}
@@ -77,7 +79,9 @@ const Header: React.FC = () => {
             <Link to="/conflict-fixer" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
               Conflict Fixer
             </Link>
-            <button className="btn-primary text-sm py-2 px-4 w-full">Log In</button>
+            <button className="bg-udda-purple text-white font-bold py-2 px-4 rounded-full w-full shadow-md">
+              Log In
+            </button>
           </div>
         </div>
       )}
