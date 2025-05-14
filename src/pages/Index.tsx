@@ -49,7 +49,7 @@ const Index = () => {
               Choose your conversation
             </h2>
             <p className="text-xl text-gray-600">
-              From awkward party revelations to deep personal growth. We've got the perfect weird conversation for every situation.
+              From awkward party revelations to deep personal growth. We&apos;ve got the perfect weird conversation for every situation.
             </p>
           </div>
           
@@ -80,7 +80,7 @@ const Index = () => {
             />
             <ConversationCard 
               title="Ex-Couple Entanglement Sheriff" 
-              description="An impartial "nanny-boss," laying down clear rules for ex-couples. Diffuse conflicts around kids, money, and assets with firm but fair guidance."
+              description="An impartial &quot;nanny-boss,&quot; laying down clear rules for ex-couples. Diffuse conflicts around kids, money, and assets with firm but fair guidance."
               icon="👮" 
               color="bg-udda-yellow" 
               gradient="bg-gradient-to-br from-udda-yellow to-yellow-300"
@@ -100,7 +100,7 @@ const Index = () => {
               </div>
               <h3 className="text-xl font-cabinet font-bold mb-3">More coming soon</h3>
               <p className="text-gray-600 mb-6">
-                We're constantly developing new conversation types. Subscribe to get access as soon as they launch.
+                We&apos;re constantly developing new conversation types. Subscribe to get access as soon as they launch.
               </p>
             </div>
           </div>
