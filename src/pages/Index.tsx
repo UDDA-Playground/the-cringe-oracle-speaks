@@ -60,7 +60,7 @@ const Index = () => {
               Choose your conversation
             </h2>
             <p className="text-xl text-gray-600">
-              From awkward party revelations to deep personal growth. We've got the perfect weird conversation for every situation.
+              From awkward party revelations to deep personal growth. We&apos;ve got the perfect weird conversation for every situation.
             </p>
           </div>
           
@@ -91,7 +91,7 @@ const Index = () => {
             />
             <ConversationCard 
               title="Ex-Couple Entanglement Sheriff" 
-              description="An impartial \"nanny-boss,\" laying down clear rules for ex-couples. Diffuse conflicts around kids, money, and assets with firm but fair guidance."
+              description="An impartial 'nanny-boss,' laying down clear rules for ex-couples. Diffuse conflicts around kids, money, and assets with firm but fair guidance."
               icon="👮" 
               color="bg-udda-yellow" 
               gradient="bg-gradient-to-br from-udda-yellow to-yellow-300"
@@ -111,7 +111,7 @@ const Index = () => {
               </div>
               <h3 className="text-xl font-cabinet font-bold mb-3">More coming soon</h3>
               <p className="text-gray-600 mb-6">
-                We're constantly developing new conversation types. Subscribe to get access as soon as they launch.
+                We&apos;re constantly developing new conversation types. Subscribe to get access as soon as they launch.
               </p>
             </div>
           </div>
@@ -254,15 +254,15 @@ const Index = () => {
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-sm funky-border">
             <h3 className="font-cabinet font-bold text-xl mb-4 text-center">
-              <span className="bg-yellow-100 px-2 py-1 rounded rotate-1 inline-block">Important: We're Not Therapists</span>
+              <span className="bg-yellow-100 px-2 py-1 rounded rotate-1 inline-block">Important: We&apos;re Not Therapists</span>
             </h3>
             <p className="text-gray-600 mb-4">
               UDDA is designed to facilitate helpful conversations and provide general guidance for everyday 
-              mental wellness. We're here to help you talk through issues, but we're not a replacement for 
+              mental wellness. We&apos;re here to help you talk through issues, but we&apos;re not a replacement for 
               professional mental health care.
             </p>
             <p className="text-gray-600 font-medium">
-              If you're experiencing a crisis or need clinical support, please contact a licensed mental 
+              If you&apos;re experiencing a crisis or need clinical support, please contact a licensed mental 
               health professional or call your local emergency services.
             </p>
           </div>
@@ -280,7 +280,7 @@ const Index = () => {
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-block rotate-2 bg-udda-mint px-4 py-1 rounded-lg mb-4">
-              <span className="text-udda-green font-bold">It's weird but it works!</span>
+              <span className="text-udda-green font-bold">It&apos;s weird but it works!</span>
             </div>
             <h2 className="font-cabinet font-bold text-4xl md:text-5xl mb-6 section-title">
               Ready to have a weirdly helpful conversation?
