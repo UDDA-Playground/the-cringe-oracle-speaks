@@ -26,6 +26,7 @@ const ConversationsSection: React.FC = () => {
             color="bg-udda-coral" 
             gradient="bg-gradient-to-br from-udda-coral to-udda-yellow"
             path="/party-conversation" 
+            illustration="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=240&auto=format&fit=crop"
           />
           <ConversationCard 
             title="Self Discovery Mood-Muffin" 
@@ -34,6 +35,7 @@ const ConversationsSection: React.FC = () => {
             color="bg-udda-green" 
             gradient="bg-gradient-to-br from-udda-green to-udda-mint"
             path="/self-discovery" 
+            illustration="https://images.unsplash.com/photo-1546027031-83f112827114?q=80&w=240&auto=format&fit=crop"
           />
           <ConversationCard 
             title="Couple's Blame Buffer" 
@@ -42,6 +44,7 @@ const ConversationsSection: React.FC = () => {
             color="bg-udda-lavender" 
             gradient="bg-gradient-to-br from-udda-lavender to-udda-blush"
             path="/couples-blame-buffer" 
+            illustration="https://images.unsplash.com/photo-1516589091380-5d8e87df6999?q=80&w=240&auto=format&fit=crop"
           />
           <ConversationCard 
             title="Ex-Couple Entanglement Sheriff" 
@@ -50,6 +53,7 @@ const ConversationsSection: React.FC = () => {
             color="bg-udda-yellow" 
             gradient="bg-gradient-to-br from-udda-yellow to-yellow-300"
             path="/ex-couple-entanglement" 
+            illustration="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=240&auto=format&fit=crop"
           />
           <ConversationCard 
             title="Conflict & Friction Fixer" 
@@ -58,6 +62,7 @@ const ConversationsSection: React.FC = () => {
             color="bg-blue-400" 
             gradient="bg-gradient-to-br from-blue-400 to-udda-mint"
             path="/conflict-fixer" 
+            illustration="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?q=80&w=240&auto=format&fit=crop"
           />
           <div className="rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300 p-6 flex flex-col items-center justify-center text-center card-hover">
             <div className="w-16 h-16 rounded-full bg-gray-400 flex items-center justify-center mb-4">

@@ -5,11 +5,11 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HeroSection from '../components/sections/HeroSection';
 import ConversationsSection from '../components/sections/ConversationsSection';
-import HowItWorksSection from '../components/sections/HowItWorksSection';
 import FeaturesSection from '../components/sections/FeaturesSection';
 import DisclaimerSection from '../components/sections/DisclaimerSection';
 import PricingSection from '../components/PricingSection';
 import CtaSection from '../components/sections/CtaSection';
+import TestimonialsSection from '../components/sections/TestimonialsSection';
 
 const Index = () => {
   return (
@@ -18,9 +18,9 @@ const Index = () => {
       <Header />
       
       <HeroSection />
-      <ConversationsSection />
-      <HowItWorksSection />
       <FeaturesSection />
+      <ConversationsSection />
+      <TestimonialsSection />
       <DisclaimerSection />
       <PricingSection />
       <CtaSection />
