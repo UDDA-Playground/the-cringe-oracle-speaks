@@ -31,11 +31,15 @@ export default {
         foreground: "hsl(var(--foreground))",
         udda: {
           green: "#7fbf8e",
-          coral: "#ff6b6b",
-          yellow: "#ffd166", 
+          coral: "#FF6B6B",
+          yellow: "#FFD166", 
           lavender: "#a5b4fc",
           blush: "#ffb4c0",
           mint: "#c1f0da",
+          purple: "#8B5CF6",
+          pink: "#D946EF",
+          orange: "#F97316",
+          blue: "#0EA5E9",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -104,6 +108,18 @@ export default {
         "pulse-soft": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.7" }
+        },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" }
+        },
+        "bounce-light": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" }
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" }
         }
       },
       animation: {
@@ -111,7 +127,10 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "blob": "blob 7s infinite ease-in-out",
         "float": "float 6s ease-in-out infinite",
-        "pulse-soft": "pulse-soft 3s infinite ease-in-out"
+        "pulse-soft": "pulse-soft 3s infinite ease-in-out",
+        "wiggle": "wiggle 1s ease-in-out infinite",
+        "bounce-light": "bounce-light 2s ease-in-out infinite",
+        "spin-slow": "spin-slow 10s linear infinite"
       }
     }
   },

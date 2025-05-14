@@ -11,6 +11,8 @@ interface PricingTierProps {
   isPopular?: boolean;
   buttonText?: string;
   color?: string;
+  gradient?: string;
+  rotateClass?: string;
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({
@@ -21,33 +23,41 @@ const PricingTier: React.FC<PricingTierProps> = ({
   features,
   isPopular = false,
   buttonText = "Get Started",
-  color = "bg-udda-green"
+  color = "bg-udda-green",
+  gradient = "from-udda-green to-udda-mint",
+  rotateClass = ""
 }) => {
   return (
-    <div className={`relative rounded-2xl p-0.5 ${isPopular ? 'bg-gradient-to-br from-udda-green to-udda-yellow shadow-lg' : 'bg-gray-100'}`}>
-      {isPopular && (
-        <span className="absolute top-0 right-8 -translate-y-1/2 bg-udda-yellow px-3 py-1 rounded-full text-sm font-bold">
-          Most Popular
-        </span>
-      )}
-      <div className="bg-white h-full rounded-2xl p-8 flex flex-col">
-        <h3 className="font-cabinet text-xl font-bold">{name}</h3>
-        <div className="mt-4 mb-2 flex items-baseline">
-          <span className="font-cabinet text-4xl font-bold">{price}</span>
-          <span className="text-gray-500 ml-2">{period}</span>
+    <div className={`relative ${rotateClass} transform transition-all duration-300 hover:rotate-0`}>
+      <div className={`rounded-2xl p-0.5 ${isPopular ? `bg-gradient-to-br ${gradient} shadow-lg` : 'bg-gray-100'}`}>
+        {isPopular && (
+          <span className="absolute top-0 right-8 -translate-y-1/2 bg-gradient-to-r from-udda-yellow to-udda-orange px-3 py-1 rounded-full text-sm font-bold shadow-md">
+            Most Popular
+          </span>
+        )}
+        <div className="bg-white h-full rounded-2xl p-8 flex flex-col relative overflow-hidden">
+          {/* Decorative elements */}
+          <div className="absolute -right-6 -top-6 w-16 h-16 rounded-full bg-gradient-to-br from-white/10 to-white/5 z-0"></div>
+          <div className="absolute -left-6 -bottom-6 w-16 h-16 rounded-full bg-gradient-to-tl from-white/10 to-white/5 z-0"></div>
+          
+          <h3 className="font-cabinet text-xl font-bold">{name}</h3>
+          <div className="mt-4 mb-2 flex items-baseline">
+            <span className="font-cabinet text-4xl font-bold">{price}</span>
+            <span className="text-gray-500 ml-2">{period}</span>
+          </div>
+          <p className="text-gray-600 mb-6">{description}</p>
+          <ul className="space-y-3 mb-8 flex-grow">
+            {features.map((feature, index) => (
+              <li key={index} className="flex items-start">
+                <Check className={`text-${color.replace('bg-', '')} mr-2 flex-shrink-0 mt-1`} size={18} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+          <button className={`bg-gradient-to-r ${gradient} hover:opacity-90 text-white px-6 py-3 rounded-full font-bold transition-all hover:shadow-lg hover:-translate-y-1`}>
+            {buttonText}
+          </button>
         </div>
-        <p className="text-gray-600 mb-6">{description}</p>
-        <ul className="space-y-3 mb-8 flex-grow">
-          {features.map((feature, index) => (
-            <li key={index} className="flex items-start">
-              <Check className="text-udda-green mr-2 flex-shrink-0 mt-1" size={18} />
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-        <button className={`${color} hover:opacity-90 text-white px-6 py-3 rounded-full font-bold transition-all`}>
-          {buttonText}
-        </button>
       </div>
     </div>
   );
@@ -56,9 +66,18 @@ const PricingTier: React.FC<PricingTierProps> = ({
 const PricingSection: React.FC = () => {
   return (
     <section className="py-16 md:py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4">
+      <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-gray-100 to-transparent"></div>
+      
+      {/* Fun elements */}
+      <div className="absolute right-0 top-1/3 w-32 h-32 rounded-full bg-udda-mint/30 animate-pulse-soft"></div>
+      <div className="absolute left-10 bottom-1/4 w-24 h-24 rounded-full bg-udda-yellow/20 animate-float" style={{animationDelay: '1s'}}></div>
+      
+      <div className="container mx-auto px-4 relative">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-cabinet font-bold text-4xl md:text-5xl mb-4">
+          <div className="inline-block -rotate-1 bg-udda-lavender/20 px-4 py-1 rounded-lg mb-4">
+            <span className="text-udda-purple font-bold">Pick your weirdness level</span>
+          </div>
+          <h2 className="font-cabinet font-bold text-4xl md:text-5xl mb-4 section-title">
             Simple, transparent pricing
           </h2>
           <p className="text-xl text-gray-600">
@@ -80,6 +99,8 @@ const PricingSection: React.FC = () => {
             ]}
             buttonText="Start Free"
             color="bg-gray-500"
+            gradient="from-gray-400 to-gray-500"
+            rotateClass="-rotate-1"
           />
           
           <PricingTier 
@@ -95,6 +116,8 @@ const PricingSection: React.FC = () => {
             ]}
             buttonText="Get 24-Hour Pass"
             color="bg-udda-lavender"
+            gradient="from-udda-lavender to-udda-purple"
+            rotateClass="rotate-1"
           />
           
           <PricingTier 
@@ -111,6 +134,9 @@ const PricingSection: React.FC = () => {
             ]}
             isPopular={true}
             buttonText="Subscribe Monthly"
+            color="bg-udda-green"
+            gradient="from-udda-green to-udda-mint"
+            rotateClass="-rotate-1"
           />
           
           <PricingTier 
@@ -127,15 +153,19 @@ const PricingSection: React.FC = () => {
             ]}
             buttonText="Subscribe Yearly"
             color="bg-udda-coral"
+            gradient="from-udda-coral to-udda-orange"
+            rotateClass="rotate-1"
           />
         </div>
         
         <div className="mt-12 text-center">
-          <p className="text-sm text-gray-500 max-w-2xl mx-auto">
-            All plans include GDPR-compliant data handling. We never use your conversations for training 
-            or sell your data to third parties. By starting a conversation, you consent to audio recording 
-            and transcription for the purpose of providing our service.
-          </p>
+          <div className="max-w-2xl mx-auto bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border border-gray-100">
+            <p className="text-sm text-gray-500">
+              All plans include GDPR-compliant data handling. We never use your conversations for training 
+              or sell your data to third parties. By starting a conversation, you consent to audio recording 
+              and transcription for the purpose of providing our service.
+            </p>
+          </div>
         </div>
       </div>
     </section>
