@@ -19,8 +19,7 @@ const CtaSection: React.FC = () => {
           <p className="text-xl text-gray-600 mb-8">
             Start for free. No credit card required. Just 10 minutes of oddly therapeutic chat.
           </p>
-          <button className="btn-primary text-lg relative group">
-            <span className="absolute -inset-1 bg-gradient-to-r from-udda-coral via-udda-yellow to-udda-lavender opacity-30 blur-md rounded-full group-hover:opacity-60 transition-opacity"></span>
+          <button className="bg-udda-purple text-white font-bold py-3 px-8 rounded-full hover:bg-udda-lavender transition-colors shadow-md flex items-center justify-center gap-2">
             <Mic className="w-5 h-5" /> Start Talking Now
           </button>
         </div>
