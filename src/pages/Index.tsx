@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Mic, Users, MessageSquare, Star, Zap, Bulb, Handshake, Wrench, ArrowRight } from 'lucide-react';
+import { Mic, Users, MessageSquare, Star, Zap, Lightbulb, Handshake, Wrench, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
@@ -187,7 +187,7 @@ const Index = () => {
             <div className="bg-white p-6 rounded-2xl shadow-sm flex">
               <div className="mr-4">
                 <div className="w-12 h-12 rounded-full bg-udda-coral/20 flex items-center justify-center">
-                  <Bulb size={24} className="text-udda-coral" />
+                  <Lightbulb size={24} className="text-udda-coral" />
                 </div>
               </div>
               <div>
