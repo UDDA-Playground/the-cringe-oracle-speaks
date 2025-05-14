@@ -20,7 +20,7 @@ const SelfDiscovery = () => {
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-udda-blue hover:text-udda-blue/80 mb-6">
+            <Link to="/" className="inline-flex items-center text-udda-blue hover:text-udda-blue/80 mb-6 font-semibold">
               <ArrowLeft size={16} className="mr-2" /> Back to all conversations
             </Link>
             <div className="flex items-center mb-6">
@@ -70,7 +70,10 @@ const SelfDiscovery = () => {
                 <div className="mt-8 space-y-4">
                   <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
                     <DialogTrigger asChild>
-                      <Button variant="outline" className="text-udda-green border-udda-green hover:bg-udda-green/10">
+                      <Button 
+                        variant="outline" 
+                        className="border-green-600 text-green-700 hover:bg-green-50 hover:text-green-800"
+                      >
                         <Play className="mr-2" /> Watch Demo
                       </Button>
                     </DialogTrigger>
@@ -93,25 +96,25 @@ const SelfDiscovery = () => {
               </div>
               
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
-                <h2 className="font-cabinet font-bold text-2xl mb-4 text-udda-green">Start now</h2>
+                <h2 className="font-cabinet font-bold text-2xl mb-4 text-green-700">Start now</h2>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex items-center">
-                    <User size={20} className="text-udda-green mr-2" />
+                    <User size={20} className="text-green-700 mr-2" />
                     <p>Private one-on-one conversation</p>
                   </div>
                   <div className="flex items-center">
-                    <Clock size={20} className="text-udda-green mr-2" />
+                    <Clock size={20} className="text-green-700 mr-2" />
                     <p>Free for 10 minutes daily</p>
                   </div>
                   <div className="flex items-center">
-                    <Euro size={20} className="text-udda-green mr-2" />
+                    <Euro size={20} className="text-green-700 mr-2" />
                     <p>€6.95 for 24h unlimited access</p>
                   </div>
                 </div>
                 
                 <div className="space-y-4">
-                  <Button variant="green" className="w-full font-bold">
+                  <Button variant="high-contrast-green" className="w-full font-bold text-base">
                     <Mic className="w-5 h-5" /> Start Talking
                   </Button>
                 </div>
@@ -188,7 +191,7 @@ const SelfDiscovery = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-udda-green flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center mb-4">
                   <Lightbulb className="text-white" />
                 </div>
                 <h3 className="font-cabinet font-bold text-xl mb-3">Self-Awareness</h3>
@@ -198,7 +201,7 @@ const SelfDiscovery = () => {
               </div>
               
               <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-udda-green flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center mb-4">
                   <BadgeCheck className="text-white" />
                 </div>
                 <h3 className="font-cabinet font-bold text-xl mb-3">Limiting Beliefs</h3>
@@ -208,7 +211,7 @@ const SelfDiscovery = () => {
               </div>
               
               <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-udda-green flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center mb-4">
                   <User className="text-white" />
                 </div>
                 <h3 className="font-cabinet font-bold text-xl mb-3">Personal Values</h3>
@@ -266,8 +269,8 @@ const SelfDiscovery = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-udda-green/20 flex items-center justify-center mb-4">
-                <span className="text-udda-green text-xl">🔍</span>
+              <div className="w-12 h-12 rounded-full bg-green-600/20 flex items-center justify-center mb-4">
+                <span className="text-green-700 text-xl">🔍</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Pattern Recognition</h3>
               <p className="text-gray-600">
@@ -276,8 +279,8 @@ const SelfDiscovery = () => {
             </div>
             
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-udda-green/20 flex items-center justify-center mb-4">
-                <span className="text-udda-green text-xl">💭</span>
+              <div className="w-12 h-12 rounded-full bg-green-600/20 flex items-center justify-center mb-4">
+                <span className="text-green-700 text-xl">💭</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Thought Reframing</h3>
               <p className="text-gray-600">
@@ -286,8 +289,8 @@ const SelfDiscovery = () => {
             </div>
             
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-udda-green/20 flex items-center justify-center mb-4">
-                <span className="text-udda-green text-xl">🌱</span>
+              <div className="w-12 h-12 rounded-full bg-green-600/20 flex items-center justify-center mb-4">
+                <span className="text-green-700 text-xl">🌱</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Growth Exercises</h3>
               <p className="text-gray-600">
@@ -346,7 +349,7 @@ const SelfDiscovery = () => {
       </section>
       
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-udda-green to-udda-mint text-white">
+      <section className="py-16 bg-gradient-to-r from-green-600 to-green-500 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-6">
@@ -356,7 +359,7 @@ const SelfDiscovery = () => {
               Start your free 10-minute session today. No credit card required.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button variant="yellow" className="text-gray-900 font-bold text-lg">
+              <Button variant="high-contrast-yellow" className="text-gray-900 font-bold text-lg">
                 <Mic className="w-5 h-5" /> Start Talking Now
               </Button>
               <Button variant="outline" className="text-white border-white hover:bg-white/20">

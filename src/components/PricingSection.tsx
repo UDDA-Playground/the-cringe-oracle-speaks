@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface PricingTierProps {
   name: string;
@@ -13,6 +14,7 @@ interface PricingTierProps {
   color?: string;
   gradient?: string;
   rotateClass?: string;
+  buttonVariant?: string;
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({
@@ -25,13 +27,24 @@ const PricingTier: React.FC<PricingTierProps> = ({
   buttonText = "Get Started",
   color = "bg-udda-green",
   gradient = "from-udda-green to-udda-mint",
-  rotateClass = ""
+  rotateClass = "",
+  buttonVariant = "high-contrast-green"
 }) => {
+  // Determine the text color based on the background
+  const textColorClass = color.includes('yellow') ? 'text-gray-900' : 'text-white';
+  
+  // Map the color name to the appropriate button variant
+  let buttonType = buttonVariant;
+  if (color.includes('yellow')) buttonType = 'high-contrast-yellow';
+  else if (color.includes('green')) buttonType = 'high-contrast-green';
+  else if (color.includes('purple') || color.includes('lavender')) buttonType = 'high-contrast-purple';
+  else if (color.includes('coral') || color.includes('orange')) buttonType = 'high-contrast-blue';
+
   return (
     <div className={`relative ${rotateClass} transform transition-all duration-300 hover:rotate-0`}>
       <div className={`rounded-2xl p-0.5 ${isPopular ? `bg-gradient-to-br ${gradient} shadow-lg` : 'bg-gray-100'}`}>
         {isPopular && (
-          <span className="absolute top-0 right-8 -translate-y-1/2 bg-gradient-to-r from-udda-yellow to-udda-orange px-3 py-1 rounded-full text-sm font-bold shadow-md">
+          <span className="absolute top-0 right-8 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-purple-700 px-3 py-1 rounded-full text-sm font-bold shadow-md text-white">
             Most Popular
           </span>
         )}
@@ -49,14 +62,14 @@ const PricingTier: React.FC<PricingTierProps> = ({
           <ul className="space-y-3 mb-8 flex-grow">
             {features.map((feature, index) => (
               <li key={index} className="flex items-start">
-                <Check className={`text-${color.replace('bg-', '')} mr-2 flex-shrink-0 mt-1`} size={18} />
+                <Check className="text-green-600 mr-2 flex-shrink-0 mt-1" size={18} />
                 <span>{feature}</span>
               </li>
             ))}
           </ul>
-          <button className={`bg-gradient-to-r ${gradient} hover:opacity-90 text-white px-6 py-3 rounded-full font-bold transition-all hover:shadow-lg hover:-translate-y-1`}>
+          <Button variant={buttonType as any} className="w-full py-3 font-bold shadow-lg transition-all hover:-translate-y-1">
             {buttonText}
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -74,8 +87,8 @@ const PricingSection: React.FC = () => {
       
       <div className="container mx-auto px-4 relative">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-block -rotate-1 bg-udda-lavender/20 px-4 py-1 rounded-lg mb-4">
-            <span className="text-udda-purple font-bold">Pick your weirdness level</span>
+          <div className="inline-block -rotate-1 bg-purple-700/20 px-4 py-1 rounded-lg mb-4">
+            <span className="text-purple-800 font-bold">Pick your weirdness level</span>
           </div>
           <h2 className="font-cabinet font-bold text-4xl md:text-5xl mb-4 section-title">
             Simple, transparent pricing
@@ -98,9 +111,10 @@ const PricingSection: React.FC = () => {
               "Try all conversation types"
             ]}
             buttonText="Start Free"
-            color="bg-gray-500"
-            gradient="from-gray-400 to-gray-500"
+            color="bg-gray-600"
+            gradient="from-gray-500 to-gray-600"
             rotateClass="-rotate-1"
+            buttonVariant="secondary"
           />
           
           <PricingTier 
@@ -115,9 +129,10 @@ const PricingSection: React.FC = () => {
               "Continue same conversation"
             ]}
             buttonText="Get 24-Hour Pass"
-            color="bg-udda-lavender"
-            gradient="from-udda-lavender to-udda-purple"
+            color="bg-udda-purple"
+            gradient="from-purple-600 to-purple-700"
             rotateClass="rotate-1"
+            buttonVariant="high-contrast-purple"
           />
           
           <PricingTier 
@@ -135,8 +150,9 @@ const PricingSection: React.FC = () => {
             isPopular={true}
             buttonText="Subscribe Monthly"
             color="bg-udda-green"
-            gradient="from-udda-green to-udda-mint"
+            gradient="from-green-600 to-green-500"
             rotateClass="-rotate-1"
+            buttonVariant="high-contrast-green"
           />
           
           <PricingTier 
@@ -153,14 +169,15 @@ const PricingSection: React.FC = () => {
             ]}
             buttonText="Subscribe Yearly"
             color="bg-udda-coral"
-            gradient="from-udda-coral to-udda-orange"
+            gradient="from-blue-500 to-blue-600"
             rotateClass="rotate-1"
+            buttonVariant="high-contrast-blue"
           />
         </div>
         
         <div className="mt-12 text-center">
           <div className="max-w-2xl mx-auto bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border border-gray-100">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-600">
               All plans include GDPR-compliant data handling. We never use your conversations for training 
               or sell your data to third parties. By starting a conversation, you consent to audio recording 
               and transcription for the purpose of providing our service.

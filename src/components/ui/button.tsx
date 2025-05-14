@@ -18,14 +18,19 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        yellow: "bg-udda-yellow text-gray-900 hover:bg-udda-yellow/90 font-bold",
-        purple: "bg-udda-purple text-white hover:bg-udda-purple/90",
-        orange: "bg-udda-orange text-white hover:bg-udda-orange/90",
-        blue: "bg-udda-blue text-white hover:bg-udda-blue/90",
-        green: "bg-udda-green text-white hover:bg-udda-green/90",
-        coral: "bg-udda-coral text-white hover:bg-udda-coral/90",
-        lavender: "bg-udda-lavender text-white hover:bg-udda-lavender/90",
+        link: "text-udda-blue font-semibold underline-offset-4 hover:underline", // Changed from "text-primary" to "text-udda-blue" for better contrast
+        yellow: "bg-udda-yellow text-gray-900 hover:bg-udda-yellow/90 font-bold shadow-md",  // Added shadow
+        purple: "bg-udda-purple text-white hover:bg-udda-purple/90 shadow-md", // Added shadow
+        orange: "bg-udda-orange text-white hover:bg-udda-orange/90 shadow-md", // Added shadow
+        blue: "bg-udda-blue text-white hover:bg-udda-blue/90 shadow-md", // Added shadow
+        green: "bg-udda-green text-white hover:bg-udda-green/90 shadow-md", // Added shadow
+        coral: "bg-udda-coral text-white hover:bg-udda-coral/90 shadow-md", // Added shadow
+        lavender: "bg-udda-lavender text-white hover:bg-udda-lavender/90 shadow-md", // Added shadow
+        // Adding high contrast variants
+        "high-contrast-yellow": "bg-yellow-500 text-black hover:bg-yellow-600 font-bold shadow-md",
+        "high-contrast-blue": "bg-blue-600 text-white hover:bg-blue-700 font-bold shadow-md",
+        "high-contrast-green": "bg-green-600 text-white hover:bg-green-700 font-bold shadow-md",
+        "high-contrast-purple": "bg-purple-700 text-white hover:bg-purple-800 font-bold shadow-md",
       },
       size: {
         default: "h-10 px-4 py-2",
