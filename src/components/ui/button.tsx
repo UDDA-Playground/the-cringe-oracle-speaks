@@ -19,18 +19,23 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-udda-blue font-semibold underline-offset-4 hover:underline", // Changed from "text-primary" to "text-udda-blue" for better contrast
-        yellow: "bg-udda-yellow text-gray-900 hover:bg-udda-yellow/90 font-bold shadow-md",  // Added shadow
-        purple: "bg-udda-purple text-white hover:bg-udda-purple/90 shadow-md", // Added shadow
-        orange: "bg-udda-orange text-white hover:bg-udda-orange/90 shadow-md", // Added shadow
-        blue: "bg-udda-blue text-white hover:bg-udda-blue/90 shadow-md", // Added shadow
-        green: "bg-udda-green text-white hover:bg-udda-green/90 shadow-md", // Added shadow
-        coral: "bg-udda-coral text-white hover:bg-udda-coral/90 shadow-md", // Added shadow
-        lavender: "bg-udda-lavender text-white hover:bg-udda-lavender/90 shadow-md", // Added shadow
-        // Adding high contrast variants
+        yellow: "bg-udda-yellow text-black font-bold hover:bg-udda-yellow/90 shadow-md",  // Improved contrast with black text
+        purple: "bg-udda-purple text-white hover:bg-udda-purple/90 shadow-md font-bold", // Added font-bold for better readability
+        orange: "bg-udda-orange text-white hover:bg-udda-orange/90 shadow-md font-bold", // Added font-bold for better readability
+        blue: "bg-udda-blue text-white hover:bg-udda-blue/90 shadow-md font-bold", // Added font-bold for better readability
+        green: "bg-udda-green text-white hover:bg-udda-green/90 shadow-md font-bold", // Added font-bold for better readability
+        coral: "bg-udda-coral text-white hover:bg-udda-coral/90 shadow-md font-bold", // Added font-bold for better readability
+        lavender: "bg-udda-lavender text-white hover:bg-udda-lavender/90 shadow-md font-bold border border-white/10", // Added font-bold and subtle border
+        // Higher contrast variants
         "high-contrast-yellow": "bg-yellow-500 text-black hover:bg-yellow-600 font-bold shadow-md",
         "high-contrast-blue": "bg-blue-600 text-white hover:bg-blue-700 font-bold shadow-md",
         "high-contrast-green": "bg-green-600 text-white hover:bg-green-700 font-bold shadow-md",
         "high-contrast-purple": "bg-purple-700 text-white hover:bg-purple-800 font-bold shadow-md",
+        // Adding even higher contrast variants for the Couple's Blame Buffer page
+        "ultra-lavender": "bg-[#8B5CF6] text-white hover:bg-[#7C3AED] font-bold shadow-md border border-white/20 text-base",
+        "ultra-yellow": "bg-yellow-400 text-black hover:bg-yellow-500 font-bold shadow-md border border-black/10 text-base",
+        "ultra-purple": "bg-[#9333EA] text-white hover:bg-[#7E22CE] font-bold shadow-md border border-white/20 text-base",
+        "ultra-blue": "bg-[#2563EB] text-white hover:bg-[#1D4ED8] font-bold shadow-md border border-white/20 text-base",
       },
       size: {
         default: "h-10 px-4 py-2",

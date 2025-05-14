@@ -20,7 +20,7 @@ const CouplesBlameBuffer = () => {
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-udda-blue hover:text-udda-blue/80 mb-6">
+            <Link to="/" className="inline-flex items-center text-udda-blue hover:text-udda-blue/80 mb-6 font-bold">
               <ArrowLeft size={16} className="mr-2" /> Back to all conversations
             </Link>
             <div className="flex items-center mb-6">
@@ -70,7 +70,7 @@ const CouplesBlameBuffer = () => {
                 <div className="mt-8 space-y-4">
                   <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
                     <DialogTrigger asChild>
-                      <Button variant="outline" className="text-udda-purple border-udda-purple hover:bg-udda-purple/10">
+                      <Button variant="outline" className="text-udda-purple border-udda-purple hover:bg-udda-purple/10 text-base font-bold">
                         <Play className="mr-2" /> Watch Demo
                       </Button>
                     </DialogTrigger>
@@ -92,7 +92,7 @@ const CouplesBlameBuffer = () => {
                 </div>
               </div>
               
-              <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
+              <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-gray-200">
                 <h2 className="font-cabinet font-bold text-2xl mb-4 text-udda-purple">Start now</h2>
                 
                 <div className="space-y-4 mb-6">
@@ -111,10 +111,10 @@ const CouplesBlameBuffer = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <Button variant="lavender" className="w-full font-bold text-white">
+                  <Button variant="ultra-purple" className="w-full">
                     <Mic className="w-5 h-5" /> Start Talking
                   </Button>
-                  <Button variant="outline" className="w-full text-udda-purple border-udda-purple hover:bg-udda-lavender hover:text-white">
+                  <Button variant="outline" className="w-full text-udda-purple border-udda-purple hover:bg-udda-lavender hover:text-white font-bold">
                     Invite Your Partner
                   </Button>
                 </div>
@@ -151,7 +151,7 @@ const CouplesBlameBuffer = () => {
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button variant="lavender" className="rounded-full p-4 h-16 w-16">
+                    <Button variant="ultra-purple" className="rounded-full p-4 h-16 w-16">
                       <Play size={32} />
                     </Button>
                   </DialogTrigger>
@@ -341,7 +341,7 @@ const CouplesBlameBuffer = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <Button variant="lavender" className="font-bold text-lg">
+            <Button variant="ultra-purple" className="text-lg">
               <Mic className="w-5 h-5" /> Try Couple's Blame Buffer Free
             </Button>
           </div>
@@ -349,7 +349,7 @@ const CouplesBlameBuffer = () => {
       </section>
       
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-udda-lavender to-udda-purple text-white">
+      <section className="py-16 bg-gradient-to-r from-udda-purple to-[#7C3AED] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-6">
@@ -359,10 +359,10 @@ const CouplesBlameBuffer = () => {
               Start your free 10-minute session today. No credit card required.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button variant="yellow" className="text-gray-900 font-bold text-lg">
+              <Button variant="ultra-yellow" className="text-lg">
                 <Mic className="w-5 h-5" /> Start Talking Now
               </Button>
-              <Button variant="outline" className="text-white border-white hover:bg-white/20">
+              <Button variant="outline" className="text-white border-white hover:bg-white/20 font-bold">
                 Learn more about our pricing
               </Button>
             </div>
