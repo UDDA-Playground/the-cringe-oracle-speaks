@@ -21,7 +21,7 @@ const HeroSection: React.FC = () => {
             <span className="bg-gradient-to-r from-udda-purple via-udda-coral to-udda-yellow bg-clip-text text-transparent"> weird twist</span>
           </h1>
           <p className="text-xl md:text-2xl mb-6 text-gray-700 -rotate-1">
-            Not therapy. Just absurdly helpful AI-guided conversations based on world class expertise and research for when you need to talk things out.
+            Not therapy. Just absurdly helpful AI-guided conversations for when you need to talk things out.
             Available when you are, not when someone else is.
           </p>
           
@@ -32,11 +32,11 @@ const HeroSection: React.FC = () => {
             </span>
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-udda-green">✓</span> 
-              Relationship Coaching
+              World Class Expertise
             </span>
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-udda-green">✓</span> 
-              Mental Health Support
+              Inspired by Science
             </span>
           </div>
           
