@@ -1,12 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mic, ArrowLeft, User, Clock, Euro } from 'lucide-react';
+import { Mic, ArrowLeft, User, Clock, Euro, Play, Lightbulb, BadgeCheck } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const SelfDiscovery = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
     <div className="min-h-screen relative">
       <AnimatedBackground />
@@ -16,7 +20,7 @@ const SelfDiscovery = () => {
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-gray-600 hover:text-udda-green mb-6">
+            <Link to="/" className="inline-flex items-center text-udda-blue hover:text-udda-blue/80 mb-6">
               <ArrowLeft size={16} className="mr-2" /> Back to all conversations
             </Link>
             <div className="flex items-center mb-6">
@@ -62,6 +66,30 @@ const SelfDiscovery = () => {
                     <p>Get actionable mini-exercises and a summary of your insights</p>
                   </li>
                 </ul>
+                
+                <div className="mt-8 space-y-4">
+                  <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="text-udda-green border-udda-green hover:bg-udda-green/10">
+                        <Play className="mr-2" /> Watch Demo
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl h-[70vh]">
+                      <div className="relative w-full h-full">
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                          title="Self Discovery Demo"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="rounded-lg"
+                        ></iframe>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </div>
               
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
@@ -83,9 +111,9 @@ const SelfDiscovery = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <button className="btn-primary w-full">
+                  <Button variant="green" className="w-full font-bold">
                     <Mic className="w-5 h-5" /> Start Talking
-                  </button>
+                  </Button>
                 </div>
                 
                 <p className="text-xs text-gray-500 mt-6">
@@ -98,15 +126,146 @@ const SelfDiscovery = () => {
         </div>
       </section>
       
-      {/* Features */}
+      {/* Video Demo Section */}
+      <section className="py-16 bg-gradient-to-br from-udda-green/10 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                See Self Discovery in action
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Watch how our AI helps users achieve greater self-awareness and personal growth
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden relative aspect-video">
+              <img 
+                src="https://images.unsplash.com/photo-1552581234-26160f608093?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                alt="Person in thoughtful reflection" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="green" className="rounded-full p-4 h-16 w-16">
+                      <Play size={32} />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl h-[70vh]">
+                    <div className="relative w-full h-full">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Self Discovery Demo"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="rounded-lg"
+                      ></iframe>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Growth Areas Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                Your journey to greater self-awareness
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Areas where our AI companion can help you grow
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-green flex items-center justify-center mb-4">
+                  <Lightbulb className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Self-Awareness</h3>
+                <p className="text-gray-600">
+                  Discover patterns in your thoughts and behaviors that you might not notice on your own.
+                </p>
+              </div>
+              
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-green flex items-center justify-center mb-4">
+                  <BadgeCheck className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Limiting Beliefs</h3>
+                <p className="text-gray-600">
+                  Identify and challenge the internal narratives that may be holding you back from your potential.
+                </p>
+              </div>
+              
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-green flex items-center justify-center mb-4">
+                  <User className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Personal Values</h3>
+                <p className="text-gray-600">
+                  Clarify what matters most to you and align your daily choices with your core values.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* FAQ Section */}
       <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                Frequently Asked Questions
+              </h2>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">Is this the same as therapy?</h3>
+                <p className="text-gray-600">
+                  No, Self Discovery is not therapy and should not replace professional mental health treatment. It's a tool for personal growth and reflection that complements professional support.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">How private are my conversations?</h3>
+                <p className="text-gray-600">
+                  Your conversations are completely private. We use industry-standard encryption, and your audio is only processed to provide real-time feedback. We do not store conversation content after sessions end.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">What kind of exercises will I do?</h3>
+                <p className="text-gray-600">
+                  Our AI offers a variety of brief, targeted exercises including guided reflections, journaling prompts, visualization techniques, and simple behavioral experiments tailored to your specific situation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Features */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-10 text-center">
             What makes Self Discovery special
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <div className="w-12 h-12 rounded-full bg-udda-green/20 flex items-center justify-center mb-4">
                 <span className="text-udda-green text-xl">🔍</span>
               </div>
@@ -116,7 +275,7 @@ const SelfDiscovery = () => {
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <div className="w-12 h-12 rounded-full bg-udda-green/20 flex items-center justify-center mb-4">
                 <span className="text-udda-green text-xl">💭</span>
               </div>
@@ -126,7 +285,7 @@ const SelfDiscovery = () => {
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <div className="w-12 h-12 rounded-full bg-udda-green/20 flex items-center justify-center mb-4">
                 <span className="text-udda-green text-xl">🌱</span>
               </div>
@@ -140,7 +299,7 @@ const SelfDiscovery = () => {
       </section>
       
       {/* Testimonials */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-10 text-center">
             What people are saying
@@ -179,9 +338,31 @@ const SelfDiscovery = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <button className="btn-primary">
+            <Button variant="green" className="font-bold text-lg">
               <Mic className="w-5 h-5" /> Try Self Discovery Free
-            </button>
+            </Button>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-udda-green to-udda-mint text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-6">
+              Ready to discover more about yourself?
+            </h2>
+            <p className="text-xl mb-8">
+              Start your free 10-minute session today. No credit card required.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button variant="yellow" className="text-gray-900 font-bold text-lg">
+                <Mic className="w-5 h-5" /> Start Talking Now
+              </Button>
+              <Button variant="outline" className="text-white border-white hover:bg-white/20">
+                Learn more about our pricing
+              </Button>
+            </div>
           </div>
         </div>
       </section>

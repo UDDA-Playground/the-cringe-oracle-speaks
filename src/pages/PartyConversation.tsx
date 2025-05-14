@@ -1,13 +1,17 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mic, ArrowLeft, Users, Clock, Euro } from 'lucide-react';
+import { Mic, ArrowLeft, Users, Clock, Euro, Play, Laugh, Sparkles } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PricingSection from '../components/PricingSection';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const PartyConversation = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
     <div className="min-h-screen relative">
       <AnimatedBackground />
@@ -17,7 +21,7 @@ const PartyConversation = () => {
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-gray-600 hover:text-udda-green mb-6">
+            <Link to="/" className="inline-flex items-center text-udda-blue hover:text-udda-blue/80 mb-6">
               <ArrowLeft size={16} className="mr-2" /> Back to all conversations
             </Link>
             <div className="flex items-center mb-6">
@@ -63,6 +67,30 @@ const PartyConversation = () => {
                     <p>Get a summary of all the embarrassing revelations at the end</p>
                   </li>
                 </ul>
+                
+                <div className="mt-8 space-y-4">
+                  <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="text-udda-coral border-udda-coral hover:bg-udda-coral/10">
+                        <Play className="mr-2" /> Watch Demo
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl h-[70vh]">
+                      <div className="relative w-full h-full">
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                          title="Party Conversation Demo"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="rounded-lg"
+                        ></iframe>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </div>
               
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
@@ -84,12 +112,12 @@ const PartyConversation = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <button className="btn-primary w-full bg-udda-coral">
+                  <Button variant="coral" className="w-full font-bold">
                     <Mic className="w-5 h-5" /> Start Talking
-                  </button>
-                  <button className="w-full py-2 text-udda-coral hover:underline">
+                  </Button>
+                  <Button variant="outline" className="w-full text-udda-coral border-udda-coral hover:bg-udda-coral hover:text-white">
                     Invite Friends
-                  </button>
+                  </Button>
                 </div>
                 
                 <p className="text-xs text-gray-500 mt-6">
@@ -102,17 +130,148 @@ const PartyConversation = () => {
         </div>
       </section>
       
-      {/* Features */}
+      {/* Video Demo Section */}
+      <section className="py-16 bg-gradient-to-br from-udda-coral/10 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                See the Party Conversation in action
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Watch how our AI turns ordinary hangouts into hilarious memory-makers
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden relative aspect-video">
+              <img 
+                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                alt="Friends having fun" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="coral" className="rounded-full p-4 h-16 w-16">
+                      <Play size={32} />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl h-[70vh]">
+                    <div className="relative w-full h-full">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Party Conversation Demo"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="rounded-lg"
+                      ></iframe>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Why You'll Love It Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                Why you'll love Party Conversation
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Turn ordinary hangouts into unforgettable social experiences
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-coral flex items-center justify-center mb-4">
+                  <Laugh className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Hilariously Revealing</h3>
+                <p className="text-gray-600">
+                  Creates moments of delightful awkwardness as the AI calls out what everyone's thinking but not saying.
+                </p>
+              </div>
+              
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-coral flex items-center justify-center mb-4">
+                  <Sparkles className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Memory Maker</h3>
+                <p className="text-gray-600">
+                  Creates shared experiences and inside jokes that your friend group will reference for years to come.
+                </p>
+              </div>
+              
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-coral flex items-center justify-center mb-4">
+                  <Users className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Ice Breaker Supreme</h3>
+                <p className="text-gray-600">
+                  Perfect for new friend groups, team building, or breaking through awkward social barriers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* FAQ Section */}
       <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                Frequently Asked Questions
+              </h2>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">Is it really that accurate?</h3>
+                <p className="text-gray-600">
+                  Yes! Our AI has been trained to detect subtle conversational cues, body language patterns, and voice tonality that reveal unspoken thoughts and feelings with surprising accuracy.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">Can I control what gets revealed?</h3>
+                <p className="text-gray-600">
+                  You can set sensitivity levels before starting. At lower settings, the AI will only reveal light, humorous observations. At higher levels... well, prepare for some potentially awkward truths!
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">Is it appropriate for all friend groups?</h3>
+                <p className="text-gray-600">
+                  Party Conversation works best with friends who have a good sense of humor and aren't easily offended. For brand new acquaintances or very formal settings, we recommend starting with our lowest sensitivity setting.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Features */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-10 text-center">
             What makes Party Conversation special
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-udda-coral/20 flex items-center justify-center mb-4">
-                <span className="text-udda-coral text-xl">🎯</span>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-udda-coral flex items-center justify-center mb-4">
+                <span className="text-white text-xl">🎯</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Uncanny Insight</h3>
               <p className="text-gray-600">
@@ -120,9 +279,9 @@ const PartyConversation = () => {
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-udda-coral/20 flex items-center justify-center mb-4">
-                <span className="text-udda-coral text-xl">😂</span>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-udda-coral flex items-center justify-center mb-4">
+                <span className="text-white text-xl">😂</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Hilariously Awkward</h3>
               <p className="text-gray-600">
@@ -130,9 +289,9 @@ const PartyConversation = () => {
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-udda-coral/20 flex items-center justify-center mb-4">
-                <span className="text-udda-coral text-xl">🔄</span>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-udda-coral flex items-center justify-center mb-4">
+                <span className="text-white text-xl">🔄</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Group Dynamic Shifter</h3>
               <p className="text-gray-600">
@@ -144,7 +303,7 @@ const PartyConversation = () => {
       </section>
       
       {/* Testimonials */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-10 text-center">
             What people are saying
@@ -183,9 +342,31 @@ const PartyConversation = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <button className="btn-primary bg-udda-coral">
+            <Button variant="coral" className="font-bold text-lg">
               <Mic className="w-5 h-5" /> Try Party Conversation Free
-            </button>
+            </Button>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-udda-coral to-udda-orange text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-6">
+              Ready to spice up your next hangout?
+            </h2>
+            <p className="text-xl mb-8">
+              Start your free 10-minute session today. No credit card required.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button variant="yellow" className="text-gray-900 font-bold text-lg">
+                <Mic className="w-5 h-5" /> Start Talking Now
+              </Button>
+              <Button variant="outline" className="text-white border-white hover:bg-white/20">
+                Learn more about our pricing
+              </Button>
+            </div>
           </div>
         </div>
       </section>

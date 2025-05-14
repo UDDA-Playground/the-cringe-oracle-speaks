@@ -23,6 +23,9 @@ const buttonVariants = cva(
         purple: "bg-udda-purple text-white hover:bg-udda-purple/90",
         orange: "bg-udda-orange text-white hover:bg-udda-orange/90",
         blue: "bg-udda-blue text-white hover:bg-udda-blue/90",
+        green: "bg-udda-green text-white hover:bg-udda-green/90",
+        coral: "bg-udda-coral text-white hover:bg-udda-coral/90",
+        lavender: "bg-udda-lavender text-white hover:bg-udda-lavender/90",
       },
       size: {
         default: "h-10 px-4 py-2",

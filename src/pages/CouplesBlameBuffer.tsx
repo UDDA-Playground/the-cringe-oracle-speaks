@@ -1,12 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mic, ArrowLeft, Users, Clock, Euro } from 'lucide-react';
+import { Mic, ArrowLeft, Users, Clock, Euro, Play, MessagesSquare, CheckCircle } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const CouplesBlameBuffer = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
     <div className="min-h-screen relative">
       <AnimatedBackground />
@@ -16,7 +20,7 @@ const CouplesBlameBuffer = () => {
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-gray-600 hover:text-udda-green mb-6">
+            <Link to="/" className="inline-flex items-center text-udda-blue hover:text-udda-blue/80 mb-6">
               <ArrowLeft size={16} className="mr-2" /> Back to all conversations
             </Link>
             <div className="flex items-center mb-6">
@@ -62,33 +66,57 @@ const CouplesBlameBuffer = () => {
                     <p>Receive summary insights and next steps for continued growth</p>
                   </li>
                 </ul>
+                
+                <div className="mt-8 space-y-4">
+                  <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="text-udda-purple border-udda-purple hover:bg-udda-purple/10">
+                        <Play className="mr-2" /> Watch Demo
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl h-[70vh]">
+                      <div className="relative w-full h-full">
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                          title="Couple's Blame Buffer Demo"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="rounded-lg"
+                        ></iframe>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </div>
               
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
-                <h2 className="font-cabinet font-bold text-2xl mb-4 text-udda-lavender">Start now</h2>
+                <h2 className="font-cabinet font-bold text-2xl mb-4 text-udda-purple">Start now</h2>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex items-center">
-                    <Users size={20} className="text-udda-lavender mr-2" />
+                    <Users size={20} className="text-udda-purple mr-2" />
                     <p>For you and your partner</p>
                   </div>
                   <div className="flex items-center">
-                    <Clock size={20} className="text-udda-lavender mr-2" />
+                    <Clock size={20} className="text-udda-purple mr-2" />
                     <p>Free for 10 minutes daily</p>
                   </div>
                   <div className="flex items-center">
-                    <Euro size={20} className="text-udda-lavender mr-2" />
+                    <Euro size={20} className="text-udda-purple mr-2" />
                     <p>€6.95 for 24h unlimited access</p>
                   </div>
                 </div>
                 
                 <div className="space-y-4">
-                  <button className="btn-primary w-full bg-udda-lavender">
+                  <Button variant="lavender" className="w-full font-bold text-white">
                     <Mic className="w-5 h-5" /> Start Talking
-                  </button>
-                  <button className="w-full py-2 text-udda-lavender hover:underline">
+                  </Button>
+                  <Button variant="outline" className="w-full text-udda-purple border-udda-purple hover:bg-udda-lavender hover:text-white">
                     Invite Your Partner
-                  </button>
+                  </Button>
                 </div>
                 
                 <p className="text-xs text-gray-500 mt-6">
@@ -101,17 +129,148 @@ const CouplesBlameBuffer = () => {
         </div>
       </section>
       
-      {/* Features */}
+      {/* Video Demo Section */}
+      <section className="py-16 bg-gradient-to-br from-udda-lavender/10 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                See the Blame Buffer in action
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Watch how our AI mediator helps couples navigate difficult conversations with empathy and clarity
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden relative aspect-video">
+              <img 
+                src="https://images.unsplash.com/photo-1516403374-eae67100494b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                alt="Couple talking" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="lavender" className="rounded-full p-4 h-16 w-16">
+                      <Play size={32} />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl h-[70vh]">
+                    <div className="relative w-full h-full">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Couple's Blame Buffer Demo"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="rounded-lg"
+                      ></iframe>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Benefits Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                Benefits for your relationship
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Our AI mediator helps you build stronger connections through better communication
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-lavender flex items-center justify-center mb-4">
+                  <MessagesSquare className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Improved Communication</h3>
+                <p className="text-gray-600">
+                  Learn proven techniques that foster open dialogue and help express needs without blame or judgment.
+                </p>
+              </div>
+              
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-lavender flex items-center justify-center mb-4">
+                  <CheckCircle className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Conflict Resolution</h3>
+                <p className="text-gray-600">
+                  Transform recurring arguments into productive discussions that lead to genuine understanding and resolution.
+                </p>
+              </div>
+              
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-udda-lavender flex items-center justify-center mb-4">
+                  <Users className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Deeper Connection</h3>
+                <p className="text-gray-600">
+                  Build stronger emotional bonds by learning how to truly listen and respond to each other's underlying needs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* FAQ Section */}
       <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
+                Frequently Asked Questions
+              </h2>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">Is this the same as couples therapy?</h3>
+                <p className="text-gray-600">
+                  No, the Couple's Blame Buffer is not a substitute for professional therapy. It's a communication tool that helps facilitate better conversations between partners, but it does not provide clinical treatment.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">How private are our conversations?</h3>
+                <p className="text-gray-600">
+                  Your conversations are completely private. We use industry-standard encryption, and your audio is only processed to provide real-time feedback during your session. We do not store conversation content after sessions end.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="font-cabinet font-bold text-xl mb-2">Can we use this for any relationship issue?</h3>
+                <p className="text-gray-600">
+                  The Couple's Blame Buffer is designed for day-to-day communication challenges and minor conflicts. For serious issues involving abuse, addiction, or mental health crises, please seek professional help immediately.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Features */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-10 text-center">
             What makes Couple's Blame Buffer special
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-udda-lavender/20 flex items-center justify-center mb-4">
-                <span className="text-udda-lavender text-xl">👂</span>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-udda-lavender flex items-center justify-center mb-4">
+                <span className="text-white text-xl">👂</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Active Listening Guide</h3>
               <p className="text-gray-600">
@@ -119,9 +278,9 @@ const CouplesBlameBuffer = () => {
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-udda-lavender/20 flex items-center justify-center mb-4">
-                <span className="text-udda-lavender text-xl">🛡️</span>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-udda-lavender flex items-center justify-center mb-4">
+                <span className="text-white text-xl">🛡️</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Emotion Buffer</h3>
               <p className="text-gray-600">
@@ -129,9 +288,9 @@ const CouplesBlameBuffer = () => {
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-2xl shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-udda-lavender/20 flex items-center justify-center mb-4">
-                <span className="text-udda-lavender text-xl">🔄</span>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-udda-lavender flex items-center justify-center mb-4">
+                <span className="text-white text-xl">🔄</span>
               </div>
               <h3 className="font-cabinet font-bold text-xl mb-3">Pattern Spotting</h3>
               <p className="text-gray-600">
@@ -143,7 +302,7 @@ const CouplesBlameBuffer = () => {
       </section>
       
       {/* Testimonials */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-10 text-center">
             What couples are saying
@@ -182,9 +341,31 @@ const CouplesBlameBuffer = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <button className="btn-primary bg-udda-lavender">
+            <Button variant="lavender" className="font-bold text-lg">
               <Mic className="w-5 h-5" /> Try Couple's Blame Buffer Free
-            </button>
+            </Button>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-udda-lavender to-udda-purple text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-6">
+              Ready to transform your communication?
+            </h2>
+            <p className="text-xl mb-8">
+              Start your free 10-minute session today. No credit card required.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button variant="yellow" className="text-gray-900 font-bold text-lg">
+                <Mic className="w-5 h-5" /> Start Talking Now
+              </Button>
+              <Button variant="outline" className="text-white border-white hover:bg-white/20">
+                Learn more about our pricing
+              </Button>
+            </div>
           </div>
         </div>
       </section>
