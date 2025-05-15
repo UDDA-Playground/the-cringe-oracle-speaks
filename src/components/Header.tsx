@@ -1,11 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  
+  // Check if the current path is the CMO page or a subpage
+  const isCmoPage = location.pathname.startsWith('/cmo');
   
   useEffect(() => {
     const handleScroll = () => {
@@ -40,9 +44,11 @@ const Header: React.FC = () => {
           <Link to="/ex-couple-entanglement" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
             Ex-Couple Sheriff
           </Link>
-          <Link to="/cmo" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
-            CMO on Demand
-          </Link>
+          {!isCmoPage && (
+            <Link to="/cmo" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
+              CMO on Demand
+            </Link>
+          )}
           <button className="bg-udda-purple text-white font-bold py-2 px-5 rounded-full hover:bg-udda-lavender transition-colors shadow-md whitespace-nowrap">
             Log In
           </button>
@@ -70,9 +76,11 @@ const Header: React.FC = () => {
             <Link to="/ex-couple-entanglement" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
               Ex-Couple Sheriff
             </Link>
-            <Link to="/cmo" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
-              CMO on Demand
-            </Link>
+            {!isCmoPage && (
+              <Link to="/cmo" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
+                CMO on Demand
+              </Link>
+            )}
             <button className="bg-udda-purple text-white font-bold py-2 px-4 rounded-full w-full shadow-md">
               Log In
             </button>
