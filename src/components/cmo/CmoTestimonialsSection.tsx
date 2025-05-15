@@ -21,35 +21,32 @@ const CmoTestimonialsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
-      <div className="absolute top-0 left-1/4 w-32 h-32 bg-blue-300/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-1/4 w-32 h-32 bg-purple-300/20 rounded-full blur-3xl"></div>
-      
+    <section className="py-12 md:py-16 bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-block rotate-2 bg-blue-100 px-4 py-1 rounded-lg mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="inline-block rotate-2 bg-blue-100 px-4 py-1 rounded-lg mb-3">
             <span className="text-blue-600 font-bold">Success stories</span>
           </div>
-          <h2 className="font-cabinet font-bold text-4xl md:text-5xl mb-4 section-title">
+          <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-3 section-title">
             Marketing transformations
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-lg text-gray-600">
             See how businesses like yours are achieving remarkable results
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div className="mb-4">
+            <div key={index} className="bg-white p-5 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300">
+              <div className="mb-3">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-xl">★</span>
+                  <span key={i} className="text-yellow-400 text-lg">★</span>
                 ))}
               </div>
-              <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+              <p className="text-gray-700 mb-5 text-sm md:text-base italic">"{testimonial.content}"</p>
               <div>
                 <p className="font-bold">{testimonial.author}</p>
-                <p className="text-gray-500 text-sm">{testimonial.position}</p>
+                <p className="text-gray-500 text-xs md:text-sm">{testimonial.position}</p>
               </div>
             </div>
           ))}

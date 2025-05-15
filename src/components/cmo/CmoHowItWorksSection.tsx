@@ -41,9 +41,9 @@ const CmoHowItWorksSection: React.FC = () => {
             <div className="w-20 h-20 bg-gradient-to-br from-udda-coral to-udda-orange rounded-full flex items-center justify-center mx-auto mb-6 transform transition-all duration-300 hover:rotate-12">
               <span className="font-cabinet font-bold text-2xl text-white">3</span>
             </div>
-            <h3 className="font-cabinet font-bold text-xl mb-3">Implement with confidence</h3>
+            <h3 className="font-cabinet font-bold text-xl mb-3">Collaborate & Iterate</h3>
             <p className="text-gray-600">
-              Execute your marketing plans with clarity and conviction, returning for guidance whenever needed
+              Return anytime to refine strategies, share with your team, and continue building on insights as your marketing evolves
             </p>
           </div>
         </div>
@@ -51,7 +51,7 @@ const CmoHowItWorksSection: React.FC = () => {
         <div className="mt-16 text-center">
           <button className="bg-blue-600 text-white text-lg font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors shadow-md relative group flex items-center justify-center gap-2">
             <span className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-udda-coral opacity-30 blur-md rounded-full group-hover:opacity-60 transition-opacity"></span>
-            <Mic className="w-5 h-5" /> Try it now - Free for 10 minutes
+            <Mic className="w-5 h-5" /> <span className="text-white">Try it now - Free for 10 minutes</span>
           </button>
         </div>
       </div>

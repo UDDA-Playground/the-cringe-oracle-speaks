@@ -20,14 +20,14 @@ const CmoOnDemand = () => {
       <CmoHeader />
       
       <CmoHeroSection />
+      <CmoTestimonialsSection />
       <CmoFeaturesSection />
       <CmoHowItWorksSection />
       <CmoEmotionalBenefitsSection />
-      <CmoTestimonialsSection />
-      <CmoFaqSection />
-      <CmoDisclaimerSection />
       <CmoPricingSection />
       <CmoCtaSection />
+      <CmoFaqSection />
+      <CmoDisclaimerSection />
       
       <Footer />
     </div>
