@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface PricingTierProps {
@@ -238,23 +239,36 @@ const CmoPricingSection: React.FC = () => {
             Whether you're an individual or a team, we have the right plan for you
           </p>
           
-          <div className="mt-8 mb-12 flex justify-center">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-md">
-              <TabsList className="grid grid-cols-2 w-full bg-gray-200 p-1 rounded-lg">
-                <TabsTrigger 
-                  value="individual" 
-                  className={`text-base py-3 font-medium ${activeTab === "individual" ? "bg-white text-blue-600 shadow-md" : "text-gray-700"}`}
+          <div className="mt-10 mb-12 flex justify-center">
+            <div className="bg-gray-100 p-3 rounded-xl shadow-md w-full max-w-md">
+              <div className="flex items-center justify-between space-x-2">
+                <span 
+                  className={`text-lg font-bold py-2 px-4 rounded-lg cursor-pointer transition-colors duration-200 flex-1 text-center ${
+                    activeTab === "individual" 
+                      ? "bg-white text-blue-600 shadow-md" 
+                      : "text-gray-600 hover:bg-gray-200"
+                  }`}
+                  onClick={() => setActiveTab("individual")}
                 >
                   Individual
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="team" 
-                  className={`text-base py-3 font-medium ${activeTab === "team" ? "bg-white text-blue-600 shadow-md" : "text-gray-700"}`}
+                </span>
+                <Switch
+                  checked={activeTab === "team"}
+                  onCheckedChange={(checked) => setActiveTab(checked ? "team" : "individual")}
+                  className="data-[state=checked]:bg-blue-600"
+                />
+                <span 
+                  className={`text-lg font-bold py-2 px-4 rounded-lg cursor-pointer transition-colors duration-200 flex-1 text-center ${
+                    activeTab === "team" 
+                      ? "bg-white text-blue-600 shadow-md" 
+                      : "text-gray-600 hover:bg-gray-200"
+                  }`}
+                  onClick={() => setActiveTab("team")}
                 >
                   Team
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         
