@@ -240,9 +240,19 @@ const CmoPricingSection: React.FC = () => {
           
           <div className="mt-8 mb-12 flex justify-center">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-md">
-              <TabsList className="grid grid-cols-2 w-full">
-                <TabsTrigger value="individual" className="text-base py-3">Individual</TabsTrigger>
-                <TabsTrigger value="team" className="text-base py-3">Team</TabsTrigger>
+              <TabsList className="grid grid-cols-2 w-full bg-gray-200 p-1 rounded-lg">
+                <TabsTrigger 
+                  value="individual" 
+                  className={`text-base py-3 font-medium ${activeTab === "individual" ? "bg-white text-blue-600 shadow-md" : "text-gray-700"}`}
+                >
+                  Individual
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="team" 
+                  className={`text-base py-3 font-medium ${activeTab === "team" ? "bg-white text-blue-600 shadow-md" : "text-gray-700"}`}
+                >
+                  Team
+                </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>

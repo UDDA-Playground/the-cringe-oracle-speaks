@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-const Header: React.FC = () => {
+const CmoHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   
@@ -40,10 +40,10 @@ const Header: React.FC = () => {
           <Link to="/ex-couple-entanglement" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
             Ex-Couple Sheriff
           </Link>
-          <Link to="/cmo" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
+          <Link to="/cmo" className="font-cabinet font-medium py-1 text-udda-green hover:opacity-80 transition-colors whitespace-nowrap">
             CMO on Demand
           </Link>
-          <button className="bg-udda-purple text-white font-bold py-2 px-5 rounded-full hover:bg-udda-lavender transition-colors shadow-md whitespace-nowrap">
+          <button className="bg-blue-600 text-white font-bold py-2 px-5 rounded-full hover:bg-blue-700 transition-colors shadow-md whitespace-nowrap">
             Log In
           </button>
         </nav>
@@ -70,10 +70,10 @@ const Header: React.FC = () => {
             <Link to="/ex-couple-entanglement" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
               Ex-Couple Sheriff
             </Link>
-            <Link to="/cmo" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
+            <Link to="/cmo" className="font-cabinet font-medium py-2 text-udda-green hover:opacity-80 transition-colors">
               CMO on Demand
             </Link>
-            <button className="bg-udda-purple text-white font-bold py-2 px-4 rounded-full w-full shadow-md">
+            <button className="bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full shadow-md">
               Log In
             </button>
           </div>
@@ -83,4 +83,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default CmoHeader;

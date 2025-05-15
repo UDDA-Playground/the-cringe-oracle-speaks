@@ -2,6 +2,7 @@
 import React from 'react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Footer from '../components/Footer';
+import CmoHeader from '../components/cmo/CmoHeader';
 import CmoHeroSection from '../components/cmo/CmoHeroSection';
 import CmoFeaturesSection from '../components/cmo/CmoFeaturesSection';
 import CmoHowItWorksSection from '../components/cmo/CmoHowItWorksSection';
@@ -14,6 +15,7 @@ const CmoOnDemand = () => {
   return (
     <div className="min-h-screen relative">
       <AnimatedBackground />
+      <CmoHeader />
       
       <CmoHeroSection />
       <CmoFeaturesSection />
