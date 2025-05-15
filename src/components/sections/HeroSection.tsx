@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Mic, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
@@ -7,8 +7,15 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import ProductExperienceSection from './ProductExperienceSection';
 
 const HeroSection: React.FC = () => {
+  const [showExperiences, setShowExperiences] = useState(false);
+  
+  const handleStartConversation = () => {
+    setShowExperiences(true);
+  };
+
   return (
     <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
       <div className="container mx-auto px-4">
@@ -41,7 +48,10 @@ const HeroSection: React.FC = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <button className="bg-udda-purple text-white font-bold py-3 px-8 rounded-full hover:bg-udda-lavender transition-colors shadow-md flex items-center justify-center gap-2">
+            <button 
+              className="bg-udda-purple text-white font-bold py-3 px-8 rounded-full hover:bg-udda-lavender transition-colors shadow-md flex items-center justify-center gap-2"
+              onClick={handleStartConversation}
+            >
               <Mic className="w-5 h-5" /> Start a Conversation
             </button>
             <Dialog>
@@ -65,6 +75,9 @@ const HeroSection: React.FC = () => {
               </DialogContent>
             </Dialog>
           </div>
+          
+          {showExperiences && <ProductExperienceSection />}
+          
           <p className="text-sm text-gray-500 mt-6">
             Proudly European 🇪🇺 · GDPR Compliant · Not a replacement for licensed therapy
           </p>
