@@ -31,9 +31,6 @@ const CmoHeader: React.FC = () => {
         
         {/* Desktop Nav - Simplified for CMO section */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link to="/cmo" className="font-cabinet font-medium py-1 text-udda-green hover:opacity-80 transition-colors whitespace-nowrap">
-            CMO on Demand
-          </Link>
           <button className="bg-blue-600 text-white font-bold py-2 px-5 rounded-full hover:bg-blue-700 transition-colors shadow-md whitespace-nowrap">
             Log In
           </button>
@@ -52,9 +49,6 @@ const CmoHeader: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white absolute top-full left-0 w-full shadow-lg">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            <Link to="/cmo" className="font-cabinet font-medium py-2 text-udda-green hover:opacity-80 transition-colors">
-              CMO on Demand
-            </Link>
             <button className="bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full shadow-md">
               Log In
             </button>

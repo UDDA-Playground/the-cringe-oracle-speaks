@@ -24,6 +24,11 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // If on CMO page, use the CMO header instead
+  if (isCmoPage) {
+    return null;
+  }
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'
@@ -44,8 +49,8 @@ const Header: React.FC = () => {
           <Link to="/ex-couple-entanglement" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
             Ex-Couple Sheriff
           </Link>
-          <Link to="/cmo" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
-            CMO on Demand
+          <Link to="/party-conversation" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
+            Party Conversation
           </Link>
           <button className="bg-udda-purple text-white font-bold py-2 px-5 rounded-full hover:bg-udda-lavender transition-colors shadow-md whitespace-nowrap">
             Log In
@@ -74,8 +79,8 @@ const Header: React.FC = () => {
             <Link to="/ex-couple-entanglement" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
               Ex-Couple Sheriff
             </Link>
-            <Link to="/cmo" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
-              CMO on Demand
+            <Link to="/party-conversation" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
+              Party Conversation
             </Link>
             <button className="bg-udda-purple text-white font-bold py-2 px-4 rounded-full w-full shadow-md">
               Log In
