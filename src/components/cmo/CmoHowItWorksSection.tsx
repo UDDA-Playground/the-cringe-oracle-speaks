@@ -14,7 +14,7 @@ const CmoHowItWorksSection: React.FC = () => {
             How it works
           </h2>
           <p className="text-xl text-gray-600">
-            From conversation to comprehensive marketing plan in minutes
+            From marketing confusion to clear strategy in minutes
           </p>
         </div>
         
@@ -23,27 +23,27 @@ const CmoHowItWorksSection: React.FC = () => {
             <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 transform transition-all duration-300 hover:rotate-12">
               <span className="font-cabinet font-bold text-2xl text-white">1</span>
             </div>
-            <h3 className="font-cabinet font-bold text-xl mb-3">Chat with your CMO</h3>
+            <h3 className="font-cabinet font-bold text-xl mb-3">Speak with your CMO</h3>
             <p className="text-gray-600">
-              Have a voice conversation about your business, goals, challenges, and current marketing efforts
+              Share your marketing challenges, goals and current efforts in a natural voice conversation
             </p>
           </div>
           <div className="text-center funky-card md:translate-y-4">
             <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 transform transition-all duration-300 hover:-rotate-12">
               <span className="font-cabinet font-bold text-2xl text-white">2</span>
             </div>
-            <h3 className="font-cabinet font-bold text-xl mb-3">Get your marketing plan</h3>
+            <h3 className="font-cabinet font-bold text-xl mb-3">Get actionable advice</h3>
             <p className="text-gray-600">
-              Receive a comprehensive, actionable marketing strategy via email, tailored to your specific situation
+              Receive clear, strategic recommendations based on proven marketing frameworks and industry data
             </p>
           </div>
           <div className="text-center funky-card">
             <div className="w-20 h-20 bg-gradient-to-br from-udda-coral to-udda-orange rounded-full flex items-center justify-center mx-auto mb-6 transform transition-all duration-300 hover:rotate-12">
               <span className="font-cabinet font-bold text-2xl text-white">3</span>
             </div>
-            <h3 className="font-cabinet font-bold text-xl mb-3">Refine and implement</h3>
+            <h3 className="font-cabinet font-bold text-xl mb-3">Implement with confidence</h3>
             <p className="text-gray-600">
-              Continue the conversation anytime to dive deeper into specific aspects or update your plan as things change
+              Execute your marketing plans with clarity and conviction, returning for guidance whenever needed
             </p>
           </div>
         </div>

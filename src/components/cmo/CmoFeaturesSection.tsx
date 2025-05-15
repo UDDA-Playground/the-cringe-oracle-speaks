@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BookOpen, TrendingUp, Lightbulb, RefreshCw } from 'lucide-react';
+import { Clock, BookOpen, TrendingUp, Lightbulb, RefreshCw } from 'lucide-react';
 
 const CmoFeaturesSection: React.FC = () => {
   return (
@@ -10,10 +10,10 @@ const CmoFeaturesSection: React.FC = () => {
       <div className="container mx-auto px-4 relative">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="font-cabinet font-bold text-4xl md:text-5xl mb-4 section-title">
-            Marketing expertise when you need it
+            End marketing indecision forever
           </h2>
           <p className="text-xl text-gray-600">
-            Your dedicated marketing advisor combining decades of expertise with cutting-edge insights
+            Break through analysis paralysis with expert guidance exactly when you need it
           </p>
         </div>
         
@@ -21,13 +21,13 @@ const CmoFeaturesSection: React.FC = () => {
           <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-l-4 border-blue-600 flex">
             <div className="mr-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600/30 to-blue-400/30 flex items-center justify-center">
-                <BookOpen size={24} className="text-blue-600" />
+                <Clock size={24} className="text-blue-600" />
               </div>
             </div>
             <div>
-              <h3 className="font-cabinet font-bold text-xl mb-2">Vast Knowledge Bank</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-2">Instant Access</h3>
               <p className="text-gray-600">
-                Access decades of marketing expertise, award-winning case studies, research, and best practices from global campaigns
+                Expert marketing advice whenever you need it—no scheduling or hiring delays, available 24/7
               </p>
             </div>
           </div>
@@ -39,9 +39,9 @@ const CmoFeaturesSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <h3 className="font-cabinet font-bold text-xl mb-2">Action-Oriented Insights</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-2">Cost-Effective</h3>
               <p className="text-gray-600">
-                Break through indecision with clear, actionable recommendations based on your specific business challenges
+                High-level CMO insights at a fraction of the cost of hiring a consultant or full-time executive
               </p>
             </div>
           </div>
@@ -53,9 +53,9 @@ const CmoFeaturesSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <h3 className="font-cabinet font-bold text-xl mb-2">Personalized Strategy</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-2">Natural Interaction</h3>
               <p className="text-gray-600">
-                Voice conversations reveal your true goals and knowledge gaps, allowing us to craft truly personalized marketing plans
+                Voice-first interface for intuitive, conversational strategy sessions that capture nuance and tone
               </p>
             </div>
           </div>
@@ -67,9 +67,9 @@ const CmoFeaturesSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <h3 className="font-cabinet font-bold text-xl mb-2">Continuously Updated</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-2">Always Up-to-Date</h3>
               <p className="text-gray-600">
-                Always stay current with the latest marketing trends, tools, and consumer behaviors through our constantly refreshed expertise
+                Continuously refreshed AI knowledgebase of marketing best practices, case studies and emerging trends
               </p>
             </div>
           </div>

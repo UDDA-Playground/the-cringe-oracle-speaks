@@ -13,27 +13,27 @@ const CmoHeroSection: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-block -rotate-2 bg-udda-blue/20 px-4 py-1 rounded-lg mb-4">
-            <span className="text-udda-blue font-bold">Marketing expertise on demand!</span>
+            <span className="text-udda-blue font-bold">Expert marketing advice on demand!</span>
           </div>
           <h1 className="font-cabinet font-black text-5xl md:text-7xl mb-6 leading-tight rotate-1">
-            Your <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-udda-coral bg-clip-text text-transparent">CMO on Demand</span> is ready to talk
+            Your <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-udda-coral bg-clip-text text-transparent">CMO on Demand</span> has arrived
           </h1>
           <p className="text-xl md:text-2xl mb-6 text-gray-700 -rotate-1">
-            Turn marketing complexity into clear action plans. Get instant access to decades of marketing expertise, case studies, and research when you need it most.
+            Instant, AI-powered marketing strategy when you need it most. No scheduling, no hiring delays—just expert guidance at a fraction of the cost.
           </p>
           
           <div className="flex flex-wrap gap-3 justify-center mb-8">
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-blue-600">✓</span> 
-              Strategic Marketing Plans
+              Expert Marketing Strategy
             </span>
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-blue-600">✓</span> 
-              World Class Expertise
+              Voice-First Interface
             </span>
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-blue-600">✓</span> 
-              Research-Backed Insights
+              Always Up-to-Date
             </span>
           </div>
           
@@ -63,7 +63,7 @@ const CmoHeroSection: React.FC = () => {
             </Dialog>
           </div>
           <p className="text-sm text-gray-500 mt-6">
-            Used by marketing professionals in 40+ countries • GDPR Compliant • Continuously updated expertise
+            Try free—no credit card required • GDPR Compliant • Used by marketers in 40+ countries
           </p>
           
           {/* Fun floating elements */}
