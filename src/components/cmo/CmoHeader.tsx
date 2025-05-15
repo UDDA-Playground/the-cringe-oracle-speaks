@@ -29,17 +29,8 @@ const CmoHeader: React.FC = () => {
           <span className="text-2xl font-cabinet font-black text-udda-green">UDDA</span>
         </Link>
         
-        {/* Desktop Nav */}
+        {/* Desktop Nav - Simplified for CMO section */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link to="/self-discovery" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
-            Self Discovery
-          </Link>
-          <Link to="/couples-blame-buffer" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
-            Couple's Therapy
-          </Link>
-          <Link to="/ex-couple-entanglement" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
-            Ex-Couple Sheriff
-          </Link>
           <Link to="/cmo" className="font-cabinet font-medium py-1 text-udda-green hover:opacity-80 transition-colors whitespace-nowrap">
             CMO on Demand
           </Link>
@@ -57,19 +48,10 @@ const CmoHeader: React.FC = () => {
         </button>
       </div>
       
-      {/* Mobile Nav */}
+      {/* Mobile Nav - Simplified for CMO section */}
       {isMenuOpen && (
         <div className="md:hidden bg-white absolute top-full left-0 w-full shadow-lg">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            <Link to="/self-discovery" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
-              Self Discovery
-            </Link>
-            <Link to="/couples-blame-buffer" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
-              Couple's Therapy
-            </Link>
-            <Link to="/ex-couple-entanglement" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
-              Ex-Couple Sheriff
-            </Link>
             <Link to="/cmo" className="font-cabinet font-medium py-2 text-udda-green hover:opacity-80 transition-colors">
               CMO on Demand
             </Link>
