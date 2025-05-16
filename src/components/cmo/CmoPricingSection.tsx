@@ -74,7 +74,7 @@ const CmoPricingSection: React.FC = () => {
   const individualTiers = [
     {
       name: "Free",
-      price: "$0",
+      price: "€0",
       period: "forever",
       description: "Try our CMO on demand service and see the value firsthand.",
       features: [
@@ -91,7 +91,7 @@ const CmoPricingSection: React.FC = () => {
     },
     {
       name: "24-Hour Pass",
-      price: "$11.95",
+      price: "€11.95",
       period: "one-time",
       description: "Need help now? Get unlimited access for a full day.",
       features: [
@@ -108,7 +108,7 @@ const CmoPricingSection: React.FC = () => {
     },
     {
       name: "Monthly",
-      price: "$14.95",
+      price: "€14.95",
       period: "/month",
       description: "Regular marketing guidance whenever you need it.",
       features: [
@@ -127,7 +127,7 @@ const CmoPricingSection: React.FC = () => {
     },
     {
       name: "Annual",
-      price: "$99.50",
+      price: "€99.50",
       period: "/year",
       description: "Best value! Save over 40% compared to monthly.",
       features: [
@@ -148,7 +148,7 @@ const CmoPricingSection: React.FC = () => {
   const teamTiers = [
     {
       name: "Team Free",
-      price: "$0",
+      price: "€0",
       period: "forever",
       description: "Let your team experience our CMO on demand service.",
       features: [
@@ -165,7 +165,7 @@ const CmoPricingSection: React.FC = () => {
     },
     {
       name: "Team 24-Hour Pass",
-      price: "$19.50",
+      price: "€19.50",
       period: "one-time",
       description: "Team collaboration for important marketing decisions.",
       features: [
@@ -182,7 +182,7 @@ const CmoPricingSection: React.FC = () => {
     },
     {
       name: "Team Monthly",
-      price: "$29.95",
+      price: "€29.95",
       period: "/month",
       description: "Align your entire team with consistent marketing guidance.",
       features: [
@@ -201,7 +201,7 @@ const CmoPricingSection: React.FC = () => {
     },
     {
       name: "Team Annual",
-      price: "$299.50",
+      price: "€299.50",
       period: "/year",
       description: "Best team value! Save over 40% compared to monthly.",
       features: [

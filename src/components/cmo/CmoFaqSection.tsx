@@ -31,7 +31,7 @@ const CmoFaqSection: React.FC = () => {
     },
     {
       question: "Can I upgrade, downgrade, or cancel at any time?",
-      answer: "Absolutely:\n\nDay Pass (individual $11.95, team $19.50) gives 24 hours of unlimited chat and ends automatically.\n\nMonthly (individual $14.95/mo, team $29.95/mo) and Annual (individual $99.50/yr, team $299.50/yr) subscriptions auto-renew but can be canceled any time with no penalties.\n\nYou can purchase or switch plans at any point in a session. Downgrades or cancellations take effect next billing cycle (or simply let your Day Pass expire)."
+      answer: "Absolutely:\n\nDay Pass (individual €11.95, team €19.50) gives 24 hours of unlimited chat and ends automatically.\n\nMonthly (individual €14.95/mo, team €29.95/mo) and Annual (individual €99.50/yr, team €299.50/yr) subscriptions auto-renew but can be canceled any time with no penalties.\n\nYou can purchase or switch plans at any point in a session. Downgrades or cancellations take effect next billing cycle (or simply let your Day Pass expire)."
     },
     {
       question: "How is CMO on Demand different from hiring a consultant or full-time CMO?",
