@@ -1,13 +1,8 @@
 
 import React from 'react';
-import { Mic } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import ElevenLabsEmbed from '@/components/ElevenLabsEmbed';
 
-interface TestimonialsSectionProps {
-  handleStartConversation: () => void;
-}
-
-const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ handleStartConversation }) => {
+const TestimonialsSection: React.FC = () => {
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -34,13 +29,12 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ handleStartCo
         </div>
         
         <div className="mt-12 text-center">
-          <Button 
-            variant="green" 
-            className="font-bold text-lg"
-            onClick={handleStartConversation}
-          >
-            <Mic className="w-5 h-5" /> Try Self Discovery Free
-          </Button>
+          <div className="inline-block">
+            <ElevenLabsEmbed 
+              agentId="w5c41E3SBg1LvGiUe5I8"
+              className="min-h-12 w-[200px]"
+            />
+          </div>
         </div>
       </div>
     </section>

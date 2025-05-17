@@ -2,7 +2,6 @@
 import React from 'react';
 import { Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const VideoDemoSection: React.FC = () => {
   return (
@@ -25,27 +24,11 @@ const VideoDemoSection: React.FC = () => {
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="green" className="rounded-full p-4 h-16 w-16">
-                    <Play size={32} />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl h-[70vh]">
-                  <div className="relative w-full h-full">
-                    <iframe
-                      width="100%"
-                      height="100%"
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                      title="Self Discovery Demo"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="rounded-lg"
-                    ></iframe>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">
+                <Button variant="green" className="rounded-full p-4 h-16 w-16">
+                  <Play size={32} />
+                </Button>
+              </a>
             </div>
           </div>
         </div>

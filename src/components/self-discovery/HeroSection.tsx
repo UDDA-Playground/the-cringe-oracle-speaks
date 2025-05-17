@@ -2,13 +2,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import TalkButton from '@/components/TalkButton';
+import VideoButton from './VideoButton';
+import StartNowCard from './StartNowCard';
 
-interface HeroSectionProps {
-  handleStartConversation: () => void;
-}
-
-const HeroSection: React.FC<HeroSectionProps> = ({ handleStartConversation }) => {
+const HeroSection: React.FC = () => {
   return (
     <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
       <div className="container mx-auto px-4">
@@ -34,7 +31,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ handleStartConversation }) =>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <HowItWorks />
-            <StartNowCard handleStartConversation={handleStartConversation} />
+            <StartNowCard />
           </div>
         </div>
       </div>

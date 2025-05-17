@@ -1,13 +1,9 @@
 
 import React from 'react';
 import { User, Clock, Euro } from 'lucide-react';
-import TalkButton from '@/components/TalkButton';
+import ElevenLabsEmbed from '@/components/ElevenLabsEmbed';
 
-interface StartNowCardProps {
-  handleStartConversation: () => void;
-}
-
-const StartNowCard: React.FC<StartNowCardProps> = ({ handleStartConversation }) => {
+const StartNowCard: React.FC = () => {
   return (
     <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
       <h2 className="font-cabinet font-bold text-2xl mb-4 text-green-700">Start now</h2>
@@ -28,7 +24,10 @@ const StartNowCard: React.FC<StartNowCardProps> = ({ handleStartConversation }) 
       </div>
       
       <div className="space-y-4">
-        <TalkButton onClick={handleStartConversation} variant="high-contrast-green" />
+        <ElevenLabsEmbed 
+          agentId="w5c41E3SBg1LvGiUe5I8"
+          className="w-full h-12"
+        />
       </div>
       
       <p className="text-xs text-gray-500 mt-6">

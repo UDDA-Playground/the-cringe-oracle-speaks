@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
+import { Mic } from 'lucide-react';
 
 // Import refactored components
 import HeroSection from '@/components/self-discovery/HeroSection';
@@ -16,34 +16,21 @@ import CTASection from '@/components/self-discovery/CTASection';
 import DisclaimerSection from '@/components/self-discovery/DisclaimerSection';
 
 const SelfDiscovery = () => {
-  const [conversationOpen, setConversationOpen] = useState(false);
-
-  const handleStartConversation = () => {
-    setConversationOpen(true);
-  };
-
   return (
     <div className="min-h-screen relative">
       <AnimatedBackground />
       <Header />
       
-      <HeroSection handleStartConversation={handleStartConversation} />
+      <HeroSection />
       <VideoDemoSection />
       <GrowthAreasSection />
       <FAQSection />
       <FeaturesSection />
-      <TestimonialsSection handleStartConversation={handleStartConversation} />
-      <CTASection handleStartConversation={handleStartConversation} />
+      <TestimonialsSection />
+      <CTASection />
       <DisclaimerSection />
       
       <Footer />
-
-      {/* ElevenLabs Conversation Widget */}
-      <ElevenLabsConvaiWidget
-        agentId="w5c41E3SBg1LvGiUe5I8"
-        isOpen={conversationOpen}
-        onOpenChange={setConversationOpen}
-      />
     </div>
   );
 };
