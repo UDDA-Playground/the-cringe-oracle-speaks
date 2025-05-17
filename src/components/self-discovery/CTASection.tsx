@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import ElevenLabsEmbed from '@/components/ElevenLabsEmbed';
 
 const CTASection: React.FC = () => {
   return (
@@ -15,12 +14,9 @@ const CTASection: React.FC = () => {
             Start your free 10-minute session today. No credit card required.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <div className="w-full sm:w-auto">
-              <ElevenLabsEmbed 
-                agentId="agent_01jvfdv8ybemj84w5zb4yjav5y"
-                className="min-h-12 w-full sm:w-[200px]"
-              />
-            </div>
+            <Button className="bg-white text-green-600 hover:bg-gray-100">
+              Start free session
+            </Button>
             <Button variant="outline" className="text-white border-white hover:bg-white/20">
               Learn more about our pricing
             </Button>

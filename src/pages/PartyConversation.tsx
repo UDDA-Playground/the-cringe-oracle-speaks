@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Users, Clock, Euro, Laugh, Sparkles, Play, Mic } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
@@ -7,15 +6,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PricingSection from '../components/PricingSection';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
 
 const PartyConversation = () => {
-  const [conversationOpen, setConversationOpen] = useState(false);
-  
-  const handleStartConversation = () => {
-    setConversationOpen(true);
-  };
-
   return (
     <div className="min-h-screen relative">
       <AnimatedBackground />
@@ -355,13 +347,6 @@ const PartyConversation = () => {
       </section>
       
       <Footer />
-      
-      {/* ElevenLabs Conversation Widget */}
-      <ElevenLabsConvaiWidget
-        agentId="agent_01jvfdv8ybemj84w5zb4yjav5y" 
-        isOpen={conversationOpen}
-        onOpenChange={setConversationOpen}
-      />
     </div>
   );
 };

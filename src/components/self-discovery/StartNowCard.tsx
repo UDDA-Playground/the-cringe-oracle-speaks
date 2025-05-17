@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { User, Clock, Euro } from 'lucide-react';
-import ElevenLabsEmbed from '@/components/ElevenLabsEmbed';
 
 const StartNowCard: React.FC = () => {
   return (
@@ -23,14 +22,7 @@ const StartNowCard: React.FC = () => {
         </div>
       </div>
       
-      <div className="relative z-10 h-12 mb-6">
-        <ElevenLabsEmbed 
-          agentId="agent_01jvfdv8ybemj84w5zb4yjav5y"
-          className="w-full h-12"
-        />
-      </div>
-      
-      <p className="text-xs text-gray-500 mt-2">
+      <p className="text-xs text-gray-500">
         By starting, you agree to our terms and acknowledge that UDDA will record and transcribe 
         audio for this session only. GDPR compliant.
       </p>
