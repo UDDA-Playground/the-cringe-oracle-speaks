@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, User, Clock, Euro, Play, Mic } from 'lucide-react';
+import { ArrowLeft, User, Clock, Euro, Heart } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -30,7 +30,7 @@ const ExCoupleEntanglement = () => {
               <ArrowLeft size={16} className="mr-2" /> Back to all conversations
             </Link>
             <div className="flex items-center mb-6">
-              <div className="w-16 h-16 rounded-full bg-udda-red flex items-center justify-center mr-4">
+              <div className="w-16 h-16 rounded-full bg-udda-coral flex items-center justify-center mr-4">
                 <span className="text-white text-3xl">💔</span>
               </div>
               <h1 className="font-cabinet font-black text-4xl md:text-5xl">
@@ -38,9 +38,9 @@ const ExCoupleEntanglement = () => {
               </h1>
             </div>
             <p className="text-xl md:text-2xl mb-8 text-gray-700">
-              Navigating the complexities of post-breakup life. 
-              We'll help you untangle shared friend groups, manage emotional triggers, 
-              and establish healthy boundaries for a smoother transition.
+              Navigate the complexities of post-breakup dynamics with UDDA. 
+              We'll help you identify unhealthy patterns, emotional triggers, and communication breakdowns 
+              to foster healthier boundaries and personal growth.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -48,28 +48,28 @@ const ExCoupleEntanglement = () => {
                 <h2 className="font-cabinet font-bold text-2xl mb-4">How it works</h2>
                 <ul className="space-y-4">
                   <li className="flex">
-                    <div className="w-8 h-8 rounded-full bg-udda-red/20 flex items-center justify-center mr-3 flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-udda-coral/20 flex items-center justify-center mr-3 flex-shrink-0">
                       <span className="font-bold">1</span>
                     </div>
-                    <p>Connect with a supportive AI to discuss your situation</p>
+                    <p>Share your current challenges and concerns</p>
                   </li>
                   <li className="flex">
-                    <div className="w-8 h-8 rounded-full bg-udda-red/20 flex items-center justify-center mr-3 flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-udda-coral/20 flex items-center justify-center mr-3 flex-shrink-0">
                       <span className="font-bold">2</span>
                     </div>
-                    <p>Share your challenges with shared friends, events, or emotional triggers</p>
+                    <p>Identify recurring patterns and emotional triggers</p>
                   </li>
                   <li className="flex">
-                    <div className="w-8 h-8 rounded-full bg-udda-red/20 flex items-center justify-center mr-3 flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-udda-coral/20 flex items-center justify-center mr-3 flex-shrink-0">
                       <span className="font-bold">3</span>
                     </div>
-                    <p>Receive guidance on setting boundaries and managing interactions</p>
+                    <p>Explore healthier communication strategies</p>
                   </li>
                   <li className="flex">
-                    <div className="w-8 h-8 rounded-full bg-udda-red/20 flex items-center justify-center mr-3 flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-udda-coral/20 flex items-center justify-center mr-3 flex-shrink-0">
                       <span className="font-bold">4</span>
                     </div>
-                    <p>Develop strategies for detaching emotionally and moving forward</p>
+                    <p>Set and maintain healthy boundaries</p>
                   </li>
                 </ul>
                 
@@ -78,9 +78,9 @@ const ExCoupleEntanglement = () => {
                     <DialogTrigger asChild>
                       <Button 
                         variant="outline" 
-                        className="border-red-600 text-red-700 hover:bg-red-50 hover:text-red-800"
+                        className="border-coral-600 text-coral-700 hover:bg-coral-50 hover:text-coral-800"
                       >
-                        <Play className="mr-2" /> Watch Demo
+                        Watch Demo
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-4xl h-[70vh]">
@@ -102,25 +102,25 @@ const ExCoupleEntanglement = () => {
               </div>
               
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
-                <h2 className="font-cabinet font-bold text-2xl mb-4 text-red-700">Start now</h2>
+                <h2 className="font-cabinet font-bold text-2xl mb-4 text-coral-700">Start now</h2>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex items-center">
-                    <User size={20} className="text-red-700 mr-2" />
+                    <User size={20} className="text-coral-700 mr-2" />
                     <p>Private one-on-one conversation</p>
                   </div>
                   <div className="flex items-center">
-                    <Clock size={20} className="text-red-700 mr-2" />
+                    <Clock size={20} className="text-coral-700 mr-2" />
                     <p>Free for 10 minutes daily</p>
                   </div>
                   <div className="flex items-center">
-                    <Euro size={20} className="text-red-700 mr-2" />
+                    <Euro size={20} className="text-coral-700 mr-2" />
                     <p>€6.95 for 24h unlimited access</p>
                   </div>
                 </div>
                 
                 <div className="space-y-4">
-                  <TalkButton onClick={handleStartConversation} variant="high-contrast-red" />
+                  <TalkButton onClick={handleStartConversation} variant="high-contrast-green" />
                 </div>
                 
                 <p className="text-xs text-gray-500 mt-6">
@@ -134,7 +134,7 @@ const ExCoupleEntanglement = () => {
       </section>
       
       {/* Video Demo Section */}
-      <section className="py-16 bg-gradient-to-br from-udda-red/10 to-white">
+      <section className="py-16 bg-gradient-to-br from-udda-coral/10 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
@@ -142,21 +142,21 @@ const ExCoupleEntanglement = () => {
                 See Ex-Couple Entanglement Navigator in action
               </h2>
               <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-                Watch how our AI helps users navigate the complexities of post-breakup life
+                Watch how our AI helps users navigate post-breakup dynamics and foster healthier boundaries
               </p>
             </div>
             
             <div className="bg-white rounded-xl shadow-xl overflow-hidden relative aspect-video">
               <img 
-                src="https://images.unsplash.com/photo-1508214751196-bcfd6ca6dc90?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
-                alt="Couple sitting apart on a couch" 
+                src="https://images.unsplash.com/photo-1552581234-26160f608093?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                alt="Person in thoughtful reflection" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button variant="red" className="rounded-full p-4 h-16 w-16">
-                      <Play size={32} />
+                    <Button variant="coral" className="rounded-full p-4 h-16 w-16">
+                      <Heart size={32} />
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl h-[70vh]">
@@ -180,47 +180,47 @@ const ExCoupleEntanglement = () => {
         </div>
       </section>
       
-      {/* Challenges Section */}
+      {/* Growth Areas Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
-                Common challenges in post-breakup life
+                Your journey to healthier post-breakup dynamics
               </h2>
               <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-                Areas where our AI companion can provide support and guidance
+                Areas where our AI companion can help you grow
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-coral-600 flex items-center justify-center mb-4">
+                  <Heart className="text-white" />
+                </div>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Emotional Processing</h3>
+                <p className="text-gray-600">
+                  Understand and process the complex emotions that arise after a breakup.
+                </p>
+              </div>
+              
+              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-coral-600 flex items-center justify-center mb-4">
                   <User className="text-white" />
                 </div>
-                <h3 className="font-cabinet font-bold text-xl mb-3">Shared Friends</h3>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Boundary Setting</h3>
                 <p className="text-gray-600">
-                  Navigating social circles and managing interactions with mutual friends.
+                  Learn to establish and maintain healthy boundaries with your ex-partner.
                 </p>
               </div>
               
               <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-coral-600 flex items-center justify-center mb-4">
                   <Clock className="text-white" />
                 </div>
-                <h3 className="font-cabinet font-bold text-xl mb-3">Emotional Triggers</h3>
+                <h3 className="font-cabinet font-bold text-xl mb-3">Moving Forward</h3>
                 <p className="text-gray-600">
-                  Dealing with reminders of the past and managing emotional reactions.
-                </p>
-              </div>
-              
-              <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center mb-4">
-                  <Euro className="text-white" />
-                </div>
-                <h3 className="font-cabinet font-bold text-xl mb-3">Practical Matters</h3>
-                <p className="text-gray-600">
-                  Addressing shared finances, living arrangements, and other logistical issues.
+                  Develop strategies to move forward and build a fulfilling life post-breakup.
                 </p>
               </div>
             </div>
@@ -242,21 +242,21 @@ const ExCoupleEntanglement = () => {
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-cabinet font-bold text-xl mb-2">Is this therapy?</h3>
                 <p className="text-gray-600">
-                  No, this tool is not a substitute for professional therapy. It's designed to provide guidance and support, but it's not a replacement for mental health treatment.
+                  No, this tool is designed to provide guidance and support, not to replace professional therapy.
                 </p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="font-cabinet font-bold text-xl mb-2">How private are my conversations?</h3>
+                <h3 className="font-cabinet font-bold text-xl mb-2">How does it handle sensitive information?</h3>
                 <p className="text-gray-600">
-                  Your conversations are completely private. We use industry-standard encryption, and your audio is only processed to provide real-time feedback. We do not store conversation content after sessions end.
+                  Your privacy is our priority. All conversations are encrypted and kept confidential.
                 </p>
               </div>
               
               <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="font-cabinet font-bold text-xl mb-2">What kind of guidance will I receive?</h3>
+                <h3 className="font-cabinet font-bold text-xl mb-2">Can this tool help with co-parenting issues?</h3>
                 <p className="text-gray-600">
-                  Our AI offers practical advice, emotional support, and strategies for setting boundaries, managing interactions, and detaching emotionally.
+                  Yes, it can provide strategies for healthier communication and boundary setting, which can be beneficial in co-parenting situations.
                 </p>
               </div>
             </div>
@@ -273,32 +273,32 @@ const ExCoupleEntanglement = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-4">
-                <span className="text-red-700 text-xl">🤝</span>
+              <div className="w-12 h-12 rounded-full bg-coral-600/20 flex items-center justify-center mb-4">
+                <span className="text-coral-700 text-xl">💬</span>
               </div>
-              <h3 className="font-cabinet font-bold text-xl mb-3">Boundary Setting</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-3">Communication Guidance</h3>
               <p className="text-gray-600">
-                Provides guidance on establishing healthy boundaries with your ex and mutual friends.
+                Provides strategies for healthier and more effective communication with your ex-partner.
               </p>
             </div>
             
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-4">
-                <span className="text-red-700 text-xl">💔</span>
+              <div className="w-12 h-12 rounded-full bg-coral-600/20 flex items-center justify-center mb-4">
+                <span className="text-coral-700 text-xl">🛡️</span>
               </div>
-              <h3 className="font-cabinet font-bold text-xl mb-3">Emotional Detachment</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-3">Boundary Reinforcement</h3>
               <p className="text-gray-600">
-                Offers strategies for managing emotional triggers and detaching from the past.
+                Helps you set and maintain healthy boundaries to protect your emotional well-being.
               </p>
             </div>
             
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-4">
-                <span className="text-red-700 text-xl">🌱</span>
+              <div className="w-12 h-12 rounded-full bg-coral-600/20 flex items-center justify-center mb-4">
+                <span className="text-coral-700 text-xl">❤️‍🩹</span>
               </div>
-              <h3 className="font-cabinet font-bold text-xl mb-3">Moving Forward</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-3">Emotional Support</h3>
               <p className="text-gray-600">
-                Helps you develop a plan for rebuilding your life and moving towards a positive future.
+                Offers support and guidance for processing emotions and moving forward after a breakup.
               </p>
             </div>
           </div>
@@ -320,48 +320,48 @@ const ExCoupleEntanglement = () => {
                 </div>
                 <div>
                   <p className="font-bold">Jamie D.</p>
-                  <p className="text-sm text-gray-500">Navigating shared custody</p>
+                  <p className="text-sm text-gray-500">Navigating co-parenting</p>
                 </div>
               </div>
               <p className="text-gray-700">
-                "UDDA helped me communicate more effectively with my ex about our kids. It's still tough, but I feel more in control."
+                "UDDA helped me communicate more effectively with my ex about our kids. It's made co-parenting much smoother."
               </p>
             </div>
             
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 rounded-full bg-udda-yellow flex items-center justify-center mr-4">
-                  <span className="font-cabinet font-bold">LS</span>
+                  <span className="font-cabinet font-bold">LP</span>
                 </div>
                 <div>
-                  <p className="font-bold">Laura S.</p>
-                  <p className="text-sm text-gray-500">Dealing with mutual friends</p>
+                  <p className="font-bold">Laura P.</p>
+                  <p className="text-sm text-gray-500">Setting boundaries</p>
                 </div>
               </div>
               <p className="text-gray-700">
-                "I was dreading seeing my ex at our friend's wedding, but UDDA helped me plan out how to handle the situation. I actually had a good time!"
+                "I was struggling to set boundaries with my ex, but UDDA gave me the tools and confidence to do it. It's been a game-changer."
               </p>
             </div>
           </div>
           
           <div className="mt-12 text-center">
             <Button 
-              variant="red" 
+              variant="coral" 
               className="font-bold text-lg"
               onClick={handleStartConversation}
             >
-              <Mic className="w-5 h-5" /> Try Ex-Couple Navigator Free
+              Try Ex-Couple Entanglement Navigator Free
             </Button>
           </div>
         </div>
       </section>
       
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-red-600 to-red-500 text-white">
+      <section className="py-16 bg-gradient-to-r from-coral-600 to-coral-500 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-6">
-              Ready to navigate your post-breakup life with confidence?
+              Ready to navigate your post-breakup dynamics?
             </h2>
             <p className="text-xl mb-8">
               Start your free 10-minute session today. No credit card required.
@@ -372,7 +372,7 @@ const ExCoupleEntanglement = () => {
                 className="text-gray-900 font-bold text-lg"
                 onClick={handleStartConversation}
               >
-                <Mic className="w-5 h-5" /> Start Talking Now
+                Start Talking Now
               </Button>
               <Button variant="outline" className="text-white border-white hover:bg-white/20">
                 Learn more about our pricing
@@ -387,8 +387,8 @@ const ExCoupleEntanglement = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-sm text-gray-600">
-              <strong>Not therapy:</strong> Ex-Couple Entanglement Navigator is designed for general guidance and support,
-              not as a substitute for professional mental health treatment. For clinical support, please consult a licensed professional.
+              <strong>Not therapy:</strong> The Ex-Couple Entanglement Navigator is designed for guidance and support,
+              not as a substitute for professional therapy. For clinical support, please consult a licensed professional.
             </p>
           </div>
         </div>
