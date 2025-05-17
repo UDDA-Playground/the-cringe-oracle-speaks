@@ -23,14 +23,14 @@ const StartNowCard: React.FC = () => {
         </div>
       </div>
       
-      <div className="space-y-4">
+      <div className="mb-6">
         <ElevenLabsEmbed 
           agentId="agent_01jvfdv8ybemj84w5zb4yjav5y"
           className="w-full h-12"
         />
       </div>
       
-      <p className="text-xs text-gray-500 mt-6">
+      <p className="text-xs text-gray-500">
         By starting, you agree to our terms and acknowledge that UDDA will record and transcribe 
         audio for this session only. GDPR compliant.
       </p>
