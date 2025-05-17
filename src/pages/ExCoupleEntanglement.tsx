@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mic, ArrowLeft, Users, Clock, Euro, Play, Check } from 'lucide-react';
+import { ArrowLeft, Users, Clock, Euro, Play, Check } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
+import TalkButton from '@/components/TalkButton';
 
 const ExCoupleEntanglement = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -92,14 +93,10 @@ const ExCoupleEntanglement = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <Button 
-                    variant="blue" 
-                    size="lg" 
-                    className="w-full"
+                  <TalkButton 
                     onClick={handleStartConversation}
-                  >
-                    <Mic className="w-5 h-5" /> Start Talking
-                  </Button>
+                    variant="blue"
+                  />
                   <Button variant="outline" className="w-full text-udda-blue border-udda-blue hover:bg-udda-blue hover:text-white">
                     Invite Your Ex
                   </Button>

@@ -1,13 +1,13 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mic, ArrowLeft, Users, Clock, Euro, Play, MessagesSquare, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Users, Clock, Euro, Play } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
+import TalkButton from '@/components/TalkButton';
 
 const CouplesBlameBuffer = () => {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -26,21 +26,21 @@ const CouplesBlameBuffer = () => {
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-udda-blue hover:text-udda-blue/80 mb-6 font-bold">
+            <Link to="/" className="inline-flex items-center text-udda-purple font-medium hover:text-udda-purple/80 mb-6">
               <ArrowLeft size={16} className="mr-2" /> Back to all conversations
             </Link>
             <div className="flex items-center mb-6">
               <div className="w-16 h-16 rounded-full bg-udda-lavender flex items-center justify-center mr-4">
-                <span className="text-white text-3xl">❤️</span>
+                <span className="text-white text-3xl">💘</span>
               </div>
               <h1 className="font-cabinet font-black text-4xl md:text-5xl">
                 Couple's Blame Buffer
               </h1>
             </div>
             <p className="text-xl md:text-2xl mb-8 text-gray-700">
-              A seasoned steward, steering dialogue toward deeper connection. 
-              We'll surface unspoken expectations, help partners own their roles in conflicts,
-              and provide on-the-fly prompts for empathy and constructive feedback.
+              Your compassionate but direct relationship referee. We'll help dig into recurring arguments, 
+              identify unhelpful patterns, create a safe space for difficult emotions, and establish 
+              practical communication strategies.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -98,13 +98,13 @@ const CouplesBlameBuffer = () => {
                 </div>
               </div>
               
-              <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-gray-200">
+              <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
                 <h2 className="font-cabinet font-bold text-2xl mb-4 text-udda-purple">Start now</h2>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex items-center">
                     <Users size={20} className="text-udda-purple mr-2" />
-                    <p>For you and your partner</p>
+                    <p>For couples in committed relationships</p>
                   </div>
                   <div className="flex items-center">
                     <Clock size={20} className="text-udda-purple mr-2" />
@@ -117,13 +117,10 @@ const CouplesBlameBuffer = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <Button 
-                    variant="ultra-purple" 
-                    className="w-full"
+                  <TalkButton 
                     onClick={handleStartConversation}
-                  >
-                    <Mic className="w-5 h-5" /> Start Talking
-                  </Button>
+                    variant="ultra-purple"
+                  />
                   <Button variant="outline" className="w-full text-udda-purple border-udda-purple hover:bg-udda-lavender hover:text-white font-bold">
                     Invite Your Partner
                   </Button>

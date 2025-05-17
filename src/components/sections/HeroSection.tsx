@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Mic, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   Dialog,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import ProductExperienceSection from './ProductExperienceSection';
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
+import TalkButton from '@/components/TalkButton';
 
 const HeroSection: React.FC = () => {
   const [showExperiences, setShowExperiences] = useState(false);
@@ -51,12 +52,7 @@ const HeroSection: React.FC = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <button 
-              className="bg-udda-purple text-white font-bold py-3 px-8 rounded-full hover:bg-udda-lavender transition-colors shadow-md flex items-center justify-center gap-2"
-              onClick={handleStartConversation}
-            >
-              <Mic className="w-5 h-5" /> Start a Conversation
-            </button>
+            <TalkButton onClick={handleStartConversation} />
             <Dialog>
               <DialogTrigger asChild>
                 <button className="btn-outline text-lg flex items-center justify-center">

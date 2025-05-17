@@ -36,6 +36,8 @@ const buttonVariants = cva(
         "ultra-yellow": "bg-yellow-400 text-black hover:bg-yellow-500 font-bold shadow-md border border-black/10 text-base",
         "ultra-purple": "bg-[#9333EA] text-white hover:bg-[#7E22CE] font-bold shadow-md border border-white/20 text-base",
         "ultra-blue": "bg-[#2563EB] text-white hover:bg-[#1D4ED8] font-bold shadow-md border border-white/20 text-base",
+        // Logo button variant
+        "logo": "bg-white text-black font-bold shadow-md hover:bg-gray-50 border border-gray-100",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { Mic } from 'lucide-react';
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
+import TalkButton from '@/components/TalkButton';
 
 const CtaSection: React.FC = () => {
   const [conversationOpen, setConversationOpen] = useState(false);
@@ -26,12 +26,9 @@ const CtaSection: React.FC = () => {
           <p className="text-xl text-gray-600 mb-8">
             Start for free. No credit card required. Just 10 minutes of oddly therapeutic chat.
           </p>
-          <button 
-            className="bg-udda-purple text-white font-bold py-3 px-8 rounded-full hover:bg-udda-lavender transition-colors shadow-md flex items-center justify-center gap-2"
-            onClick={handleStartConversation}
-          >
-            <Mic className="w-5 h-5" /> Start Talking Now
-          </button>
+          <div className="max-w-xs mx-auto">
+            <TalkButton onClick={handleStartConversation} />
+          </div>
         </div>
       </div>
       

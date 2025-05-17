@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mic, ArrowLeft, Users, Clock, Euro, Play, Laugh, Sparkles } from 'lucide-react';
@@ -8,9 +7,16 @@ import Footer from '../components/Footer';
 import PricingSection from '../components/PricingSection';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
+import TalkButton from '@/components/TalkButton';
 
 const PartyConversation = () => {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [conversationOpen, setConversationOpen] = useState(false);
+  
+  const handleStartConversation = () => {
+    setConversationOpen(true);
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -112,9 +118,10 @@ const PartyConversation = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <Button variant="coral" className="w-full font-bold">
-                    <Mic className="w-5 h-5" /> Start Talking
-                  </Button>
+                  <TalkButton 
+                    onClick={handleStartConversation}
+                    variant="coral"
+                  />
                   <Button variant="outline" className="w-full text-udda-coral border-udda-coral hover:bg-udda-coral hover:text-white">
                     Invite Friends
                   </Button>
@@ -384,6 +391,13 @@ const PartyConversation = () => {
       </section>
       
       <Footer />
+      
+      {/* ElevenLabs Conversation Widget */}
+      <ElevenLabsConvaiWidget
+        agentId="JQByz0yMQbAvV8N7X9Or" // Using the ex-couple agent ID for now, should be replaced with proper Party agent ID
+        isOpen={conversationOpen}
+        onOpenChange={setConversationOpen}
+      />
     </div>
   );
 };

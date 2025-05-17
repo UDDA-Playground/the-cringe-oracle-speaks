@@ -1,13 +1,13 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mic, ArrowLeft, User, Clock, Euro, Play, Lightbulb, BadgeCheck } from 'lucide-react';
+import { ArrowLeft, User, Clock, Euro, Play, Lightbulb, BadgeCheck } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
+import TalkButton from '@/components/TalkButton';
 
 const SelfDiscovery = () => {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -120,13 +120,7 @@ const SelfDiscovery = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <Button 
-                    variant="high-contrast-green" 
-                    className="w-full font-bold text-base"
-                    onClick={handleStartConversation}
-                  >
-                    <Mic className="w-5 h-5" /> Start Talking
-                  </Button>
+                  <TalkButton onClick={handleStartConversation} variant="high-contrast-green" />
                 </div>
                 
                 <p className="text-xs text-gray-500 mt-6">
