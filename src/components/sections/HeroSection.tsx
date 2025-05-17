@@ -8,12 +8,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import ProductExperienceSection from './ProductExperienceSection';
+import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
 
 const HeroSection: React.FC = () => {
   const [showExperiences, setShowExperiences] = useState(false);
+  const [conversationOpen, setConversationOpen] = useState(false);
   
   const handleStartConversation = () => {
     setShowExperiences(true);
+    setConversationOpen(true);
   };
 
   return (
@@ -87,6 +90,13 @@ const HeroSection: React.FC = () => {
           <div className="hidden md:block absolute bottom-20 left-[5%] w-20 h-20 bg-udda-mint/30 rounded-full animate-pulse-soft" style={{animationDelay: '0.8s'}}></div>
         </div>
       </div>
+      
+      {/* ElevenLabs Conversation Widget */}
+      <ElevenLabsConvaiWidget
+        agentId="w5c41E3SBg1LvGiUe5I8"
+        isOpen={conversationOpen}
+        onOpenChange={setConversationOpen}
+      />
     </section>
   );
 };

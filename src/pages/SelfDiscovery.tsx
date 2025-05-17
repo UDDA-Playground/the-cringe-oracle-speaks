@@ -7,9 +7,15 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
 
 const SelfDiscovery = () => {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [conversationOpen, setConversationOpen] = useState(false);
+
+  const handleStartConversation = () => {
+    setConversationOpen(true);
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -114,7 +120,11 @@ const SelfDiscovery = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <Button variant="high-contrast-green" className="w-full font-bold text-base">
+                  <Button 
+                    variant="high-contrast-green" 
+                    className="w-full font-bold text-base"
+                    onClick={handleStartConversation}
+                  >
                     <Mic className="w-5 h-5" /> Start Talking
                   </Button>
                 </div>
@@ -341,7 +351,11 @@ const SelfDiscovery = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <Button variant="green" className="font-bold text-lg">
+            <Button 
+              variant="green" 
+              className="font-bold text-lg"
+              onClick={handleStartConversation}
+            >
               <Mic className="w-5 h-5" /> Try Self Discovery Free
             </Button>
           </div>
@@ -359,7 +373,11 @@ const SelfDiscovery = () => {
               Start your free 10-minute session today. No credit card required.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button variant="high-contrast-yellow" className="text-gray-900 font-bold text-lg">
+              <Button 
+                variant="high-contrast-yellow" 
+                className="text-gray-900 font-bold text-lg"
+                onClick={handleStartConversation}
+              >
                 <Mic className="w-5 h-5" /> Start Talking Now
               </Button>
               <Button variant="outline" className="text-white border-white hover:bg-white/20">
@@ -383,6 +401,13 @@ const SelfDiscovery = () => {
       </section>
       
       <Footer />
+
+      {/* ElevenLabs Conversation Widget */}
+      <ElevenLabsConvaiWidget
+        agentId="w5c41E3SBg1LvGiUe5I8"
+        isOpen={conversationOpen}
+        onOpenChange={setConversationOpen}
+      />
     </div>
   );
 };
