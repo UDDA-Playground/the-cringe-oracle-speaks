@@ -8,6 +8,8 @@ export type SeoMetadata = {
   og_title?: string;
   og_description?: string;
   og_image_url?: string;
+  keywords?: string;
+  structured_data?: Record<string, any>;
 };
 
 /**
@@ -18,7 +20,7 @@ export const fetchSeoMetadata = async (pagePath: string) => {
     .from('seo_metadata')
     .select('*')
     .eq('page_path', pagePath)
-    .single();
+    .maybeSingle();
   
   if (error && error.code !== 'PGSQL_NO_ROWS_RETURNED') {
     console.error('Error fetching SEO metadata:', error);
@@ -43,6 +45,17 @@ export const applySeoMetadata = (metadata: SeoMetadata) => {
     document.head.appendChild(metaDescription);
   }
   metaDescription.setAttribute('content', metadata.meta_description);
+  
+  // Set keywords if available
+  if (metadata.keywords) {
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.setAttribute('name', 'keywords');
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.setAttribute('content', metadata.keywords);
+  }
   
   // Set canonical URL if available
   let canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -74,4 +87,15 @@ export const applySeoMetadata = (metadata: SeoMetadata) => {
     }
     tag.setAttribute('content', content);
   });
+  
+  // Apply structured data if available
+  if (metadata.structured_data) {
+    let scriptTag = document.querySelector('script[type="application/ld+json"]');
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.setAttribute('type', 'application/ld+json');
+      document.head.appendChild(scriptTag);
+    }
+    scriptTag.textContent = JSON.stringify(metadata.structured_data);
+  }
 };

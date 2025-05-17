@@ -19,29 +19,29 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-block -rotate-2 bg-udda-yellow/20 px-4 py-1 rounded-lg mb-4">
-            <span className="text-udda-coral font-bold">Not boring therapy. Just weird chats!</span>
+            <span className="text-udda-coral font-bold">AI Personality Tests & Coaching Voice Chats</span>
           </div>
           <h1 className="font-cabinet font-black text-5xl md:text-7xl mb-6 leading-tight rotate-1">
-            Mental health conversations with a 
-            <span className="bg-gradient-to-r from-udda-purple via-udda-coral to-udda-yellow bg-clip-text text-transparent"> weird twist</span>
+            Discover yourself with 
+            <span className="bg-gradient-to-r from-udda-purple via-udda-coral to-udda-yellow bg-clip-text text-transparent"> AI voice coaching</span>
           </h1>
           <p className="text-xl md:text-2xl mb-6 text-gray-700 -rotate-1">
-            Not therapy. Just absurdly helpful AI-guided conversations for when you need to talk things out.
-            Available when you are, not when someone else is.
+            Take personality tests and get personalized coaching through AI voice conversations. 
+            Not therapy. Just absurdly helpful insights when you need them.
           </p>
           
           <div className="flex flex-wrap gap-3 justify-center mb-8">
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-udda-green">✓</span> 
-              Expert Psychological Insights
+              Personality Insights
             </span>
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-udda-green">✓</span> 
-              World Class Expertise
+              Personal Growth Coaching
             </span>
             <span className="inline-flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full shadow-sm text-sm">
               <span className="text-udda-green">✓</span> 
-              Inspired by Science
+              Voice Powered Assessments
             </span>
           </div>
           
@@ -50,7 +50,7 @@ const HeroSection: React.FC = () => {
               onClick={scrollToConversations}
               className="bg-white text-black font-bold shadow-md hover:bg-gray-50 border border-gray-100 h-11 rounded-md px-8 inline-flex items-center justify-center"
             >
-              Find your Conversation
+              Find Your Personality Test
             </button>
           </div>
           

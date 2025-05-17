@@ -8,24 +8,29 @@ const FAQSection: React.FC = () => {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-cabinet font-bold text-3xl md:text-4xl mb-4">
-              Frequently Asked Questions
+              Frequently Asked Questions About Our Personality Tests
             </h2>
           </div>
           
           <div className="space-y-6">
             <FAQItem 
-              question="Is this the same as therapy?"
-              answer="No, Self Discovery is not therapy and should not replace professional mental health treatment. It's a tool for personal growth and reflection that complements professional support."
+              question="How do your AI personality tests work?"
+              answer="Our personality tests use voice AI technology to engage you in a natural conversation. The AI analyzes your responses, speech patterns, and content to identify personality traits, strengths, and growth areas. You'll receive personalized insights and coaching based on your assessment."
             />
             
             <FAQItem 
-              question="How private are my conversations?"
-              answer="Your conversations are completely private. We use industry-standard encryption, and your audio is only processed to provide real-time feedback. We do not store conversation content after sessions end."
+              question="Are these AI personality tests accurate?"
+              answer="Our AI personality assessments are designed to provide meaningful insights based on established psychological frameworks. While no personality test is 100% definitive, our voice-based approach captures nuances that text-based tests often miss, offering valuable self-awareness tools for personal growth."
             />
             
             <FAQItem 
-              question="What kind of exercises will I do?"
-              answer="Our AI offers a variety of brief, targeted exercises including guided reflections, journaling prompts, visualization techniques, and simple behavioral experiments tailored to your specific situation."
+              question="How are voice coaching sessions different from regular therapy?"
+              answer="Our AI voice coaching is not therapy and should not replace professional mental health treatment. It's a self-discovery tool that provides insights and exercises for personal growth. Unlike therapy, our conversations focus on exploration rather than treatment of clinical conditions."
+            />
+            
+            <FAQItem 
+              question="How private are my personality test results and coaching conversations?"
+              answer="Your conversations are completely private. We use industry-standard encryption, and your audio is only processed to provide real-time feedback. We anonymize analytics data and do not store conversation content after sessions end. Your personality insights are for your eyes only."
             />
           </div>
         </div>

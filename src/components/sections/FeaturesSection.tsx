@@ -10,10 +10,10 @@ const FeaturesSection: React.FC = () => {
       <div className="container mx-auto px-4 relative">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="font-cabinet font-bold text-4xl md:text-5xl mb-4 section-title">
-            Not just any conversation
+            AI-Powered Voice Coaching
           </h2>
           <p className="text-xl text-gray-600">
-            Our AI brings special expertise to help you get more from every discussion
+            Our AI personality tests and coaching conversations offer unique insights for personal growth
           </p>
         </div>
         
@@ -25,9 +25,9 @@ const FeaturesSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <h3 className="font-cabinet font-bold text-xl mb-2">Expert Knowledge</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-2">Personality Insights</h3>
               <p className="text-gray-600">
-                Access the wisdom of a world-class expert with deep expertise in psychology, wellness, and other industry knowledge
+                Discover your unique traits, strengths and growth areas through AI-powered voice conversations and assessments
               </p>
             </div>
           </div>
@@ -39,9 +39,9 @@ const FeaturesSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <h3 className="font-cabinet font-bold text-xl mb-2">Truth Bombs</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-2">Custom Coaching</h3>
               <p className="text-gray-600">
-                Get honest, unfiltered insights that reveal hidden truths and opportunities others might miss
+                Receive personalized coaching based on your personality test results to help you grow and overcome challenges
               </p>
             </div>
           </div>
@@ -53,9 +53,9 @@ const FeaturesSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <h3 className="font-cabinet font-bold text-xl mb-2">Moderating Space</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-2">AI Voice Technology</h3>
               <p className="text-gray-600">
-                Ensure everyone contributes equally with gentle guidance that keeps conversations productive
+                Our advanced voice interface makes taking personality tests and receiving coaching feel like a natural conversation
               </p>
             </div>
           </div>
@@ -67,9 +67,9 @@ const FeaturesSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <h3 className="font-cabinet font-bold text-xl mb-2">Remove Bottlenecks in Real Time</h3>
+              <h3 className="font-cabinet font-bold text-xl mb-2">Practical Growth Exercises</h3>
               <p className="text-gray-600">
-                With an expert moderator, quickly resolve knots and frictions that block critical decisions
+                Get actionable exercises and personalized development plans based on your personality assessment results
               </p>
             </div>
           </div>

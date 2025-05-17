@@ -19,12 +19,28 @@ import { useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 
 const SelfDiscovery = () => {
-  // Use our SEO hook
+  // Use our SEO hook with targeted keywords for personality tests
   const { loading: seoLoading } = useSEO('/self-discovery', {
-    title: 'Self Discovery - UDDA Mental Health Conversations',
-    meta_description: 'Talk through your thoughts and feelings with our AI-powered Self Discovery tool. Not therapy, just absurdly helpful conversations.',
-    og_title: 'Self Discovery Tool - Talk Through Your Thoughts',
-    og_description: 'Our AI-powered Self Discovery tool helps you explore your thoughts and feelings through guided conversations.'
+    title: 'Self Discovery AI Personality Tests & Coaching | UDDA',
+    meta_description: 'Take personality tests with our AI-powered Self Discovery tool. Get personalized coaching through voice conversations to uncover strengths and growth areas.',
+    keywords: 'personality test, AI personality assessment, self-discovery tool, AI coaching, voice coach, personal growth, mental wellbeing test',
+    og_title: 'AI Personality Tests & Voice Coaching | Self Discovery Tool',
+    og_description: 'Our AI-powered Self Discovery tool helps you explore your personality and get personalized coaching through guided voice conversations.',
+    structured_data: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "UDDA Self Discovery Personality Tests",
+      "description": "AI-powered personality tests and coaching through voice conversations",
+      "provider": {
+        "@type": "Organization",
+        "name": "UDDA"
+      },
+      "serviceType": "Mental Wellbeing",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Anyone seeking personal growth"
+      }
+    }
   });
   
   // Log page view for analytics

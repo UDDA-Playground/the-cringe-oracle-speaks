@@ -10,13 +10,13 @@ const CtaSection: React.FC = () => {
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-block rotate-2 bg-udda-mint px-4 py-1 rounded-lg mb-4">
-            <span className="text-udda-green font-bold">It&apos;s weird but it works!</span>
+            <span className="text-udda-green font-bold">Discover your true self today!</span>
           </div>
           <h2 className="font-cabinet font-bold text-4xl md:text-5xl mb-6 section-title">
-            Ready to have a weirdly helpful conversation?
+            Ready to take your personality test?
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            Start for free. No credit card required. Just 10 minutes of oddly therapeutic chat.
+            Start with a free 10-minute AI voice coaching session. No credit card required. Get personalized insights about your personality.
           </p>
         </div>
       </div>
