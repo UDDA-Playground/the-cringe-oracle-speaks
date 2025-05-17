@@ -1,23 +1,17 @@
 
 import React, { useState } from 'react';
-import { Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import ProductExperienceSection from './ProductExperienceSection';
-import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
-import TalkButton from '@/components/TalkButton';
 
 const HeroSection: React.FC = () => {
   const [showExperiences, setShowExperiences] = useState(false);
-  const [conversationOpen, setConversationOpen] = useState(false);
   
-  const handleStartConversation = () => {
+  const scrollToConversations = () => {
+    const element = document.getElementById('conversations');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
     setShowExperiences(true);
-    setConversationOpen(true);
   };
 
   return (
@@ -52,27 +46,12 @@ const HeroSection: React.FC = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <TalkButton onClick={handleStartConversation} />
-            <Dialog>
-              <DialogTrigger asChild>
-                <button className="btn-outline text-lg flex items-center justify-center">
-                  <Play className="w-5 h-5" /> See How It Works
-                </button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[800px] p-0">
-                <div className="aspect-video w-full">
-                  <iframe 
-                    width="100%" 
-                    height="100%" 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    title="How UDDA Works" 
-                    frameBorder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </DialogContent>
-            </Dialog>
+            <button 
+              onClick={scrollToConversations}
+              className="bg-white text-black font-bold shadow-md hover:bg-gray-50 border border-gray-100 h-11 rounded-md px-8 inline-flex items-center justify-center"
+            >
+              Find your Conversation
+            </button>
           </div>
           
           {showExperiences && <ProductExperienceSection />}
@@ -86,13 +65,6 @@ const HeroSection: React.FC = () => {
           <div className="hidden md:block absolute bottom-20 left-[5%] w-20 h-20 bg-udda-mint/30 rounded-full animate-pulse-soft" style={{animationDelay: '0.8s'}}></div>
         </div>
       </div>
-      
-      {/* ElevenLabs Conversation Widget */}
-      <ElevenLabsConvaiWidget
-        agentId="w5c41E3SBg1LvGiUe5I8"
-        isOpen={conversationOpen}
-        onOpenChange={setConversationOpen}
-      />
     </section>
   );
 };

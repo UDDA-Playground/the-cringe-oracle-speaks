@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import VideoButton from './VideoButton';
 import StartNowCard from './StartNowCard';
 
 const HeroSection: React.FC = () => {
@@ -69,8 +68,6 @@ const HowItWorks = () => {
           <p>Get actionable mini-exercises and a summary of your insights</p>
         </li>
       </ul>
-      
-      <VideoButton />
     </div>
   );
 };

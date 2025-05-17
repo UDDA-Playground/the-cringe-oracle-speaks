@@ -1,7 +1,5 @@
 
 import React from 'react';
-import { Play } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const VideoDemoSection: React.FC = () => {
   return (
@@ -23,13 +21,6 @@ const VideoDemoSection: React.FC = () => {
               alt="Person in thoughtful reflection" 
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">
-                <Button variant="green" className="rounded-full p-4 h-16 w-16">
-                  <Play size={32} />
-                </Button>
-              </a>
-            </div>
           </div>
         </div>
       </div>
