@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, User, Clock, Euro, Play, Lightbulb, BadgeCheck } from 'lucide-react';
+import { ArrowLeft, User, Clock, Euro, Play, Lightbulb, BadgeCheck, Mic } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
