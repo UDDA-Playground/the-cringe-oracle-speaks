@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mic, ArrowLeft, Users, Clock, Euro, Play, Check } from 'lucide-react';
@@ -7,9 +6,15 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
 
 const ExCoupleEntanglement = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [conversationOpen, setConversationOpen] = useState(false);
+
+  const handleStartConversation = () => {
+    setConversationOpen(true);
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -87,7 +92,12 @@ const ExCoupleEntanglement = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <Button variant="blue" size="lg" className="w-full">
+                  <Button 
+                    variant="blue" 
+                    size="lg" 
+                    className="w-full"
+                    onClick={handleStartConversation}
+                  >
                     <Mic className="w-5 h-5" /> Start Talking
                   </Button>
                   <Button variant="outline" className="w-full text-udda-blue border-udda-blue hover:bg-udda-blue hover:text-white">
@@ -354,6 +364,13 @@ const ExCoupleEntanglement = () => {
       </section>
       
       <Footer />
+      
+      {/* ElevenLabs Conversation Widget */}
+      <ElevenLabsConvaiWidget
+        agentId="JQByz0yMQbAvV8N7X9Or"
+        isOpen={conversationOpen}
+        onOpenChange={setConversationOpen}
+      />
     </div>
   );
 };

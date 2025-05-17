@@ -7,9 +7,15 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
 
 const CouplesBlameBuffer = () => {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [conversationOpen, setConversationOpen] = useState(false);
+
+  const handleStartConversation = () => {
+    setConversationOpen(true);
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -111,7 +117,11 @@ const CouplesBlameBuffer = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <Button variant="ultra-purple" className="w-full">
+                  <Button 
+                    variant="ultra-purple" 
+                    className="w-full"
+                    onClick={handleStartConversation}
+                  >
                     <Mic className="w-5 h-5" /> Start Talking
                   </Button>
                   <Button variant="outline" className="w-full text-udda-purple border-udda-purple hover:bg-udda-lavender hover:text-white font-bold">
@@ -384,6 +394,13 @@ const CouplesBlameBuffer = () => {
       </section>
       
       <Footer />
+
+      {/* ElevenLabs Conversation Widget */}
+      <ElevenLabsConvaiWidget
+        agentId="cXEiaJLsMXO8XFzOQh8m"
+        isOpen={conversationOpen}
+        onOpenChange={setConversationOpen}
+      />
     </div>
   );
 };
