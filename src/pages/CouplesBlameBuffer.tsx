@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Link } from 'react-router-dom';
-import { ArrowLeft, User, Clock, Euro, Heart } from 'lucide-react'; // Changed from Users to User
+import { ArrowLeft, User, Clock, Euro, Heart } from 'lucide-react'; 
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
-import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
 
 const CouplesBlameBuffer = () => {
   const [videoOpen, setVideoOpen] = useState(false);
-  const [conversationOpen, setConversationOpen] = useState(false);
-
-  const handleStartConversation = () => {
-    setConversationOpen(true);
-  };
 
   return (
     <div className="min-h-screen relative">
@@ -99,7 +93,7 @@ const CouplesBlameBuffer = () => {
               </div>
 
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
-                <h2 className="font-cabinet font-bold text-2xl mb-4 text-coral-700">Start now</h2>
+                <h2 className="font-cabinet font-bold text-2xl mb-4 text-coral-700">Information</h2>
 
                 <div className="space-y-4 mb-6">
                   <div className="flex items-center">
@@ -114,16 +108,6 @@ const CouplesBlameBuffer = () => {
                     <Euro size={20} className="text-coral-700 mr-2" />
                     <p>€6.95 for 24h unlimited access</p>
                   </div>
-                </div>
-
-                <div className="space-y-4">
-                  <Button
-                    onClick={handleStartConversation}
-                    variant="high-contrast-green"
-                    className="w-full"
-                  >
-                    Start Talking
-                  </Button>
                 </div>
 
                 <p className="text-xs text-gray-500 mt-6">
@@ -346,16 +330,6 @@ const CouplesBlameBuffer = () => {
               </p>
             </div>
           </div>
-
-          <div className="mt-12 text-center">
-            <Button
-              variant="coral"
-              className="font-bold text-lg"
-              onClick={handleStartConversation}
-            >
-              Try Couples Blame Buffer Free
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -369,18 +343,6 @@ const CouplesBlameBuffer = () => {
             <p className="text-xl mb-8">
               Start your free 10-minute session today. No credit card required.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button
-                variant="high-contrast-yellow"
-                className="text-gray-900 font-bold text-lg"
-                onClick={handleStartConversation}
-              >
-                Start Talking Now
-              </Button>
-              <Button variant="outline" className="text-white border-white hover:bg-white/20">
-                Learn more about our pricing
-              </Button>
-            </div>
           </div>
         </div>
       </section>
@@ -398,13 +360,6 @@ const CouplesBlameBuffer = () => {
       </section>
 
       <Footer />
-        
-        {/* ElevenLabs Conversation Widget */}
-        <ElevenLabsConvaiWidget
-            agentId="w5c41E3SBg1LvGiUe5I8"
-            isOpen={conversationOpen}
-            onOpenChange={setConversationOpen}
-        />
     </div>
   );
 };

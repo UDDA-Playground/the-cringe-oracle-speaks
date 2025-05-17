@@ -6,15 +6,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
 
 const ExCoupleEntanglement = () => {
   const [videoOpen, setVideoOpen] = useState(false);
-  const [conversationOpen, setConversationOpen] = useState(false);
-
-  const handleStartConversation = () => {
-    setConversationOpen(true);
-  };
 
   return (
     <div className="min-h-screen relative">
@@ -74,7 +68,7 @@ const ExCoupleEntanglement = () => {
               </div>
               
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
-                <h2 className="font-cabinet font-bold text-2xl mb-4 text-coral-700">Start now</h2>
+                <h2 className="font-cabinet font-bold text-2xl mb-4 text-coral-700">Information</h2>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex items-center">
@@ -89,16 +83,6 @@ const ExCoupleEntanglement = () => {
                     <Euro size={20} className="text-coral-700 mr-2" />
                     <p>€6.95 for 24h unlimited access</p>
                   </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <Button 
-                    onClick={handleStartConversation} 
-                    variant="high-contrast-green"
-                    className="w-full"
-                  >
-                    Start Talking
-                  </Button>
                 </div>
                 
                 <p className="text-xs text-gray-500 mt-6">
@@ -321,16 +305,6 @@ const ExCoupleEntanglement = () => {
               </p>
             </div>
           </div>
-          
-          <div className="mt-12 text-center">
-            <Button 
-              variant="coral" 
-              className="font-bold text-lg"
-              onClick={handleStartConversation}
-            >
-              Try Ex-Couple Entanglement Navigator Free
-            </Button>
-          </div>
         </div>
       </section>
       
@@ -348,7 +322,6 @@ const ExCoupleEntanglement = () => {
               <Button 
                 variant="high-contrast-yellow" 
                 className="text-gray-900 font-bold text-lg"
-                onClick={handleStartConversation}
               >
                 Start Talking Now
               </Button>
@@ -373,13 +346,6 @@ const ExCoupleEntanglement = () => {
       </section>
       
       <Footer />
-
-      {/* ElevenLabs Conversation Widget */}
-      <ElevenLabsConvaiWidget
-        agentId="w5c41E3SBg1LvGiUe5I8"
-        isOpen={conversationOpen}
-        onOpenChange={setConversationOpen}
-      />
     </div>
   );
 };

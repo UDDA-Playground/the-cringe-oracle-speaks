@@ -26,7 +26,7 @@ const CmoHeader: React.FC = () => {
     }`}>
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center">
-          <span className="text-2xl font-cabinet font-black text-udda-green">UDDA</span>
+          <img src="/lovable-uploads/9fc901cc-dfcd-4355-bd83-81a0cf693a4c.png" alt="UDDA Logo" className="h-8" />
         </Link>
         
         {/* Desktop Nav - Simplified for CMO section */}
