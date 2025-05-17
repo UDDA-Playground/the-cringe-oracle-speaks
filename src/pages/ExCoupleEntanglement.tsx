@@ -7,7 +7,6 @@ import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
-import TalkButton from '@/components/TalkButton';
 
 const ExCoupleEntanglement = () => {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -72,33 +71,6 @@ const ExCoupleEntanglement = () => {
                     <p>Set and maintain healthy boundaries</p>
                   </li>
                 </ul>
-                
-                <div className="mt-8 space-y-4">
-                  <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
-                    <DialogTrigger asChild>
-                      <Button 
-                        variant="outline" 
-                        className="border-coral-600 text-coral-700 hover:bg-coral-50 hover:text-coral-800"
-                      >
-                        Watch Demo
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-4xl h-[70vh]">
-                      <div className="relative w-full h-full">
-                        <iframe
-                          width="100%"
-                          height="100%"
-                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                          title="Ex-Couple Entanglement Demo"
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="rounded-lg"
-                        ></iframe>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                </div>
               </div>
               
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
@@ -120,7 +92,13 @@ const ExCoupleEntanglement = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <TalkButton onClick={handleStartConversation} variant="high-contrast-green" />
+                  <Button 
+                    onClick={handleStartConversation} 
+                    variant="high-contrast-green"
+                    className="w-full"
+                  >
+                    Start Talking
+                  </Button>
                 </div>
                 
                 <p className="text-xs text-gray-500 mt-6">

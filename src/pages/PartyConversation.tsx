@@ -8,7 +8,6 @@ import PricingSection from '../components/PricingSection';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
-import TalkButton from '@/components/TalkButton';
 
 const PartyConversation = () => {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -73,30 +72,6 @@ const PartyConversation = () => {
                     <p>Get a summary of all the embarrassing revelations at the end</p>
                   </li>
                 </ul>
-                
-                <div className="mt-8 space-y-4">
-                  <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="text-udda-coral border-udda-coral hover:bg-udda-coral/10">
-                        <Play className="mr-2" /> Watch Demo
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-4xl h-[70vh]">
-                      <div className="relative w-full h-full">
-                        <iframe
-                          width="100%"
-                          height="100%"
-                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                          title="Party Conversation Demo"
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="rounded-lg"
-                        ></iframe>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                </div>
               </div>
               
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
@@ -118,10 +93,13 @@ const PartyConversation = () => {
                 </div>
                 
                 <div className="space-y-4">
-                  <TalkButton 
+                  <Button 
                     onClick={handleStartConversation}
                     variant="coral"
-                  />
+                    className="w-full"
+                  >
+                    Start Talking
+                  </Button>
                   <Button variant="outline" className="w-full text-udda-coral border-udda-coral hover:bg-udda-coral hover:text-white">
                     Invite Friends
                   </Button>
@@ -394,7 +372,7 @@ const PartyConversation = () => {
       
       {/* ElevenLabs Conversation Widget */}
       <ElevenLabsConvaiWidget
-        agentId="JQByz0yMQbAvV8N7X9Or" // Using the ex-couple agent ID for now, should be replaced with proper Party agent ID
+        agentId="agent_01jvfdv8ybemj84w5zb4yjav5y" 
         isOpen={conversationOpen}
         onOpenChange={setConversationOpen}
       />

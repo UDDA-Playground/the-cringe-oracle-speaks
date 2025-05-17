@@ -7,15 +7,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
-import TalkButton from '@/components/TalkButton';
 
 const CouplesBlameBuffer = () => {
   const [videoOpen, setVideoOpen] = useState(false);
-    const [conversationOpen, setConversationOpen] = useState(false);
+  const [conversationOpen, setConversationOpen] = useState(false);
 
-    const handleStartConversation = () => {
-        setConversationOpen(true);
-    };
+  const handleStartConversation = () => {
+    setConversationOpen(true);
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -118,7 +117,13 @@ const CouplesBlameBuffer = () => {
                 </div>
 
                 <div className="space-y-4">
-                  <TalkButton onClick={handleStartConversation} variant="high-contrast-green" />
+                  <Button
+                    onClick={handleStartConversation}
+                    variant="high-contrast-green"
+                    className="w-full"
+                  >
+                    Start Talking
+                  </Button>
                 </div>
 
                 <p className="text-xs text-gray-500 mt-6">
