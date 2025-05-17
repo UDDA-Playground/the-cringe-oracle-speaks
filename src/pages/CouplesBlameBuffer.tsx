@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Link } from 'react-router-dom';
@@ -6,6 +7,7 @@ import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
+import ElevenLabsWidget from '../components/ElevenLabsWidget';
 
 const CouplesBlameBuffer = () => {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -109,8 +111,13 @@ const CouplesBlameBuffer = () => {
                     <p>€6.95 for 24h unlimited access</p>
                   </div>
                 </div>
+                
+                {/* ElevenLabs widget */}
+                <div className="mb-4">
+                  <ElevenLabsWidget agentId="cXEiaJLsMXO8XFzOQh8m" />
+                </div>
 
-                <p className="text-xs text-gray-500 mt-6">
+                <p className="text-xs text-gray-500">
                   By starting, you agree to our terms and acknowledge that UDDA will record and transcribe
                   audio for this session only. GDPR compliant.
                 </p>

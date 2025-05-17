@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, User, Clock, Euro, Heart } from 'lucide-react';
@@ -6,6 +7,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ElevenLabsWidget from '../components/ElevenLabsWidget';
 
 const ExCoupleEntanglement = () => {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -85,7 +87,12 @@ const ExCoupleEntanglement = () => {
                   </div>
                 </div>
                 
-                <p className="text-xs text-gray-500 mt-6">
+                {/* ElevenLabs widget */}
+                <div className="mb-4">
+                  <ElevenLabsWidget agentId="JQByz0yMQbAvV8N7X9Or" />
+                </div>
+                
+                <p className="text-xs text-gray-500">
                   By starting, you agree to our terms and acknowledge that UDDA will record and transcribe 
                   audio for this session only. GDPR compliant.
                 </p>
