@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mic, ArrowLeft, Users, Clock, Euro, Play, Laugh, Sparkles } from 'lucide-react';
+import { ArrowLeft, Users, Clock, Euro, Laugh, Sparkles, Play } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PricingSection from '../components/PricingSection';
-import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ElevenLabsConvaiWidget from '@/components/ElevenLabsConvaiWidget';
 
 const PartyConversation = () => {
-  const [videoOpen, setVideoOpen] = useState(false);
   const [conversationOpen, setConversationOpen] = useState(false);
   
   const handleStartConversation = () => {
@@ -92,19 +90,6 @@ const PartyConversation = () => {
                   </div>
                 </div>
                 
-                <div className="space-y-4">
-                  <Button 
-                    onClick={handleStartConversation}
-                    variant="coral"
-                    className="w-full"
-                  >
-                    Start Talking
-                  </Button>
-                  <Button variant="outline" className="w-full text-udda-coral border-udda-coral hover:bg-udda-coral hover:text-white">
-                    Invite Friends
-                  </Button>
-                </div>
-                
                 <p className="text-xs text-gray-500 mt-6">
                   By starting, you agree to our terms and acknowledge that UDDA will record and transcribe 
                   audio for this session only. GDPR compliant.
@@ -137,9 +122,9 @@ const PartyConversation = () => {
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button variant="coral" className="rounded-full p-4 h-16 w-16">
+                    <button className="bg-udda-coral text-white rounded-full p-4 h-16 w-16">
                       <Play size={32} />
-                    </Button>
+                    </button>
                   </DialogTrigger>
                   <DialogContent className="max-w-4xl h-[70vh]">
                     <div className="relative w-full h-full">
@@ -327,9 +312,9 @@ const PartyConversation = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <Button variant="coral" className="font-bold text-lg">
+            <button className="bg-udda-coral text-white font-bold text-lg py-3 px-6 rounded-full flex items-center justify-center gap-2">
               <Mic className="w-5 h-5" /> Try Party Conversation Free
-            </Button>
+            </button>
           </div>
         </div>
       </section>
@@ -345,12 +330,12 @@ const PartyConversation = () => {
               Start your free 10-minute session today. No credit card required.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button variant="yellow" className="text-gray-900 font-bold text-lg">
+              <button className="bg-udda-yellow text-gray-900 font-bold text-lg py-3 px-6 rounded-full flex items-center justify-center gap-2">
                 <Mic className="w-5 h-5" /> Start Talking Now
-              </Button>
-              <Button variant="outline" className="text-white border-white hover:bg-white/20">
+              </button>
+              <button className="border border-white text-white hover:bg-white/20 py-3 px-6 rounded-full">
                 Learn more about our pricing
-              </Button>
+              </button>
             </div>
           </div>
         </div>

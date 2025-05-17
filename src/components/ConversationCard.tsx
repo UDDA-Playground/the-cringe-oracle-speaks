@@ -32,7 +32,9 @@ const ConversationCard: React.FC<ConversationCardProps> = ({
             </div>
           )}
         </div>
-        <h3 className="text-xl font-cabinet font-bold mb-3 relative z-10">{title}</h3>
+        <Link to={path}>
+          <h3 className="text-xl font-cabinet font-bold mb-3 relative z-10 hover:text-udda-coral transition-colors">{title}</h3>
+        </Link>
         <p className="text-gray-600 mb-6 flex-grow relative z-10">{description}</p>
         <Link 
           to={path}
