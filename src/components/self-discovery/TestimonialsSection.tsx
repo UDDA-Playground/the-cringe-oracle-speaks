@@ -31,7 +31,7 @@ const TestimonialsSection: React.FC = () => {
         <div className="mt-12 text-center">
           <div className="inline-block">
             <ElevenLabsEmbed 
-              agentId="w5c41E3SBg1LvGiUe5I8"
+              agentId="agent_01jvfdv8ybemj84w5zb4yjav5y"
               className="min-h-12 w-[200px]"
             />
           </div>
