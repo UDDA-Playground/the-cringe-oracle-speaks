@@ -12,6 +12,7 @@ import SelfDiscovery from "./pages/SelfDiscovery";
 import CouplesBlameBuffer from "./pages/CouplesBlameBuffer";
 import ExCoupleEntanglement from "./pages/ExCoupleEntanglement";
 import ConflictFixer from "./pages/ConflictFixer";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/couples-blame-buffer" element={<CouplesBlameBuffer />} />
           <Route path="/ex-couple-entanglement" element={<ExCoupleEntanglement />} />
           <Route path="/conflict-fixer" element={<ConflictFixer />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

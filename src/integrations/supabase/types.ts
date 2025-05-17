@@ -9,6 +9,39 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      ai_conversations: {
+        Row: {
+          agent_id: string
+          created_at: string
+          id: string
+          sentiment: string | null
+          session_id: string
+          topics: Json | null
+          transcript: Json
+          user_id: string | null
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          id?: string
+          sentiment?: string | null
+          session_id: string
+          topics?: Json | null
+          transcript: Json
+          user_id?: string | null
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          id?: string
+          sentiment?: string | null
+          session_id?: string
+          topics?: Json | null
+          transcript?: Json
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       cms_pages: {
         Row: {
           created_at: string
@@ -80,6 +113,47 @@ export type Database = {
           },
         ]
       }
+      faqs: {
+        Row: {
+          answer: string
+          category: string
+          created_at: string
+          id: string
+          page_path: string | null
+          position: number | null
+          question: string
+          updated_at: string
+        }
+        Insert: {
+          answer: string
+          category: string
+          created_at?: string
+          id?: string
+          page_path?: string | null
+          position?: number | null
+          question: string
+          updated_at?: string
+        }
+        Update: {
+          answer?: string
+          category?: string
+          created_at?: string
+          id?: string
+          page_path?: string | null
+          position?: number | null
+          question?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "faqs_page_path_fkey"
+            columns: ["page_path"]
+            isOneToOne: false
+            referencedRelation: "seo_metadata"
+            referencedColumns: ["page_path"]
+          },
+        ]
+      }
       leads: {
         Row: {
           company: string | null
@@ -109,6 +183,47 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      llm_optimized_content: {
+        Row: {
+          content: string
+          content_type: string
+          created_at: string
+          embedding_json: Json | null
+          id: string
+          keywords: string[] | null
+          page_path: string | null
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          content_type: string
+          created_at?: string
+          embedding_json?: Json | null
+          id?: string
+          keywords?: string[] | null
+          page_path?: string | null
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          content_type?: string
+          created_at?: string
+          embedding_json?: Json | null
+          id?: string
+          keywords?: string[] | null
+          page_path?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "llm_optimized_content_page_path_fkey"
+            columns: ["page_path"]
+            isOneToOne: false
+            referencedRelation: "seo_metadata"
+            referencedColumns: ["page_path"]
+          },
+        ]
       }
       messages: {
         Row: {
@@ -187,6 +302,145 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      seo_metadata: {
+        Row: {
+          canonical_url: string | null
+          created_at: string
+          id: string
+          meta_description: string
+          og_description: string | null
+          og_image_url: string | null
+          og_title: string | null
+          page_path: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          canonical_url?: string | null
+          created_at?: string
+          id?: string
+          meta_description: string
+          og_description?: string | null
+          og_image_url?: string | null
+          og_title?: string | null
+          page_path: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          canonical_url?: string | null
+          created_at?: string
+          id?: string
+          meta_description?: string
+          og_description?: string | null
+          og_image_url?: string | null
+          og_title?: string | null
+          page_path?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      structured_data: {
+        Row: {
+          created_at: string
+          id: string
+          page_path: string | null
+          schema_data: Json
+          schema_type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          page_path?: string | null
+          schema_data: Json
+          schema_type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          page_path?: string | null
+          schema_data?: Json
+          schema_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "structured_data_page_path_fkey"
+            columns: ["page_path"]
+            isOneToOne: false
+            referencedRelation: "seo_metadata"
+            referencedColumns: ["page_path"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      voice_analytics: {
+        Row: {
+          ai_response_count: number | null
+          browser: string | null
+          conversation_id: string | null
+          created_at: string
+          device_type: string | null
+          duration_seconds: number | null
+          id: string
+          user_query_count: number | null
+          word_count: number | null
+        }
+        Insert: {
+          ai_response_count?: number | null
+          browser?: string | null
+          conversation_id?: string | null
+          created_at?: string
+          device_type?: string | null
+          duration_seconds?: number | null
+          id?: string
+          user_query_count?: number | null
+          word_count?: number | null
+        }
+        Update: {
+          ai_response_count?: number | null
+          browser?: string | null
+          conversation_id?: string | null
+          created_at?: string
+          device_type?: string | null
+          duration_seconds?: number | null
+          id?: string
+          user_query_count?: number | null
+          word_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "voice_analytics_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
