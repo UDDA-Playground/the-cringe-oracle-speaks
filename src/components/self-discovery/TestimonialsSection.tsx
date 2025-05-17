@@ -1,6 +1,5 @@
 
 import React from 'react';
-import ElevenLabsEmbed from '@/components/ElevenLabsEmbed';
 
 const TestimonialsSection: React.FC = () => {
   return (
@@ -26,15 +25,6 @@ const TestimonialsSection: React.FC = () => {
             bgColor="bg-udda-yellow"
             testimonial="The 'Mood-Muffin' (silly name, surprisingly helpful tool) helped me work through my indecision about changing careers. The mini-exercises actually gave me clarity where months of overthinking failed."
           />
-        </div>
-        
-        <div className="mt-12 text-center">
-          <div className="inline-block">
-            <ElevenLabsEmbed 
-              agentId="agent_01jvfdv8ybemj84w5zb4yjav5y"
-              className="min-h-12 w-[200px]"
-            />
-          </div>
         </div>
       </div>
     </section>
