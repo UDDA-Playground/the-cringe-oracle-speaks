@@ -1,9 +1,9 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import ElevenLabsWidget from '../ElevenLabsWidget';
 
 const CTASection: React.FC = () => {
+  const widgetContainerRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     // Ensure the ElevenLabs script is loaded
     if (!document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]')) {
@@ -13,6 +13,40 @@ const CTASection: React.FC = () => {
       script.type = 'text/javascript';
       document.body.appendChild(script);
     }
+    
+    // Create the widget element once the script is loaded
+    const scriptLoaded = () => {
+      if (widgetContainerRef.current && !widgetContainerRef.current.querySelector('elevenlabs-convai')) {
+        // Using DOM APIs to create the element instead of JSX
+        const widgetElement = document.createElement('elevenlabs-convai');
+        widgetElement.setAttribute('agent-id', 'cXEiaJLsMXO8XFzOQh8m');
+        widgetContainerRef.current.appendChild(widgetElement);
+      }
+    };
+    
+    // Check if script is already loaded
+    const existingScript = document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]');
+    if (existingScript) {
+      // If script exists, try to create widget right away
+      scriptLoaded();
+    } else {
+      // Otherwise wait for script to load
+      const scriptElement = document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]');
+      if (scriptElement) {
+        scriptElement.addEventListener('load', scriptLoaded);
+      }
+    }
+    
+    // Add a setTimeout as a fallback to ensure widget is created
+    const timeoutId = setTimeout(scriptLoaded, 1000);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      const scriptElement = document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]');
+      if (scriptElement) {
+        scriptElement.removeEventListener('load', scriptLoaded);
+      }
+    };
   }, []);
 
   return (
@@ -30,10 +64,8 @@ const CTASection: React.FC = () => {
             <h3 className="font-cabinet font-bold text-xl mb-4 text-coral-700">Start a conversation</h3>
             
             <div className="mb-6">
-              {/* Direct implementation of ElevenLabs widget */}
-              <div className="elevenlabs-widget-container">
-                <elevenlabs-convai agent-id="cXEiaJLsMXO8XFzOQh8m"></elevenlabs-convai>
-              </div>
+              {/* Using a ref to append the widget element via JavaScript */}
+              <div ref={widgetContainerRef} className="elevenlabs-widget-container" />
             </div>
             
             <p className="text-xs text-gray-500">
