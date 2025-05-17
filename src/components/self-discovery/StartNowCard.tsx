@@ -1,22 +1,9 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { User, Clock, Euro } from 'lucide-react';
+import ElevenLabsWidget from '../ElevenLabsWidget';
 
 const StartNowCard: React.FC = () => {
-  // Add effect to load the ElevenLabs script
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://elevenlabs.io/convai-widget/index.js';
-    script.async = true;
-    script.type = 'text/javascript';
-    document.body.appendChild(script);
-
-    return () => {
-      // Clean up when component unmounts
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
       <h2 className="font-cabinet font-bold text-2xl mb-4 text-green-700">Start now</h2>
@@ -38,7 +25,7 @@ const StartNowCard: React.FC = () => {
       
       {/* ElevenLabs widget */}
       <div className="mb-4">
-        <elevenlabs-convai agent-id="w5c41E3SBg1LvGiUe5I8"></elevenlabs-convai>
+        <ElevenLabsWidget agentId="w5c41E3SBg1LvGiUe5I8" />
       </div>
       
       <p className="text-xs text-gray-500">

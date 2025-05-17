@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Users, Clock, Euro, Laugh, Sparkles, Play, Mic } from 'lucide-react';
@@ -6,6 +7,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PricingSection from '../components/PricingSection';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ElevenLabsWidget from '../components/ElevenLabsWidget';
 
 const PartyConversation = () => {
   return (
@@ -83,7 +85,12 @@ const PartyConversation = () => {
                   </div>
                 </div>
                 
-                <p className="text-xs text-gray-500 mt-6">
+                {/* ElevenLabs widget */}
+                <div className="mb-4">
+                  <ElevenLabsWidget agentId="agent_01jvfdv8ybemj84w5zb4yjav5y" />
+                </div>
+                
+                <p className="text-xs text-gray-500">
                   By starting, you agree to our terms and acknowledge that UDDA will record and transcribe 
                   audio for this session only. GDPR compliant.
                 </p>
