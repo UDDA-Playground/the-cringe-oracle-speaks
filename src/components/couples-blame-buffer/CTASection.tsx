@@ -1,9 +1,20 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import ElevenLabsWidget from '../ElevenLabsWidget';
 
 const CTASection: React.FC = () => {
+  useEffect(() => {
+    // Ensure the ElevenLabs script is loaded
+    if (!document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://elevenlabs.io/convai-widget/index.js';
+      script.async = true;
+      script.type = 'text/javascript';
+      document.body.appendChild(script);
+    }
+  }, []);
+
   return (
     <section className="py-16 bg-gradient-to-r from-coral-600 to-coral-500 text-white">
       <div className="container mx-auto px-4">
@@ -19,7 +30,10 @@ const CTASection: React.FC = () => {
             <h3 className="font-cabinet font-bold text-xl mb-4 text-coral-700">Start a conversation</h3>
             
             <div className="mb-6">
-              <ElevenLabsWidget agentId="cXEiaJLsMXO8XFzOQh8m" className="mb-4" />
+              {/* Direct implementation of ElevenLabs widget */}
+              <div className="elevenlabs-widget-container">
+                <elevenlabs-convai agent-id="cXEiaJLsMXO8XFzOQh8m"></elevenlabs-convai>
+              </div>
             </div>
             
             <p className="text-xs text-gray-500">
