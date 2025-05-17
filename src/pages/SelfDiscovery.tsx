@@ -1,3 +1,4 @@
+
 import React from 'react';
 import AnimatedBackground from '../components/AnimatedBackground';
 import Header from '../components/Header';
@@ -15,6 +16,7 @@ import DisclaimerSection from '@/components/self-discovery/DisclaimerSection';
 
 import { useSEO } from '@/hooks/useSEO';
 import { useEffect } from 'react';
+import { supabase } from "@/integrations/supabase/client";
 
 const SelfDiscovery = () => {
   // Use our SEO hook
