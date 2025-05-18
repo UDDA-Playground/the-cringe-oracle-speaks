@@ -43,6 +43,14 @@ const ProductExperienceSection: React.FC = () => {
       color: "bg-udda-blue/20",
       textColor: "text-udda-blue",
       buttonVariant: "blue" as const
+    },
+    {
+      title: "Weirdness Test",
+      description: "Discover your hidden traits and strange personality quirks",
+      path: "/personality-test",
+      color: "bg-purple-100",
+      textColor: "text-purple-700",
+      buttonVariant: "purple" as const
     }
   ];
 
