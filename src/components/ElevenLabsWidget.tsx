@@ -31,13 +31,26 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
   // Use the official ElevenLabs React hook
   const conversation = useConversation({
     onMessage: (message) => {
+      // The structure of message depends on the type of message received
       // Track messages for analytics
-      if (message.type === 'final_transcript') {
-        setUserQueries(prev => prev + 1);
-        setTranscript(prev => [...prev, { role: 'user', content: message.text }]);
-      } else if (message.type === 'llm_response') {
-        setAiResponses(prev => prev + 1);
-        setTranscript(prev => [...prev, { role: 'assistant', content: message.text }]);
+      if (message && 'source' in message) {
+        // Handle @11labs/react message format
+        if (message.source === 'user' && message.message) {
+          setUserQueries(prev => prev + 1);
+          setTranscript(prev => [...prev, { role: 'user', content: message.message }]);
+        } else if (message.source === 'assistant' && message.message) {
+          setAiResponses(prev => prev + 1);
+          setTranscript(prev => [...prev, { role: 'assistant', content: message.message }]);
+        }
+      } else if (message && 'type' in message) {
+        // Handle alternative message format for backward compatibility
+        if (message.type === 'final_transcript' && 'text' in message) {
+          setUserQueries(prev => prev + 1);
+          setTranscript(prev => [...prev, { role: 'user', content: message.text as string }]);
+        } else if (message.type === 'llm_response' && 'text' in message) {
+          setAiResponses(prev => prev + 1);
+          setTranscript(prev => [...prev, { role: 'assistant', content: message.text as string }]);
+        }
       }
     },
     onError: (error) => {
