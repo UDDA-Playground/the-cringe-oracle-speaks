@@ -26,9 +26,9 @@ const TestWidgetCard: React.FC = () => {
         </div>
       </div>
       
-      {/* ElevenLabs widget - using a special weirdness test agent */}
+      {/* ElevenLabs widget - using the specified agent ID for the personality test */}
       <div className="mb-4">
-        <ElevenLabsWidget agentId="kG2jw3qnuZUiBuIvm5AC" />
+        <ElevenLabsWidget agentId="agent_01jvnb0nvbezg8btbfwdrgffqp" />
       </div>
       
       <p className="text-xs text-gray-500">

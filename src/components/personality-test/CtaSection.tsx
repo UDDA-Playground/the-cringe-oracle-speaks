@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import ElevenLabsWidget from '../ElevenLabsWidget';
 
 const CtaSection: React.FC = () => {
   return (
@@ -20,6 +21,19 @@ const CtaSection: React.FC = () => {
           <p className="text-xl text-white/90 mb-8">
             Start with a free 10-minute AI voice coaching session. No credit card required. Get personalized insights about your unique personality traits.
           </p>
+          
+          <div className="bg-white rounded-xl p-6 shadow-lg max-w-md mx-auto mb-8">
+            <h3 className="text-gray-800 font-bold text-xl mb-4">Start talking now</h3>
+            <div className="w-full">
+              <ElevenLabsWidget 
+                agentId="agent_01jvnb0nvbezg8btbfwdrgffqp"
+                preventFloatingWidget={true}
+              />
+            </div>
+            <p className="text-gray-600 text-sm mt-4">
+              By starting, you agree to our terms and privacy policy. This service is completely free for 10 minutes.
+            </p>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="yellow" size="lg" className="text-lg">
