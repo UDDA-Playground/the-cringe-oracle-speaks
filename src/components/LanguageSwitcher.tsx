@@ -3,6 +3,7 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { GlobeIcon } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 interface LanguageSwitcherProps {
   className?: string;
@@ -10,9 +11,13 @@ interface LanguageSwitcherProps {
 
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className = '' }) => {
   const { language, setLanguage, t } = useLanguage();
+  const location = useLocation();
   
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'sv' : 'en');
+    
+    // Force a re-render of the current page to apply translations
+    window.location.reload();
   };
   
   return (

@@ -47,7 +47,7 @@ const Header: React.FC = () => {
   // Navigation menu items structured according to requested categories
   const menuItems = [
     {
-      title: "Individual Coaching",
+      title: "Individual",
       items: [
         { title: "Self Discovery", href: "/self-discovery" }
       ]
@@ -81,14 +81,10 @@ const Header: React.FC = () => {
           <img src="/lovable-uploads/9fc901cc-dfcd-4355-bd83-81a0cf693a4c.png" alt="UDDA Logo" className="h-8" />
         </Link>
         
-        {/* Desktop Nav with Dropdown Menus */}
+        {/* Desktop Nav with Dropdown Menus - Fixed positioning of dropdown content */}
         <div className="hidden md:flex items-center">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavLink to="/">{t('nav.home')}</NavLink>
-              </NavigationMenuItem>
-              
               {menuItems.map((category, index) => (
                 <NavigationMenuItem key={index}>
                   {category.items ? (
@@ -97,7 +93,7 @@ const Header: React.FC = () => {
                         {category.title}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[200px] gap-3 p-4">
+                        <ul className="grid w-[200px] gap-3 p-4 bg-white">
                           {category.items.map((item, itemIndex) => (
                             <li key={itemIndex}>
                               <NavigationMenuLink asChild>
@@ -144,8 +140,6 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white absolute top-full left-0 w-full shadow-lg">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            <NavLink to="/" onClick={() => setIsMenuOpen(false)}>{t('nav.home')}</NavLink>
-            
             {/* Mobile dropdowns using Collapsible */}
             {menuItems.map((category, index) => (
               category.items ? (

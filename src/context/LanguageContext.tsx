@@ -29,6 +29,57 @@ const translations: Record<string, Record<Language, string>> = {
   'language': {
     en: 'English',
     sv: 'Svenska'
+  },
+  // Youth mentor page
+  'youth.title': {
+    en: 'AI Youth Mentor',
+    sv: 'AI-ungdomsmentor'
+  },
+  'youth.subtitle': {
+    en: 'Supportive guidance for teens & young adults',
+    sv: 'Stödjande vägledning för tonåringar och unga vuxna'
+  },
+  // Self discovery page
+  'self-discovery.title': {
+    en: 'Self Discovery Journey',
+    sv: 'Självupptäcktsresa'
+  },
+  // Couples therapy page
+  'couples.title': {
+    en: 'Couples Therapy',
+    sv: 'Parterapi'
+  },
+  // Ex-couple page
+  'ex-couple.title': {
+    en: 'Ex-Couple Sheriff',
+    sv: 'Ex-par Medling'
+  },
+  // Party conversation page
+  'party.title': {
+    en: 'Party Conversation',
+    sv: 'Festkonversation'
+  },
+  // Personality test page
+  'personality.title': {
+    en: 'Personality Test',
+    sv: 'Personlighetstest'
+  },
+  'personality.subtitle': {
+    en: 'Discover how weird you really are',
+    sv: 'Upptäck hur konstig du verkligen är'
+  },
+  'personality.try': {
+    en: 'Try the Test',
+    sv: 'Prova testet'
+  },
+  // Common UI elements
+  'button.start': {
+    en: 'Start Now',
+    sv: 'Börja nu'
+  },
+  'button.learn': {
+    en: 'Learn More',
+    sv: 'Läs mer'
   }
   // Add more translations as needed
 };
