@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Brain, Lightbulb, Eye, Secret } from 'lucide-react';
+import { ArrowLeft, Brain, Lightbulb, Eye, Key } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TestWidgetCard from './TestWidgetCard';
 
@@ -48,7 +47,7 @@ const HeroSection: React.FC = () => {
                   description="Discover fears you didn't know you had" 
                 />
                 <FeatureCard 
-                  icon={<Secret className="text-udda-green" />} 
+                  icon={<Key className="text-udda-green" />} 
                   title="Inner Secrets" 
                   description="See the side of yourself you rarely show" 
                 />
