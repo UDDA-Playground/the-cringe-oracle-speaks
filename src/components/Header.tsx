@@ -1,7 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,6 +30,8 @@ const Header: React.FC = () => {
     return null;
   }
 
+  const { t } = useLanguage();
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'
@@ -39,7 +42,8 @@ const Header: React.FC = () => {
         </Link>
         
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
+          <NavLink to="/">{t('nav.home')}</NavLink>
           <Link to="/self-discovery" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
             Self Discovery
           </Link>
@@ -55,9 +59,7 @@ const Header: React.FC = () => {
           <Link to="/youth-mentor" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
             Youth Mentor
           </Link>
-          <button className="bg-udda-purple text-white font-bold py-2 px-5 rounded-full hover:bg-udda-lavender transition-colors shadow-md whitespace-nowrap">
-            Log In
-          </button>
+          <LanguageSwitcher className="mr-2" />
         </nav>
         
         {/* Mobile menu button */}
@@ -73,6 +75,7 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white absolute top-full left-0 w-full shadow-lg">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <NavLink to="/" onClick={() => setIsMenuOpen(false)}>{t('nav.home')}</NavLink>
             <Link to="/self-discovery" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
               Self Discovery
             </Link>
@@ -88,6 +91,9 @@ const Header: React.FC = () => {
             <Link to="/youth-mentor" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
               Youth Mentor
             </Link>
+            <div className="pt-2 border-t border-gray-100">
+              <LanguageSwitcher className="w-full justify-center" />
+            </div>
             <button className="bg-udda-purple text-white font-bold py-2 px-4 rounded-full w-full shadow-md">
               Log In
             </button>
