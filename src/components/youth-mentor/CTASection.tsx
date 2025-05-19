@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import ElevenLabsWidget from '../ElevenLabsWidget';
 
 const CTASection: React.FC = () => {
   return (
@@ -16,8 +17,7 @@ const CTASection: React.FC = () => {
           <div className="bg-white rounded-xl p-6 shadow-lg max-w-md mx-auto">
             <h3 className="text-gray-800 font-bold text-xl mb-4">Start talking now</h3>
             <div className="elevenlabs-container w-full">
-              <elevenlabs-convai agent-id="agent_01jvn52jdnfnzt0g6vjwcjghx0"></elevenlabs-convai>
-              <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+              <ElevenLabsWidget agentId="agent_01jvn52jdnfnzt0g6vjwcjghx0" />
             </div>
             <p className="text-gray-600 text-sm mt-4">
               By starting, you agree to our terms and privacy policy. This service is completely free to use.

@@ -77,8 +77,7 @@ const HeroSection: React.FC = () => {
                   
                   {/* ElevenLabs widget */}
                   <div className="mb-4">
-                    <elevenlabs-convai agent-id="agent_01jvn52jdnfnzt0g6vjwcjghx0"></elevenlabs-convai>
-                    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+                    <ElevenLabsWidget agentId="agent_01jvn52jdnfnzt0g6vjwcjghx0" />
                   </div>
                   
                   <p className="text-xs text-gray-500">
