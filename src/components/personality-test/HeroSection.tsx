@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Brain, Lightbulb, Eye, Key } from 'lucide-react';

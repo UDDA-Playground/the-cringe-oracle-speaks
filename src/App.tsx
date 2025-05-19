@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./context/LanguageContext";
 import Index from "./pages/Index";
-import CmoOnDemand from "./pages/CmoOnDemand";
 import NotFound from "./pages/NotFound";
 import PartyConversation from "./pages/PartyConversation";
 import SelfDiscovery from "./pages/SelfDiscovery";
@@ -55,7 +54,6 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/cmo" element={<CmoOnDemand />} />
               <Route path="/party-conversation" element={<PartyConversation />} />
               <Route path="/self-discovery" element={<SelfDiscovery />} />
               <Route path="/couples-blame-buffer" element={<CouplesBlameBuffer />} />
