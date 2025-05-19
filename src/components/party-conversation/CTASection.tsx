@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Mic } from 'lucide-react';
+import ElevenLabsWidget from '../ElevenLabsWidget';
 
 const CTASection: React.FC = () => {
   return (
@@ -13,13 +14,17 @@ const CTASection: React.FC = () => {
           <p className="text-xl mb-8">
             Start your free 10-minute session today. No credit card required.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-udda-yellow text-gray-900 font-bold text-lg py-3 px-6 rounded-full flex items-center justify-center gap-2">
-              <Mic className="w-5 h-5" /> Start Talking Now
-            </button>
-            <button className="border border-white text-white hover:bg-white/20 py-3 px-6 rounded-full">
-              Learn more about our pricing
-            </button>
+          <div className="bg-white rounded-xl p-6 shadow-lg max-w-md mx-auto">
+            <h3 className="text-gray-800 font-bold text-xl mb-4">Start talking now</h3>
+            <div className="w-full">
+              <ElevenLabsWidget 
+                agentId="agent_01jvn52jdnfnzt0g6vjwcjghx0" 
+                preventFloatingWidget={true}
+              />
+            </div>
+            <p className="text-gray-600 text-sm mt-4">
+              By starting, you agree to our terms and privacy policy. This service is completely free to use.
+            </p>
           </div>
         </div>
       </div>
