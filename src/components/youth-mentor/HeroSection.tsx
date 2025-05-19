@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Brain, Heart, Users, Clock, Euro } from 'lucide-react';
+import { ArrowLeft, Brain, Heart, Users } from 'lucide-react';
 import ElevenLabsWidget from '../ElevenLabsWidget';
 
 const HeroSection: React.FC = () => {
@@ -70,18 +70,15 @@ const HeroSection: React.FC = () => {
                       <p>Confidential one-on-one conversation</p>
                     </div>
                     <div className="flex items-center">
-                      <Clock size={20} className="text-udda-blue mr-2" />
-                      <p>Free for 10 minutes daily</p>
-                    </div>
-                    <div className="flex items-center">
-                      <Euro size={20} className="text-udda-blue mr-2" />
-                      <p>€6.95 for 24h unlimited access</p>
+                      <Heart size={20} className="text-udda-blue mr-2" />
+                      <p>Completely free service</p>
                     </div>
                   </div>
                   
                   {/* ElevenLabs widget */}
                   <div className="mb-4">
-                    <ElevenLabsWidget agentId="youth_mentor_01" />
+                    <elevenlabs-convai agent-id="agent_01jvn52jdnfnzt0g6vjwcjghx0"></elevenlabs-convai>
+                    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
                   </div>
                   
                   <p className="text-xs text-gray-500">

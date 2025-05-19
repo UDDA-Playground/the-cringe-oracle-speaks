@@ -8,7 +8,7 @@ const DisclaimerSection: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm text-gray-600">
             <strong>Important:</strong> Youth Mentor is designed for guidance and support, not as a replacement for professional therapy or counseling. 
-            If you're experiencing a mental health crisis, please contact a healthcare professional or call a crisis helpline immediately.
+            This service is completely free. If you're experiencing a mental health crisis, please contact a healthcare professional or call a crisis helpline immediately.
           </p>
         </div>
       </div>

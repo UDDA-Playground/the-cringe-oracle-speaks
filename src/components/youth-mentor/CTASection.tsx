@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Mic } from 'lucide-react';
 
 const CTASection: React.FC = () => {
   return (
@@ -12,23 +11,17 @@ const CTASection: React.FC = () => {
             Ready to start your journey?
           </h2>
           <p className="text-xl mb-8">
-            Begin your free 10-minute session with our Youth Mentor today.
+            Begin your session with our Youth Mentor today.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button 
-              variant="default" 
-              size="lg"
-              className="bg-white text-blue-700 hover:bg-gray-100 flex items-center gap-2"
-            >
-              <Mic className="w-5 h-5" /> Start Talking Now
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-white text-white hover:bg-white/20"
-            >
-              Learn More About Our Approach
-            </Button>
+          <div className="bg-white rounded-xl p-6 shadow-lg max-w-md mx-auto">
+            <h3 className="text-gray-800 font-bold text-xl mb-4">Start talking now</h3>
+            <div className="elevenlabs-container w-full">
+              <elevenlabs-convai agent-id="agent_01jvn52jdnfnzt0g6vjwcjghx0"></elevenlabs-convai>
+              <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+            </div>
+            <p className="text-gray-600 text-sm mt-4">
+              By starting, you agree to our terms and privacy policy. This service is completely free to use.
+            </p>
           </div>
         </div>
       </div>

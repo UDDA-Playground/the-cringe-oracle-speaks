@@ -52,6 +52,9 @@ const Header: React.FC = () => {
           <Link to="/party-conversation" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
             Party Conversation
           </Link>
+          <Link to="/youth-mentor" className="font-cabinet font-medium py-1 hover:text-udda-green transition-colors whitespace-nowrap">
+            Youth Mentor
+          </Link>
           <button className="bg-udda-purple text-white font-bold py-2 px-5 rounded-full hover:bg-udda-lavender transition-colors shadow-md whitespace-nowrap">
             Log In
           </button>
@@ -81,6 +84,9 @@ const Header: React.FC = () => {
             </Link>
             <Link to="/party-conversation" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
               Party Conversation
+            </Link>
+            <Link to="/youth-mentor" className="font-cabinet font-medium py-2 hover:text-udda-green transition-colors">
+              Youth Mentor
             </Link>
             <button className="bg-udda-purple text-white font-bold py-2 px-4 rounded-full w-full shadow-md">
               Log In
