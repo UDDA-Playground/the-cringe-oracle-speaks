@@ -56,6 +56,16 @@ const YouthMentor = () => {
     };
     
     logPageView();
+    
+    // This helps remove any floating widget on this page specifically
+    document.querySelectorAll('elevenlabs-convai-button').forEach(widget => {
+      widget.parentNode?.removeChild(widget);
+    });
+    
+    // Ensure the global setting is applied
+    window.ELEVENLABS_CONVAI_SETTINGS = {
+      disableFloatingButton: true
+    };
   }, []);
 
   return (
