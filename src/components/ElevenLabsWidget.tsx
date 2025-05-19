@@ -14,6 +14,16 @@ interface ElevenLabsWidgetProps {
   preventFloatingWidget?: boolean;
 }
 
+type MessageFormat1 = {
+  source: string;
+  message: string;
+};
+
+type MessageFormat2 = {
+  type: string;
+  text: string;
+};
+
 /**
  * A React-friendly wrapper for the ElevenLabs Conversational AI using official @11labs/react package
  */
@@ -126,10 +136,20 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
   const togglePause = () => {
     if (conversation.status === 'connected') {
       if (isPaused) {
-        conversation.resumeSession();
+        conversation.endSession();
+        setTimeout(() => {
+          conversation.startSession({ 
+            agentId,
+            overrides: {
+              agent: {
+                language
+              }
+            }
+          });
+        }, 500);
         setIsPaused(false);
       } else {
-        conversation.pauseSession();
+        conversation.endSession();
         setIsPaused(true);
       }
     }
@@ -141,14 +161,26 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
       if (conversation.status === 'disconnected') {
         await conversation.startSession({ 
           agentId,
-          options: {
-            language
+          overrides: {
+            agent: {
+              language
+            }
           }
         });
         setIsInitialized(true);
         setIsPaused(false);
       } else if (isPaused) {
-        conversation.resumeSession();
+        conversation.endSession();
+        setTimeout(() => {
+          conversation.startSession({ 
+            agentId,
+            overrides: {
+              agent: {
+                language
+              }
+            }
+          });
+        }, 500);
         setIsPaused(false);
       }
     } catch (error) {
@@ -172,15 +204,17 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
       setTimeout(() => {
         conversation.startSession({ 
           agentId,
-          options: {
-            language: newLanguage
+          overrides: {
+            agent: {
+              language: newLanguage
+            }
           }
         });
       }, 500);
     }
   };
 
-  // Initialize the conversation when the component mounts
+  // Initialize the component when it mounts - but don't auto-start
   useEffect(() => {
     if (preventFloatingWidget) {
       // Set global configuration to disable the floating widget
