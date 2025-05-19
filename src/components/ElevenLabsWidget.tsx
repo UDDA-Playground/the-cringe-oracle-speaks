@@ -8,6 +8,7 @@ interface ElevenLabsWidgetProps {
   agentId: string;
   className?: string;
   pageTitle?: string;
+  preventFloatingWidget?: boolean;
 }
 
 /**
@@ -16,7 +17,8 @@ interface ElevenLabsWidgetProps {
 const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({ 
   agentId, 
   className = "",
-  pageTitle
+  pageTitle,
+  preventFloatingWidget = true
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetRef = useRef<HTMLElement | null>(null);
@@ -86,7 +88,7 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
     }
   }, [transcript, sessionId, startTime, agentId, userQueries, aiResponses]);
 
-  // Load script only once
+  // Load script only once and prevent floating widget if specified
   useEffect(() => {
     // Check if script already exists
     const existingScript = document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]');
@@ -96,6 +98,14 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
       script.src = 'https://elevenlabs.io/convai-widget/index.js';
       script.async = true;
       script.type = 'text/javascript';
+      
+      // Prevent the automatic floating widget
+      if (preventFloatingWidget) {
+        // Set global configuration to disable the floating widget
+        window.ELEVENLABS_CONVAI_SETTINGS = {
+          disableFloatingButton: true
+        };
+      }
       
       script.onload = () => {
         setIsScriptLoaded(true);
@@ -114,8 +124,22 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
     } else {
       // Script already exists, mark as loaded
       setIsScriptLoaded(true);
+      
+      // If preventing floating widget, we need to remove any existing ones
+      if (preventFloatingWidget) {
+        // Find and remove any existing floating widgets
+        const floatingWidgets = document.querySelectorAll('elevenlabs-convai-button');
+        floatingWidgets.forEach(widget => {
+          widget.parentNode?.removeChild(widget);
+        });
+        
+        // Set global configuration to disable the floating widget
+        window.ELEVENLABS_CONVAI_SETTINGS = {
+          disableFloatingButton: true
+        };
+      }
     }
-  }, []);
+  }, [preventFloatingWidget]);
 
   // Create and attach the widget after script is loaded
   useEffect(() => {
@@ -163,7 +187,38 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
     };
   }, [saveConversationData]);
 
+  // Add custom CSS to ensure proper z-index and positioning
+  useEffect(() => {
+    // Create a style element for our custom CSS
+    const styleEl = document.createElement('style');
+    styleEl.innerText = `
+      .elevenlabs-widget-container {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+      }
+      elevenlabs-convai {
+        display: block;
+        width: 100%;
+      }
+    `;
+    document.head.appendChild(styleEl);
+    
+    return () => {
+      document.head.removeChild(styleEl);
+    };
+  }, []);
+
   return <div ref={containerRef} className={`elevenlabs-widget-container ${className}`}></div>;
 };
+
+// Add this to the global window object for TypeScript
+declare global {
+  interface Window {
+    ELEVENLABS_CONVAI_SETTINGS?: {
+      disableFloatingButton?: boolean;
+    };
+  }
+}
 
 export default ElevenLabsWidget;
