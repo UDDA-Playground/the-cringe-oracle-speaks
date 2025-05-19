@@ -22,16 +22,16 @@ const ConversationControls: React.FC<ConversationControlsProps> = ({
 }) => {
   return (
     <div className="elevenlabs-controls">
-      <div className="elevenlabs-mic-container">
+      <div className="elevenlabs-mic-container relative">
         <button 
-          className={`elevenlabs-mic-button ${isSpeaking ? 'is-speaking' : ''}`}
+          className={`elevenlabs-mic-button transition-colors duration-300 ${isSpeaking ? 'bg-red-500 hover:bg-red-600 animate-pulse' : 'bg-blue-500 hover:bg-blue-600'}`}
           onClick={onStart}
           aria-label={isSpeaking ? "Pause voice conversation" : "Start voice conversation"}
         >
-          {isSpeaking ? <PauseIcon /> : <MicIcon />}
+          {isSpeaking ? <PauseIcon className="text-white" /> : <MicIcon className="text-white" />}
         </button>
         
-        {isSpeaking && <SoundWaves />}
+        <SoundWaves isActive={isSpeaking} />
       </div>
       
       <div className="elevenlabs-status">

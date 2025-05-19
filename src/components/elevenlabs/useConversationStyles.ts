@@ -3,132 +3,110 @@ import { useEffect } from 'react';
 
 export const useConversationStyles = () => {
   useEffect(() => {
-    const styleEl = document.createElement('style');
-    styleEl.innerText = `
+    // Create a style element
+    const style = document.createElement('style');
+    
+    // Add CSS for ElevenLabs widget
+    style.textContent = `
       .elevenlabs-widget-container {
         position: relative;
-        z-index: 10;
         width: 100%;
-        min-height: 200px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
       }
+      
       .elevenlabs-controls {
-        width: 100%;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 10px;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.5rem;
       }
+      
       .elevenlabs-mic-container {
         position: relative;
         display: flex;
-        justify-content: center;
         align-items: center;
-        margin-bottom: 8px;
+        justify-content: center;
       }
+      
       .elevenlabs-mic-button {
-        background-color: #3B82F6;
-        color: white;
-        border: none;
+        width: 3rem;
+        height: 3rem;
         border-radius: 50%;
-        width: 60px;
-        height: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
+        border: none;
+        color: white;
         cursor: pointer;
         transition: all 0.2s ease;
-        z-index: 2;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
-      .elevenlabs-mic-button:hover {
-        background-color: #2563EB;
-        transform: scale(1.05);
-      }
-      .elevenlabs-mic-button.is-speaking {
-        background-color: #EF4444;
-        animation: pulsate 2s infinite;
-      }
-      .elevenlabs-mic-button svg {
-        width: 24px;
-        height: 24px;
-      }
+      
       .elevenlabs-status {
-        font-size: 14px;
-        color: #4B5563;
-        text-align: center;
+        flex-grow: 1;
+        font-size: 0.9rem;
+        color: #666;
       }
+      
       .elevenlabs-language {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin-top: 10px;
       }
       
-      /* Sound waves animation */
-      .sound-waves-container {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100px;
-        height: 40px;
-        top: -30px;
-      }
-      .sound-wave {
-        background: #3B82F6;
-        height: 100%;
-        width: 3px;
-        border-radius: 10px;
-        margin: 0 2px;
-        animation: sound-wave-animation 1s infinite ease-in-out;
-      }
-      .sound-wave:nth-child(2) {
-        height: 30%;
-        animation-delay: 0.2s;
-      }
-      .sound-wave:nth-child(3) {
-        height: 60%;
-        animation-delay: 0.4s;
-      }
-      .sound-wave:nth-child(4) {
-        height: 40%;
-        animation-delay: 0.6s;
+      .elevenlabs-loading {
+        padding: 1rem;
+        text-align: center;
+        color: #666;
       }
       
-      @keyframes pulsate {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-        }
-        50% {
-          transform: scale(1.05);
-          box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-        }
+      /* Sound wave animations */
+      @keyframes soundwave1 {
+        0% { height: 3px; }
+        50% { height: 15px; }
+        100% { height: 5px; }
       }
       
-      @keyframes sound-wave-animation {
-        0% {
-          height: 10%;
-        }
-        50% {
-          height: 70%;
-        }
-        100% {
-          height: 10%;
-        }
+      @keyframes soundwave2 {
+        0% { height: 5px; }
+        50% { height: 12px; }
+        100% { height: 4px; }
+      }
+      
+      @keyframes soundwave3 {
+        0% { height: 2px; }
+        50% { height: 19px; }
+        100% { height: 3px; }
+      }
+      
+      @keyframes soundwave4 {
+        0% { height: 7px; }
+        50% { height: 10px; }
+        100% { height: 5px; }
+      }
+      
+      .animate-soundwave1 {
+        animation: soundwave1 0.9s infinite ease-in-out alternate;
+      }
+      
+      .animate-soundwave2 {
+        animation: soundwave2 1.2s infinite ease-in-out alternate;
+      }
+      
+      .animate-soundwave3 {
+        animation: soundwave3 0.7s infinite ease-in-out alternate;
+      }
+      
+      .animate-soundwave4 {
+        animation: soundwave4 1s infinite ease-in-out alternate;
       }
     `;
-    document.head.appendChild(styleEl);
     
+    // Add the style to the document head
+    document.head.appendChild(style);
+    
+    // Clean up
     return () => {
-      document.head.removeChild(styleEl);
+      document.head.removeChild(style);
     };
   }, []);
 };
