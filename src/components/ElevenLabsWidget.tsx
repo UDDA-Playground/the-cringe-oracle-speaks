@@ -26,9 +26,7 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
     conversation,
     isInitialized,
     language,
-    isPaused,
     startConversation,
-    togglePause,
     toggleLanguage
   } = useElevenLabsConversation(agentId);
 
@@ -41,10 +39,8 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
         <ConversationControls
           status={conversation.status}
           isSpeaking={conversation.isSpeaking}
-          isPaused={isPaused}
           language={language}
           onStart={startConversation}
-          onTogglePause={togglePause}
           onToggleLanguage={toggleLanguage}
         />
       ) : (

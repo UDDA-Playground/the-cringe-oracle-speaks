@@ -46,7 +46,7 @@ export const useElevenLabsConversation = (agentId: string) => {
     }
   });
 
-  // Start or restart conversation
+  // Start or toggle conversation
   const startConversation = async () => {
     try {
       if (conversation.status === 'disconnected') {
@@ -60,19 +60,9 @@ export const useElevenLabsConversation = (agentId: string) => {
         });
         setIsInitialized(true);
         setIsPaused(false);
-      } else if (isPaused) {
+      } else if (conversation.status === 'connected') {
+        // If already connected, toggle to end the session
         conversation.endSession();
-        setTimeout(() => {
-          conversation.startSession({ 
-            agentId,
-            overrides: {
-              agent: {
-                language
-              }
-            }
-          });
-        }, 500);
-        setIsPaused(false);
       }
     } catch (error) {
       console.error('Failed to start ElevenLabs conversation:', error);
@@ -81,29 +71,6 @@ export const useElevenLabsConversation = (agentId: string) => {
         description: "Could not connect to voice service. Please try again later.",
         variant: "destructive"
       });
-    }
-  };
-
-  // Handle conversation pause/resume
-  const togglePause = () => {
-    if (conversation.status === 'connected') {
-      if (isPaused) {
-        conversation.endSession();
-        setTimeout(() => {
-          conversation.startSession({ 
-            agentId,
-            overrides: {
-              agent: {
-                language
-              }
-            }
-          });
-        }, 500);
-        setIsPaused(false);
-      } else {
-        conversation.endSession();
-        setIsPaused(true);
-      }
     }
   };
 
@@ -146,11 +113,9 @@ export const useElevenLabsConversation = (agentId: string) => {
     conversation,
     isInitialized,
     language,
-    isPaused,
-    transcript,
     startConversation,
-    togglePause,
     toggleLanguage,
-    sessionId
+    sessionId,
+    transcript
   };
 };
