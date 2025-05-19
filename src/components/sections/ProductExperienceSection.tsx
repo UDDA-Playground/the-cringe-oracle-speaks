@@ -51,6 +51,14 @@ const ProductExperienceSection: React.FC = () => {
       color: "bg-purple-100",
       textColor: "text-purple-700",
       buttonVariant: "purple" as const
+    },
+    {
+      title: "Youth Mentor",
+      description: "Evidence-based guidance for young people ages 10-25",
+      path: "/youth-mentor",
+      color: "bg-blue-100",
+      textColor: "text-blue-700",
+      buttonVariant: "blue" as const
     }
   ];
 

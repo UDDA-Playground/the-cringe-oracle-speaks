@@ -14,6 +14,7 @@ import ExCoupleEntanglement from "./pages/ExCoupleEntanglement";
 import ConflictFixer from "./pages/ConflictFixer";
 import Admin from "./pages/Admin";
 import PersonalityTest from "./pages/PersonalityTest";
+import YouthMentor from "./pages/YouthMentor";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/ex-couple-entanglement" element={<ExCoupleEntanglement />} />
           <Route path="/conflict-fixer" element={<ConflictFixer />} />
           <Route path="/personality-test" element={<PersonalityTest />} />
+          <Route path="/youth-mentor" element={<YouthMentor />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

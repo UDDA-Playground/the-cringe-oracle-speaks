@@ -48,21 +48,19 @@ const ConversationsSection: React.FC = () => {
             illustration="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=240&auto=format&fit=crop"
           />
           <ConversationCard 
-            title="Conflict Resolution Test" 
-            description="Assess your conflict resolution style with this AI-powered personality test and get personalized coaching to improve how you handle difficult situations."
-            gradient="bg-gradient-to-br from-blue-400 to-udda-mint"
-            path="/conflict-fixer" 
-            illustration="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?q=80&w=240&auto=format&fit=crop"
+            title="Youth Mentor" 
+            description="Evidence-based AI guidance for ages 10-25, supporting mental well-being, identity formation, and healthy relationships in both English and Swedish."
+            gradient="bg-gradient-to-br from-udda-blue to-blue-300"
+            path="/youth-mentor" 
+            illustration="https://images.unsplash.com/photo-1529390079861-591de354faf5?q=80&w=240&auto=format&fit=crop"
           />
-          <div className="rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300 p-6 flex flex-col items-center justify-center text-center card-hover">
-            <div className="w-16 h-16 rounded-full bg-gray-400 flex items-center justify-center mb-4">
-              <span className="text-white text-3xl">➕</span>
-            </div>
-            <h3 className="text-xl font-cabinet font-bold mb-3">More personality tests coming soon</h3>
-            <p className="text-gray-600 mb-6">
-              We&apos;re developing additional AI personality assessments and coaching tools. Subscribe to get access when they launch.
-            </p>
-          </div>
+          <ConversationCard 
+            title="Weirdness Test" 
+            description="Discover your hidden traits, secret fears, and true motivations through a fun AI voice conversation that's both hilarious and insightful."
+            gradient="bg-gradient-to-br from-purple-500 to-udda-lavender"
+            path="/personality-test" 
+            illustration="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=240&auto=format&fit=crop"
+          />
         </div>
       </div>
     </section>
