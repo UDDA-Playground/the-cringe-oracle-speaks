@@ -52,10 +52,12 @@ export const useSimplifiedMessageHandler = ({
       }
       else if (message.type === 'speaking_started') {
         if (updateSpeakingState) updateSpeakingState(true);
+        if (updateListeningState) updateListeningState(false);
         return false;
       }
       else if (message.type === 'speaking_stopped') {
         if (updateSpeakingState) updateSpeakingState(false);
+        if (updateListeningState) updateListeningState(true);
         return true;
       }
     }

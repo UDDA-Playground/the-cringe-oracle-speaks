@@ -47,7 +47,7 @@ export const useElevenLabsConversation = (
     agentId, 
     userEmail, 
     saveConversationData, 
-    language as Language,
+    (language === 'sv' || language === 'en') ? (language as Language) : 'en',
     onMessageCallback
   );
 

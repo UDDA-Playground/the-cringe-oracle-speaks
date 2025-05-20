@@ -17,7 +17,9 @@ export const useConversationActions = (
   const { language: contextLanguage } = useLanguage();
   
   // Determine which language to use - prop takes precedence, then context
-  const resolvedLanguage = initialLanguage || (contextLanguage as Language) || 'en';
+  const resolvedLanguage = initialLanguage || 
+    ((contextLanguage === 'sv' || contextLanguage === 'en') ? 
+      (contextLanguage as Language) : 'en');
   
   // Set up session state
   const [language, setLanguage] = useState<Language>(resolvedLanguage);
@@ -101,7 +103,8 @@ export const useConversationActions = (
   
   // Update language if context language changes
   useEffect(() => {
-    if (contextLanguage && contextLanguage !== language && (contextLanguage === 'en' || contextLanguage === 'sv')) {
+    if (contextLanguage && contextLanguage !== language && 
+        (contextLanguage === 'en' || contextLanguage === 'sv')) {
       console.log("Language context changed, updating language to:", contextLanguage);
       toggleLanguage(contextLanguage as Language);
     }

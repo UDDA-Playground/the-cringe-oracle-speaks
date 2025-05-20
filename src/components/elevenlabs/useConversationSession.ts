@@ -99,7 +99,8 @@ export const useConversationSession = (
           currentSessionData: {
             agentId,
             language
-          }
+          },
+          language
         }));
         console.log("ElevenLabs session started successfully");
         return true;
@@ -125,6 +126,7 @@ export const useConversationSession = (
 
   // Update language setting
   const updateLanguage = useCallback((newLanguage: Language) => {
+    console.log("Updating conversation language to:", newLanguage);
     setState(prev => ({ ...prev, language: newLanguage }));
   }, []);
 

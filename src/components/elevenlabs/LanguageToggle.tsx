@@ -24,6 +24,11 @@ const LanguageToggle: React.FC<LanguageToggleProps> = ({ language, onToggle }) =
     { code: 'sv', label: 'Svenska' }
   ];
 
+  const handleLanguageToggle = (lang: Language) => {
+    console.log(`Toggling language to: ${lang}`);
+    onToggle(lang);
+  };
+
   return (
     <div className="elevenlabs-language">
       <DropdownMenu>
@@ -42,7 +47,7 @@ const LanguageToggle: React.FC<LanguageToggleProps> = ({ language, onToggle }) =
           {languageOptions.map((option) => (
             <DropdownMenuItem 
               key={option.code}
-              onClick={() => onToggle(option.code)}
+              onClick={() => handleLanguageToggle(option.code)}
               className={language === option.code ? "font-bold" : ""}
             >
               {option.label}

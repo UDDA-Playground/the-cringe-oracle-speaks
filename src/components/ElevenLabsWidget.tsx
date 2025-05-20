@@ -46,6 +46,7 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
 
   // Set a timeout to show a message if initialization takes too long
   useEffect(() => {
+    console.log("ElevenLabsWidget initialization status:", isInitialized, "connectionInProgress:", voicePlayerState.connectionInProgress);
     const timer = setTimeout(() => {
       if (!isInitialized && !voicePlayerState.connectionInProgress) {
         console.log("ElevenLabs initialization timed out");
@@ -54,14 +55,17 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
     }, 8000);
 
     return () => clearTimeout(timer);
-  }, [isInitialized, voicePlayerState.connectionInProgress]);
+  }, [isInitialized, voicePlayerState]);
 
   // Reset initialization state when successfully initialized
   useEffect(() => {
     if (isInitialized) {
       voicePlayerState.resetInitState();
+      
+      // Ensure connection state is updated
+      voicePlayerState.setConnectionInProgress(false);
     }
-  }, [isInitialized]);
+  }, [isInitialized, voicePlayerState]);
 
   // Handle manual retry
   const handleRetry = () => {
@@ -80,7 +84,7 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
   const containerClasses = `elevenlabs-widget-container ${className}`;
 
   return (
-    <div className={containerClasses}>
+    <div className={containerClasses} data-language={language}>
       {isInitialized ? (
         <ConversationControls
           status={conversation.status}
@@ -120,7 +124,13 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
             : 
             voicePlayerState.connectionInProgress ? 
             "Initializing voice conversation..." : 
-            "Click to initialize conversation"
+            <Button 
+              variant="outline"
+              className="bg-blue-500 text-white hover:bg-blue-600"
+              onClick={startConversation}
+            >
+              Start Conversation
+            </Button>
           }
         </div>
       )}
