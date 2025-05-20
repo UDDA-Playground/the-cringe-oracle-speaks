@@ -22,48 +22,35 @@ export const useElevenLabsConversation = (agentId: string, email?: string) => {
   // Create message handler
   const { handleMessage } = useMessageHandler(trackUserMessage, trackAssistantMessage);
 
-  // Get conversation actions with current language from context
-  const conversationState = useConversationActions(agentId, userEmail, saveConversationData, language as Language);
-  
-  // Configure onMessage handler
-  useEffect(() => {
-    if (conversationState.conversation) {
-      console.log("Setting up ElevenLabs conversation message handler");
-      
-      // Store the conversation object for event handling
-      const conv = conversationState.conversation;
-      
-      // Set up event handlers if they don't exist already
-      if (!conv._eventHandlers) {
-        conv._eventHandlers = {};
+  // Setup message handler callback for conversation actions
+  const onMessageCallback = useCallback((message: any) => {
+    console.log("ElevenLabs message received:", message);
+    
+    // Process the message
+    handleMessage(message);
+    
+    // Update listening state based on message source
+    if (message && typeof message === 'object' && 'source' in message) {
+      if (message.source === 'user') {
+        // User is speaking
+        return true; // Return true to indicate listening state should be active
+      } else if (message.source === 'assistant') {
+        // Assistant is speaking
+        return false; // Return false to indicate listening state should be inactive
       }
-      
-      // Store existing handlers
-      const existingOnMessage = conv._eventHandlers.onMessage;
-      
-      // Set up new message handler
-      conv._eventHandlers.onMessage = (message: any) => {
-        console.log("ElevenLabs message received:", message);
-        
-        // Call existing handler if available
-        if (existingOnMessage) {
-          existingOnMessage(message);
-        }
-        
-        // Process the message
-        handleMessage(message);
-        
-        // Update listening state based on message source
-        if (message && typeof message === 'object' && 'source' in message) {
-          if (message.source === 'user') {
-            conversationState.toggleListeningState(true);
-          } else if (message.source === 'assistant') {
-            conversationState.toggleListeningState(false);
-          }
-        }
-      };
     }
-  }, [conversationState.conversation, handleMessage, conversationState.toggleListeningState]);
+    // Default return
+    return undefined;
+  }, [handleMessage]);
+
+  // Get conversation actions with current language from context and our message handler
+  const conversationState = useConversationActions(
+    agentId, 
+    userEmail, 
+    saveConversationData, 
+    language as Language,
+    onMessageCallback
+  );
 
   // Auto-start the conversation when the component mounts
   useEffect(() => {

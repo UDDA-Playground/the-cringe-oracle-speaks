@@ -7,7 +7,8 @@ import { ConversationState, SessionConfig, ConversationEventHandlers } from './c
 export const useConversationSession = (
   agentId: string,
   onConnect?: () => void,
-  onDisconnect?: () => void
+  onDisconnect?: () => void,
+  onMessage?: (message: any) => boolean | undefined
 ) => {
   const [state, setState] = useState<ConversationState>({
     isInitialized: false,
@@ -32,6 +33,17 @@ export const useConversationSession = (
     onError: (error) => {
       console.error("ElevenLabs conversation error:", error);
       setState(prev => ({ ...prev, isInitialized: false }));
+    },
+    onMessage: (message) => {
+      // If there's a custom message handler, use it
+      if (onMessage) {
+        const shouldListen = onMessage(message);
+        
+        // Update listening state if the handler returns a boolean
+        if (typeof shouldListen === 'boolean') {
+          setState(prev => ({ ...prev, isListening: shouldListen }));
+        }
+      }
     }
   };
 

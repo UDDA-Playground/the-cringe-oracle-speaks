@@ -8,7 +8,8 @@ export const useConversationActions = (
   agentId: string, 
   userEmail?: string,
   onEndSession?: () => void,
-  initialLanguage?: Language
+  initialLanguage?: Language,
+  onMessage?: (message: any) => boolean | undefined
 ) => {
   const { language: contextLanguage } = useLanguage();
   
@@ -21,14 +22,19 @@ export const useConversationActions = (
   const [isPaused, setIsPaused] = useState(false);
   const [initializationAttempt, setInitializationAttempt] = useState(0);
   
-  // Initialize conversation session
+  // Initialize conversation session with event handlers
   const {
     conversation,
     state,
     startSession,
     endSession,
     updateLanguage
-  } = useConversationSession(agentId, () => setIsListening(true), () => setIsListening(false));
+  } = useConversationSession(
+    agentId, 
+    () => setIsListening(true), 
+    () => setIsListening(false),
+    onMessage
+  );
   
   // Start the conversation
   const startConversation = useCallback(async () => {
