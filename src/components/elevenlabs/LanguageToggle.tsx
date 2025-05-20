@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { GlobeIcon, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Language } from './types';
+import { useLanguage } from '@/context/LanguageContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +17,8 @@ interface LanguageToggleProps {
 }
 
 const LanguageToggle: React.FC<LanguageToggleProps> = ({ language, onToggle }) => {
+  const { t } = useLanguage();
+  
   const languageOptions: {code: Language, label: string}[] = [
     { code: 'en', label: 'English' },
     { code: 'sv', label: 'Svenska' }

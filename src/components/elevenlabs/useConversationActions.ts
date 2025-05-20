@@ -1,96 +1,93 @@
 
-import { useCallback, useState } from 'react';
-import { toast } from '@/hooks/use-toast';
-import { Language } from './types';
+import { useState, useCallback, useEffect } from 'react';
 import { useConversationSession } from './useConversationSession';
+import { Language } from './types';
+import { useLanguage } from '@/context/LanguageContext';
 
 export const useConversationActions = (
   agentId: string, 
-  email?: string,
-  saveConversationData?: (email?: string) => void
+  userEmail?: string,
+  onEndSession?: () => void,
+  initialLanguage?: Language
 ) => {
-  const [isListening, setIsListening] = useState(false);
+  const { language: contextLanguage } = useLanguage();
   
-  // Get the conversation session utilities
+  // Determine which language to use - prop takes precedence, then context
+  const resolvedLanguage = initialLanguage || (contextLanguage as Language) || 'en';
+  
+  // Set up session state
+  const [language, setLanguage] = useState<Language>(resolvedLanguage);
+  const [isListening, setIsListening] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  
+  // Initialize conversation session
   const {
     conversation,
     state,
     startSession,
     endSession,
-    updateLanguage,
-    togglePause
-  } = useConversationSession(
-    agentId, 
-    undefined, // onConnect
-    () => {
-      // Save conversation data when the session ends
-      if (saveConversationData) {
-        saveConversationData(email);
-      }
-      
-      // If email was provided, show a toast
-      if (email && email.trim() !== '') {
-        toast({
-          title: "Conversation summary",
-          description: "A summary of your conversation will be sent to your email shortly.",
-        });
-      }
-    } // onDisconnect
-  );
-
-  // Toggle listening state
-  const toggleListeningState = useCallback((newState: boolean) => {
-    setIsListening(newState);
-  }, []);
-
-  // Start or toggle conversation
+    updateLanguage
+  } = useConversationSession(agentId, () => setIsListening(true), () => setIsListening(false));
+  
+  // Start the conversation
   const startConversation = useCallback(async () => {
     try {
-      if (conversation.status === 'disconnected') {
-        await startSession(state.language);
-      } else if (conversation.status === 'connected') {
-        if (conversation.isSpeaking) {
-          // If currently speaking, end the session since we can't pause
-          endSession();
-          togglePause();
-        } else if (state.isPaused) {
-          // If paused, start a new session
-          await startSession(state.language);
-          togglePause();
-        } else {
-          // Otherwise, end the session
-          endSession();
-        }
-      }
+      await startSession(language);
     } catch (error) {
-      console.error('Failed to start ElevenLabs conversation:', error);
-      toast({
-        title: "Connection error",
-        description: "Could not connect to voice service. Please try again later.",
-        variant: "destructive"
-      });
+      console.error("Failed to start conversation:", error);
     }
-  }, [conversation.status, conversation.isSpeaking, state.isPaused, state.language, startSession, endSession, togglePause]);
-
-  // Switch language
+  }, [startSession, language]);
+  
+  // End the conversation
+  const stopConversation = useCallback(() => {
+    endSession();
+    setIsListening(false);
+    if (onEndSession) {
+      onEndSession();
+    }
+  }, [endSession, onEndSession]);
+  
+  // Toggle the conversation language
   const toggleLanguage = useCallback((newLanguage: Language) => {
+    setLanguage(newLanguage);
     updateLanguage(newLanguage);
     
-    // If conversation is active, restart it with new language
-    if (conversation.status === 'connected') {
+    // If conversation is already active, restart with new language
+    if (state.isInitialized) {
       endSession();
       setTimeout(() => {
         startSession(newLanguage);
       }, 500);
     }
-  }, [conversation.status, updateLanguage, endSession, startSession]);
-
+  }, [endSession, startSession, state.isInitialized, updateLanguage]);
+  
+  // Toggle listening state for UI updates
+  const toggleListeningState = useCallback((listening: boolean) => {
+    setIsListening(listening);
+  }, []);
+  
+  // Toggle pause state
+  const togglePause = useCallback(() => {
+    setIsPaused(prev => !prev);
+  }, []);
+  
+  // Update language if context language changes
+  useEffect(() => {
+    if (contextLanguage && contextLanguage !== language && (contextLanguage === 'en' || contextLanguage === 'sv')) {
+      toggleLanguage(contextLanguage as Language);
+    }
+  }, [contextLanguage, language, toggleLanguage]);
+  
   return {
     conversation,
-    ...state,
+    isInitialized: state.isInitialized,
     isListening,
+    isPaused,
+    language,
     startConversation,
+    stopConversation,
     toggleLanguage,
-    toggleListeningState
+    toggleListeningState,
+    togglePause
   };
 };

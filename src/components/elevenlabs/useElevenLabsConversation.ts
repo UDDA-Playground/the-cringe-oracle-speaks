@@ -4,10 +4,12 @@ import { useConversationAnalytics } from './useConversationAnalytics';
 import { useMessageHandler } from './useMessageHandler';
 import { useConversationActions } from './useConversationActions';
 import { Language } from './types';
+import { useLanguage } from '@/context/LanguageContext';
 
 export const useElevenLabsConversation = (agentId: string, email?: string) => {
   const [userEmail, setUserEmail] = useState<string | undefined>(email);
-
+  const { language } = useLanguage();
+  
   // Use the analytics hook
   const {
     sessionId,
@@ -20,8 +22,8 @@ export const useElevenLabsConversation = (agentId: string, email?: string) => {
   // Create message handler
   const { handleMessage } = useMessageHandler(trackUserMessage, trackAssistantMessage);
 
-  // Get conversation actions
-  const conversationState = useConversationActions(agentId, userEmail, saveConversationData);
+  // Get conversation actions with current language from context
+  const conversationState = useConversationActions(agentId, userEmail, saveConversationData, language as Language);
   
   // Configure onMessage handler
   useEffect(() => {
