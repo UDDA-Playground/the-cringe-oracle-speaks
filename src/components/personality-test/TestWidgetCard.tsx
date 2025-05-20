@@ -28,7 +28,10 @@ const TestWidgetCard: React.FC = () => {
       
       {/* ElevenLabs widget - using the specified agent ID for the personality test */}
       <div className="mb-4">
-        <ElevenLabsWidget agentId="agent_01jvnb0nvbezg8btbfwdrgffqp" />
+        <ElevenLabsWidget 
+          agentId="agent_01jvnb0nvbezg8btbfwdrgffqp" 
+          accentColor="purple"
+        />
       </div>
       
       <p className="text-xs text-gray-500">

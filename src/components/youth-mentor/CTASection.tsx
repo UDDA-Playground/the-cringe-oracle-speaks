@@ -19,6 +19,7 @@ const CTASection: React.FC = () => {
               <ElevenLabsWidget 
                 agentId="agent_01jvn52jdnfnzt0g6vjwcjghx0" 
                 preventFloatingWidget={true}
+                accentColor="blue"
               />
             </div>
             <p className="text-gray-600 text-sm mt-4">

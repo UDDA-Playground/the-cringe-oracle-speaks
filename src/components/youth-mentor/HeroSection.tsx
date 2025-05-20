@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Brain, Heart, Users } from 'lucide-react';
@@ -79,6 +80,7 @@ const HeroSection: React.FC = () => {
                     <ElevenLabsWidget 
                       agentId="agent_01jvn52jdnfnzt0g6vjwcjghx0" 
                       preventFloatingWidget={true} 
+                      accentColor="blue"
                     />
                   </div>
                   

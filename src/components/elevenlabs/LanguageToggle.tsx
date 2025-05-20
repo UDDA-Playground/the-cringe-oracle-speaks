@@ -1,26 +1,52 @@
 
-import React from 'react';
-import { GlobeIcon } from 'lucide-react';
+import React, { useState } from 'react';
+import { GlobeIcon, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Language } from './types';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface LanguageToggleProps {
   language: Language;
-  onToggle: () => void;
+  onToggle: (lang: Language) => void;
 }
 
 const LanguageToggle: React.FC<LanguageToggleProps> = ({ language, onToggle }) => {
+  const languageOptions: {code: Language, label: string}[] = [
+    { code: 'en', label: 'English' },
+    { code: 'sv', label: 'Svenska' }
+  ];
+
   return (
     <div className="elevenlabs-language">
-      <Button 
-        variant="outline" 
-        size="sm" 
-        onClick={onToggle}
-        className="flex items-center gap-2"
-      >
-        <GlobeIcon size={16} />
-        {language === 'en' ? 'English' : 'Svenska'}
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex items-center gap-1"
+          >
+            <GlobeIcon size={16} className="mr-1" />
+            {language === 'en' ? 'English' : 'Svenska'}
+            <ChevronDown size={14} />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="bg-white">
+          {languageOptions.map((option) => (
+            <DropdownMenuItem 
+              key={option.code}
+              onClick={() => onToggle(option.code)}
+              className={language === option.code ? "font-bold" : ""}
+            >
+              {option.label}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };

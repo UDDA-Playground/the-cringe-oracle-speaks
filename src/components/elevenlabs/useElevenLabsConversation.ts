@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useConversation } from '@11labs/react';
 import { toast } from '@/hooks/use-toast';
@@ -6,10 +5,16 @@ import { Language } from './types';
 import { useConversationAnalytics } from './useConversationAnalytics';
 import { useMessageHandler } from './useMessageHandler';
 
-export const useElevenLabsConversation = (agentId: string) => {
+export const useElevenLabsConversation = (agentId: string, email?: string) => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [language, setLanguage] = useState<Language>('en');
   const [isPaused, setIsPaused] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [currentSessionData, setCurrentSessionData] = useState<{
+    agentId: string;
+    language: Language;
+    email?: string;
+  } | null>(null);
 
   // Use the analytics hook
   const {
@@ -30,7 +35,19 @@ export const useElevenLabsConversation = (agentId: string) => {
         language
       }
     },
-    onMessage: handleMessage,
+    onMessage: (message) => {
+      // When receiving any message, the system is active
+      if (message.role === 'user' && message.content) {
+        setIsListening(true);
+      }
+      
+      // When AI is responding, we're not listening anymore
+      if (message.role === 'assistant' && message.content) {
+        setIsListening(false);
+      }
+      
+      handleMessage(message);
+    },
     onError: (error) => {
       console.error('ElevenLabs conversation error:', error);
       toast({
@@ -39,10 +56,22 @@ export const useElevenLabsConversation = (agentId: string) => {
         variant: "destructive"
       });
     },
+    onConnect: () => {
+      setIsListening(true);
+    },
     onDisconnect: () => {
       // Save conversation data when the session ends
-      saveConversationData();
+      saveConversationData(email);
       setIsPaused(false);
+      setIsListening(false);
+      
+      // If email was provided, show a toast
+      if (email && email.trim() !== '') {
+        toast({
+          title: "Conversation summary",
+          description: "A summary of your conversation will be sent to your email shortly.",
+        });
+      }
     }
   });
 
@@ -50,19 +79,40 @@ export const useElevenLabsConversation = (agentId: string) => {
   const startConversation = async () => {
     try {
       if (conversation.status === 'disconnected') {
-        await conversation.startSession({ 
+        const sessionConfig = { 
           agentId,
           overrides: {
             agent: {
               language
             }
           }
+        };
+        
+        await conversation.startSession(sessionConfig);
+        setCurrentSessionData({
+          agentId,
+          language,
+          email
         });
         setIsInitialized(true);
         setIsPaused(false);
+        setIsListening(true);
       } else if (conversation.status === 'connected') {
-        // If already connected, toggle to end the session
-        conversation.endSession();
+        if (conversation.isSpeaking) {
+          // If currently speaking, pause the conversation
+          conversation.pause();
+          setIsPaused(true);
+          setIsListening(false);
+        } else if (isPaused) {
+          // If paused, resume
+          conversation.resume();
+          setIsPaused(false);
+          setIsListening(true);
+        } else {
+          // Otherwise, end the session
+          conversation.endSession();
+          setIsListening(false);
+        }
       }
     } catch (error) {
       console.error('Failed to start ElevenLabs conversation:', error);
@@ -75,8 +125,7 @@ export const useElevenLabsConversation = (agentId: string) => {
   };
 
   // Switch language
-  const toggleLanguage = () => {
-    const newLanguage = language === 'en' ? 'sv' : 'en';
+  const toggleLanguage = (newLanguage: Language) => {
     setLanguage(newLanguage);
     
     // If conversation is active, restart it with new language
@@ -104,15 +153,46 @@ export const useElevenLabsConversation = (agentId: string) => {
       // Clean up the conversation on unmount
       if (conversation.status === 'connected') {
         conversation.endSession();
-        saveConversationData();
+        saveConversationData(email);
       }
     };
   }, [agentId]);
+
+  // Update conversation parameters when they change
+  useEffect(() => {
+    if (currentSessionData && 
+        (currentSessionData.language !== language || 
+         currentSessionData.email !== email)) {
+      
+      // Only restart if actually connected and parameters changed
+      if (conversation.status === 'connected') {
+        conversation.endSession();
+        setTimeout(() => {
+          conversation.startSession({ 
+            agentId,
+            overrides: {
+              agent: {
+                language
+              }
+            }
+          });
+          
+          setCurrentSessionData({
+            agentId, 
+            language,
+            email
+          });
+        }, 500);
+      }
+    }
+  }, [language, email]);
 
   return {
     conversation,
     isInitialized,
     language,
+    isPaused,
+    isListening,
     startConversation,
     toggleLanguage,
     sessionId,

@@ -24,6 +24,7 @@ const CTASection: React.FC = () => {
                 agentId="CnBwaAX2hXt5v2L6m8g3" 
                 pageTitle="Self Discovery" 
                 className="w-full"
+                accentColor="green"
               />
             </div>
             

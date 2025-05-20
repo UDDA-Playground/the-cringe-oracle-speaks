@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useElevenLabsConversation } from './elevenlabs/useElevenLabsConversation';
 import { useConversationStyles } from './elevenlabs/useConversationStyles';
 import { useFloatingWidgetConfig } from './elevenlabs/useFloatingWidgetConfig';
@@ -13,7 +13,8 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
   agentId, 
   className = "",
   pageTitle,
-  preventFloatingWidget = true
+  preventFloatingWidget = true,
+  accentColor = "blue" // Default accent color, can be overridden per page
 }) => {
   // Apply CSS styles
   useConversationStyles();
@@ -21,14 +22,19 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
   // Configure floating widget
   useFloatingWidgetConfig(preventFloatingWidget);
   
+  // State for email
+  const [email, setEmail] = useState("");
+  
   // Get conversation management
   const {
     conversation,
     isInitialized,
     language,
     startConversation,
-    toggleLanguage
-  } = useElevenLabsConversation(agentId);
+    toggleLanguage,
+    isPaused,
+    isListening
+  } = useElevenLabsConversation(agentId, email);
 
   // CSS classes for the container
   const containerClasses = `elevenlabs-widget-container ${className}`;
@@ -39,9 +45,14 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
         <ConversationControls
           status={conversation.status}
           isSpeaking={conversation.isSpeaking}
+          isListening={isListening}
+          isPaused={isPaused}
           language={language}
+          accentColor={accentColor}
           onStart={startConversation}
           onToggleLanguage={toggleLanguage}
+          email={email}
+          onEmailChange={setEmail}
         />
       ) : (
         <div className="elevenlabs-loading">Initializing voice conversation...</div>
