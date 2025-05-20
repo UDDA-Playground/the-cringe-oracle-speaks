@@ -25,6 +25,13 @@ export const useMessageHandler = (
       } else if (typedMessage.type === 'llm_response' && 'text' in typedMessage) {
         trackAssistantMessage(typedMessage.text as string);
       }
+    } else if (message && 'role' in message) {
+      // Format 3: { role: string, content: string }
+      if (message.role === 'user' && message.content) {
+        trackUserMessage(message.content);
+      } else if (message.role === 'assistant' && message.content) {
+        trackAssistantMessage(message.content);
+      }
     }
   };
 

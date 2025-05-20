@@ -48,7 +48,7 @@ export const useConversationAnalytics = (agentId: string) => {
       };
 
       const { error } = await supabase
-        .from('conversation_logs')
+        .from('ai_conversations')  // Using existing table instead of 'conversation_logs'
         .insert([conversationData]);
 
       if (error) {

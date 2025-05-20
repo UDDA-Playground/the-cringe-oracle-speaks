@@ -63,9 +63,10 @@ const YouthMentor = () => {
     });
     
     // Ensure the global setting is applied
-    window.ELEVENLABS_CONVAI_SETTINGS = {
-      disableFloatingButton: true
-    };
+    if (window.ELEVENLABS_CONVAI_SETTINGS === undefined) {
+      window.ELEVENLABS_CONVAI_SETTINGS = {};
+    }
+    window.ELEVENLABS_CONVAI_SETTINGS.disableFloatingButton = true;
   }, []);
 
   return (

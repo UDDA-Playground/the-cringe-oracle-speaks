@@ -37,13 +37,14 @@ export const useElevenLabsConversation = (agentId: string, email?: string) => {
     },
     onMessage: (message) => {
       // When receiving any message, the system is active
-      if (message.role === 'user' && message.content) {
-        setIsListening(true);
-      }
-      
-      // When AI is responding, we're not listening anymore
-      if (message.role === 'assistant' && message.content) {
-        setIsListening(false);
+      if (message && typeof message === 'object') {
+        if ('source' in message) {
+          if (message.source === 'user') {
+            setIsListening(true);
+          } else if (message.source === 'assistant') {
+            setIsListening(false);
+          }
+        }
       }
       
       handleMessage(message);
@@ -99,13 +100,21 @@ export const useElevenLabsConversation = (agentId: string, email?: string) => {
         setIsListening(true);
       } else if (conversation.status === 'connected') {
         if (conversation.isSpeaking) {
-          // If currently speaking, pause the conversation
-          conversation.pause();
+          // If currently speaking, end the session since we can't pause
+          conversation.endSession();
           setIsPaused(true);
           setIsListening(false);
         } else if (isPaused) {
-          // If paused, resume
-          conversation.resume();
+          // If paused, start a new session
+          const sessionConfig = { 
+            agentId,
+            overrides: {
+              agent: {
+                language
+              }
+            }
+          };
+          await conversation.startSession(sessionConfig);
           setIsPaused(false);
           setIsListening(true);
         } else {
