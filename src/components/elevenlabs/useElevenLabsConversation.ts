@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useConversationAnalytics } from './useConversationAnalytics';
 import { useMessageHandler } from './useMessageHandler';
 import { useConversationActions } from './useConversationActions';
@@ -28,38 +28,56 @@ export const useElevenLabsConversation = (agentId: string, email?: string) => {
   // Configure onMessage handler
   useEffect(() => {
     if (conversationState.conversation) {
-      // Attach the message handler to the conversation
-      const eventHandlers = conversationState.conversation['_eventHandlers'] || {};
+      console.log("Setting up ElevenLabs conversation message handler");
       
-      // Store existing handlers if any
-      const existingOnMessage = eventHandlers.onMessage;
+      // Store the conversation object for event handling
+      const conv = conversationState.conversation;
+      
+      // Set up event handlers if they don't exist already
+      if (!conv._eventHandlers) {
+        conv._eventHandlers = {};
+      }
+      
+      // Store existing handlers
+      const existingOnMessage = conv._eventHandlers.onMessage;
       
       // Set up new message handler
-      conversationState.conversation['_eventHandlers'] = {
-        ...eventHandlers,
-        onMessage: (message: any) => {
-          // Call existing handler if available
-          if (existingOnMessage) {
-            existingOnMessage(message);
-          }
-          
-          // Process the message
-          handleMessage(message);
-          
-          // When receiving any message, update listening state based on message source
-          if (message && typeof message === 'object' && 'source' in message) {
-            if (message.source === 'user') {
-              // Update state manually since we can't directly modify conversation object
-              conversationState.toggleListeningState(true);
-            } else if (message.source === 'assistant') {
-              // Update state manually since we can't directly modify conversation object
-              conversationState.toggleListeningState(false);
-            }
+      conv._eventHandlers.onMessage = (message: any) => {
+        console.log("ElevenLabs message received:", message);
+        
+        // Call existing handler if available
+        if (existingOnMessage) {
+          existingOnMessage(message);
+        }
+        
+        // Process the message
+        handleMessage(message);
+        
+        // Update listening state based on message source
+        if (message && typeof message === 'object' && 'source' in message) {
+          if (message.source === 'user') {
+            conversationState.toggleListeningState(true);
+          } else if (message.source === 'assistant') {
+            conversationState.toggleListeningState(false);
           }
         }
       };
     }
   }, [conversationState.conversation, handleMessage, conversationState.toggleListeningState]);
+
+  // Auto-start the conversation when the component mounts
+  useEffect(() => {
+    const initTimeout = setTimeout(() => {
+      if (!conversationState.isInitialized && conversationState.conversation) {
+        console.log("Auto-starting conversation after delay");
+        conversationState.startConversation().catch(err => {
+          console.error("Failed to auto-start conversation:", err);
+        });
+      }
+    }, 1000);
+    
+    return () => clearTimeout(initTimeout);
+  }, [conversationState]);
 
   // Update email when prop changes
   useEffect(() => {

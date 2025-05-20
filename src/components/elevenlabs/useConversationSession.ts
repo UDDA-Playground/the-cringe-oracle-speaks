@@ -20,15 +20,18 @@ export const useConversationSession = (
   // Set up conversation event handlers
   const eventHandlers: ConversationEventHandlers = {
     onConnect: () => {
+      console.log("ElevenLabs conversation connected");
       setState(prev => ({ ...prev, isInitialized: true, isListening: true }));
       if (onConnect) onConnect();
     },
     onDisconnect: () => {
+      console.log("ElevenLabs conversation disconnected");
       setState(prev => ({ ...prev, isPaused: false, isListening: false }));
       if (onDisconnect) onDisconnect();
     },
     onError: (error) => {
       console.error("ElevenLabs conversation error:", error);
+      setState(prev => ({ ...prev, isInitialized: false }));
     }
   };
 
@@ -38,6 +41,7 @@ export const useConversationSession = (
   // Configure and start a session
   const startSession = useCallback(async (language: Language) => {
     try {
+      console.log("Starting ElevenLabs session with language:", language);
       if (conversation.status === 'disconnected') {
         const sessionConfig: SessionConfig = { 
           agentId,
@@ -59,15 +63,20 @@ export const useConversationSession = (
             language
           }
         }));
+        console.log("ElevenLabs session started successfully");
+      } else {
+        console.log("ElevenLabs session already connected:", conversation.status);
       }
     } catch (error) {
       console.error('Failed to start ElevenLabs conversation:', error);
+      setState(prev => ({ ...prev, isInitialized: false }));
       throw error;
     }
   }, [agentId, conversation]);
 
   // End the current session
   const endSession = useCallback(() => {
+    console.log("Ending ElevenLabs session");
     if (conversation.status === 'connected') {
       conversation.endSession();
       setState(prev => ({ ...prev, isListening: false }));

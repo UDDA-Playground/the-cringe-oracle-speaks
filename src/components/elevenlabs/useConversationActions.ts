@@ -19,6 +19,7 @@ export const useConversationActions = (
   const [language, setLanguage] = useState<Language>(resolvedLanguage);
   const [isListening, setIsListening] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [initializationAttempt, setInitializationAttempt] = useState(0);
   
   // Initialize conversation session
   const {
@@ -31,15 +32,21 @@ export const useConversationActions = (
   
   // Start the conversation
   const startConversation = useCallback(async () => {
+    console.log("Starting conversation with language:", language);
+    setInitializationAttempt(prev => prev + 1);
+    
     try {
       await startSession(language);
+      return true;
     } catch (error) {
       console.error("Failed to start conversation:", error);
+      return false;
     }
-  }, [startSession, language]);
+  }, [startSession, language, initializationAttempt]);
   
   // End the conversation
   const stopConversation = useCallback(() => {
+    console.log("Stopping conversation");
     endSession();
     setIsListening(false);
     if (onEndSession) {
@@ -49,6 +56,7 @@ export const useConversationActions = (
   
   // Toggle the conversation language
   const toggleLanguage = useCallback((newLanguage: Language) => {
+    console.log("Toggling language to:", newLanguage);
     setLanguage(newLanguage);
     updateLanguage(newLanguage);
     
@@ -56,7 +64,9 @@ export const useConversationActions = (
     if (state.isInitialized) {
       endSession();
       setTimeout(() => {
-        startSession(newLanguage);
+        startSession(newLanguage).catch(err => {
+          console.error("Failed to restart session with new language:", err);
+        });
       }, 500);
     }
   }, [endSession, startSession, state.isInitialized, updateLanguage]);
@@ -74,6 +84,7 @@ export const useConversationActions = (
   // Update language if context language changes
   useEffect(() => {
     if (contextLanguage && contextLanguage !== language && (contextLanguage === 'en' || contextLanguage === 'sv')) {
+      console.log("Language context changed, updating language to:", contextLanguage);
       toggleLanguage(contextLanguage as Language);
     }
   }, [contextLanguage, language, toggleLanguage]);

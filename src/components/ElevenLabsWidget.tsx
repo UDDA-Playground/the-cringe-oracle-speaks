@@ -5,6 +5,7 @@ import { useConversationStyles } from './elevenlabs/useConversationStyles';
 import { useFloatingWidgetConfig } from './elevenlabs/useFloatingWidgetConfig';
 import ConversationControls from './elevenlabs/ConversationControls';
 import { ElevenLabsWidgetProps } from './elevenlabs/types';
+import { Button } from '@/components/ui/button';
 
 /**
  * A React-friendly wrapper for the ElevenLabs Conversational AI using official @11labs/react package
@@ -27,6 +28,7 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
   
   // State for initialization timeout
   const [initTimedOut, setInitTimedOut] = useState(false);
+  const [initAttempts, setInitAttempts] = useState(0);
   
   // Get conversation management
   const {
@@ -43,12 +45,35 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!isInitialized) {
+        console.log("ElevenLabs initialization timed out");
         setInitTimedOut(true);
       }
     }, 5000);
 
     return () => clearTimeout(timer);
   }, [isInitialized]);
+
+  // Reset initialization state when successfully initialized
+  useEffect(() => {
+    if (isInitialized) {
+      setInitTimedOut(false);
+      setInitAttempts(0);
+    }
+  }, [isInitialized]);
+
+  // Handle manual retry
+  const handleRetry = () => {
+    setInitAttempts(prev => prev + 1);
+    setInitTimedOut(false);
+    
+    console.log("Manually retrying ElevenLabs initialization");
+    
+    // Attempt to start conversation again
+    startConversation().catch(err => {
+      console.error("Retry failed:", err);
+      setInitTimedOut(true);
+    });
+  };
 
   // CSS classes for the container
   const containerClasses = `elevenlabs-widget-container ${className}`;
@@ -73,12 +98,22 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
           {initTimedOut ? 
             <div>
               <p>Voice conversation initialization is taking longer than expected.</p>
-              <button 
-                className="mt-2 bg-blue-500 text-white px-3 py-1 rounded-md"
-                onClick={() => window.location.reload()}
-              >
-                Refresh Page
-              </button>
+              <div className="flex gap-2 mt-2">
+                <Button 
+                  variant="outline"
+                  className="bg-blue-500 text-white hover:bg-blue-600"
+                  onClick={handleRetry}
+                >
+                  Try Again
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="text-gray-700"
+                  onClick={() => window.location.reload()}
+                >
+                  Refresh Page
+                </Button>
+              </div>
             </div>
             : 
             "Initializing voice conversation..."
