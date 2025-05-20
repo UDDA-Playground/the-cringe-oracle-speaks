@@ -1,12 +1,19 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useConversationAnalytics } from './useConversationAnalytics';
-import { useMessageHandler } from './useMessageHandler';
+import { useSimplifiedMessageHandler } from './useSimplifiedMessageHandler';
 import { useConversationActions } from './useConversationActions';
 import { Language } from './types';
 import { useLanguage } from '@/context/LanguageContext';
 
-export const useElevenLabsConversation = (agentId: string, email?: string) => {
+/**
+ * Main hook for ElevenLabs conversation handling
+ */
+export const useElevenLabsConversation = (
+  agentId: string, 
+  email?: string,
+  updateListeningState?: (isListening: boolean) => void
+) => {
   const [userEmail, setUserEmail] = useState<string | undefined>(email);
   const { language } = useLanguage();
   
@@ -19,28 +26,17 @@ export const useElevenLabsConversation = (agentId: string, email?: string) => {
     saveConversationData
   } = useConversationAnalytics(agentId);
 
-  // Create message handler
-  const { handleMessage } = useMessageHandler(trackUserMessage, trackAssistantMessage);
+  // Create simplified message handler
+  const { handleMessage } = useSimplifiedMessageHandler({
+    trackUserMessage,
+    trackAssistantMessage,
+    updateListeningState
+  });
 
   // Setup message handler callback for conversation actions
   const onMessageCallback = useCallback((message: any) => {
     console.log("ElevenLabs message received:", message);
-    
-    // Process the message
-    handleMessage(message);
-    
-    // Update listening state based on message source
-    if (message && typeof message === 'object' && 'source' in message) {
-      if (message.source === 'user') {
-        // User is speaking
-        return true; // Return true to indicate listening state should be active
-      } else if (message.source === 'assistant') {
-        // Assistant is speaking
-        return false; // Return false to indicate listening state should be inactive
-      }
-    }
-    // Default return
-    return undefined;
+    return handleMessage(message);
   }, [handleMessage]);
 
   // Get conversation actions with current language from context and our message handler

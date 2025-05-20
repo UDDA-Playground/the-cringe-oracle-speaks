@@ -1,15 +1,16 @@
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useConversation } from '@11labs/react';
 import { Language } from './types';
-import { ConversationState, SessionConfig, ConversationEventHandlers } from './conversation-types';
+import { ConversationState, SessionConfig } from './conversation-types';
 
 export const useConversationSession = (
   agentId: string,
   onConnect?: () => void,
   onDisconnect?: () => void,
-  onMessage?: (message: any) => boolean | undefined
+  onMessageHandler?: (message: any) => boolean | undefined
 ) => {
+  // State for tracking conversation status
   const [state, setState] = useState<ConversationState>({
     isInitialized: false,
     language: 'en',
@@ -18,8 +19,8 @@ export const useConversationSession = (
     currentSessionData: null
   });
 
-  // Set up conversation event handlers
-  const eventHandlers: ConversationEventHandlers = {
+  // Event handlers for the ElevenLabs conversation
+  const eventHandlers = {
     onConnect: () => {
       console.log("ElevenLabs conversation connected");
       setState(prev => ({ ...prev, isInitialized: true, isListening: true }));
@@ -30,16 +31,13 @@ export const useConversationSession = (
       setState(prev => ({ ...prev, isPaused: false, isListening: false }));
       if (onDisconnect) onDisconnect();
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error("ElevenLabs conversation error:", error);
       setState(prev => ({ ...prev, isInitialized: false }));
     },
-    onMessage: (message) => {
-      // If there's a custom message handler, use it
-      if (onMessage) {
-        const shouldListen = onMessage(message);
-        
-        // Update listening state if the handler returns a boolean
+    onMessage: (message: any) => {
+      if (onMessageHandler) {
+        const shouldListen = onMessageHandler(message);
         if (typeof shouldListen === 'boolean') {
           setState(prev => ({ ...prev, isListening: shouldListen }));
         }
@@ -47,13 +45,14 @@ export const useConversationSession = (
     }
   };
 
-  // Use the official ElevenLabs React hook
+  // Initialize conversation with event handlers
   const conversation = useConversation(eventHandlers);
 
-  // Configure and start a session
+  // Start a new conversation session
   const startSession = useCallback(async (language: Language) => {
     try {
       console.log("Starting ElevenLabs session with language:", language);
+      
       if (conversation.status === 'disconnected') {
         const sessionConfig: SessionConfig = { 
           agentId,
@@ -95,7 +94,7 @@ export const useConversationSession = (
     }
   }, [conversation]);
 
-  // Update the language setting
+  // Update language setting
   const updateLanguage = useCallback((newLanguage: Language) => {
     setState(prev => ({ ...prev, language: newLanguage }));
   }, []);

@@ -4,6 +4,9 @@ import { useConversationSession } from './useConversationSession';
 import { Language } from './types';
 import { useLanguage } from '@/context/LanguageContext';
 
+/**
+ * Hook for managing conversation actions and state
+ */
 export const useConversationActions = (
   agentId: string, 
   userEmail?: string,
@@ -18,9 +21,18 @@ export const useConversationActions = (
   
   // Set up session state
   const [language, setLanguage] = useState<Language>(resolvedLanguage);
-  const [isListening, setIsListening] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [initializationAttempt, setInitializationAttempt] = useState(0);
+  
+  // Event handlers for conversation session
+  const handleConnect = useCallback(() => {
+    setIsListening(true);
+  }, []);
+  
+  const handleDisconnect = useCallback(() => {
+    setIsListening(false);
+  }, []);
   
   // Initialize conversation session with event handlers
   const {
@@ -31,8 +43,8 @@ export const useConversationActions = (
     updateLanguage
   } = useConversationSession(
     agentId, 
-    () => setIsListening(true), 
-    () => setIsListening(false),
+    handleConnect, 
+    handleDisconnect,
     onMessage
   );
   

@@ -39,22 +39,27 @@ const ConversationControls: React.FC<ConversationControlsProps> = ({
   let buttonIcon = <MicIcon className="text-white" />;
   let statusText = t('conversation.click_to_start');
   
+  // Use accent color if provided
+  if (accentColor && accentColor !== "blue") {
+    buttonColor = `bg-${accentColor}-500 hover:bg-${accentColor}-600`;
+  }
+  
   if (status === 'connected') {
     if (isPaused) {
       buttonColor = "bg-yellow-500 hover:bg-yellow-600";
       buttonIcon = <MicIcon className="text-white" />;
       statusText = t('conversation.paused');
     } else if (isSpeaking) {
-      buttonColor = "bg-green-500 hover:bg-green-600 animate-pulse";
+      buttonColor = `bg-${accentColor}-500 hover:bg-${accentColor}-600 animate-pulse`;
       buttonIcon = <PauseIcon className="text-white" />;
       statusText = t('conversation.talking');
     } else if (isListening) {
-      buttonColor = "bg-green-500 hover:bg-green-600";
+      buttonColor = `bg-${accentColor}-500 hover:bg-${accentColor}-600`;
       buttonIcon = <HeadphonesIcon className="text-white" />;
       statusText = t('conversation.listening');
     }
   } else if (status === 'connecting') {
-    buttonColor = "bg-blue-500 hover:bg-blue-600 animate-pulse";
+    buttonColor = `bg-${accentColor}-500 hover:bg-${accentColor}-600 animate-pulse`;
     buttonIcon = <RefreshCwIcon className="text-white animate-spin" />;
     statusText = t('conversation.connecting');
   } else if (status === 'disconnecting') {
