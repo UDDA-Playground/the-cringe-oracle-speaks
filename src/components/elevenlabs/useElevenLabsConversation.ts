@@ -26,23 +26,28 @@ export const useElevenLabsConversation = (agentId: string, email?: string) => {
   // Configure onMessage handler
   useEffect(() => {
     if (conversationState.conversation) {
-      conversationState.conversation.onMessage = (message) => {
-        // When receiving any message, the system is active
-        if (message && typeof message === 'object') {
-          if ('source' in message) {
+      // Attach the message handler to the conversation
+      const originalEventHandlers = conversationState.conversation['_eventHandlers'] || {};
+      conversationState.conversation['_eventHandlers'] = {
+        ...originalEventHandlers,
+        onMessage: (message: any) => {
+          // Process the message
+          handleMessage(message);
+          
+          // When receiving any message, update listening state based on message source
+          if (message && typeof message === 'object' && 'source' in message) {
             if (message.source === 'user') {
-              conversationState.conversation.isListening = true;
+              // Update state manually since we can't directly modify conversation object
+              conversationState.toggleListeningState(true);
             } else if (message.source === 'assistant') {
-              conversationState.conversation.isListening = false;
+              // Update state manually since we can't directly modify conversation object
+              conversationState.toggleListeningState(false);
             }
           }
         }
-        
-        // Process the message
-        handleMessage(message);
       };
     }
-  }, [conversationState.conversation, handleMessage]);
+  }, [conversationState.conversation, handleMessage, conversationState.toggleListeningState]);
 
   // Update email when prop changes
   useEffect(() => {

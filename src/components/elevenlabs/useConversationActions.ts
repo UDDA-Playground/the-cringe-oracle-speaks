@@ -1,4 +1,5 @@
-import { useCallback } from 'react';
+
+import { useCallback, useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { Language } from './types';
 import { useConversationSession } from './useConversationSession';
@@ -8,6 +9,8 @@ export const useConversationActions = (
   email?: string,
   saveConversationData?: (email?: string) => void
 ) => {
+  const [isListening, setIsListening] = useState(false);
+  
   // Get the conversation session utilities
   const {
     conversation,
@@ -34,6 +37,11 @@ export const useConversationActions = (
       }
     } // onDisconnect
   );
+
+  // Toggle listening state
+  const toggleListeningState = useCallback((newState: boolean) => {
+    setIsListening(newState);
+  }, []);
 
   // Start or toggle conversation
   const startConversation = useCallback(async () => {
@@ -80,7 +88,9 @@ export const useConversationActions = (
   return {
     conversation,
     ...state,
+    isListening,
     startConversation,
-    toggleLanguage
+    toggleLanguage,
+    toggleListeningState
   };
 };
