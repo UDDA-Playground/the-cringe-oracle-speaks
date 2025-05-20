@@ -12,6 +12,7 @@ export const useVoicePlayerState = () => {
   const [initTimedOut, setInitTimedOut] = useState(false);
   const [initAttempts, setInitAttempts] = useState(0);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [connectionInProgress, setConnectionInProgress] = useState(false);
   
   // Handler to update speaking state
   const updateSpeakingState = useCallback((speaking: boolean) => {
@@ -31,12 +32,14 @@ export const useVoicePlayerState = () => {
   // Error handling for initialization
   const handleInitTimeout = useCallback(() => {
     setInitTimedOut(true);
+    setConnectionInProgress(false);
   }, []);
   
   // Reset initialization state
   const resetInitState = useCallback(() => {
     setInitTimedOut(false);
     setInitAttempts(prev => prev + 1);
+    setConnectionInProgress(true);
   }, []);
   
   // Update email state
@@ -51,11 +54,13 @@ export const useVoicePlayerState = () => {
     initTimedOut,
     initAttempts,
     userEmail,
+    connectionInProgress,
     updateSpeakingState,
     updateListeningState,
     togglePause,
     handleInitTimeout,
     resetInitState,
-    updateEmail
+    updateEmail,
+    setConnectionInProgress
   };
 };

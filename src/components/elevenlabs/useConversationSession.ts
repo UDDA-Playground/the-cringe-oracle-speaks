@@ -1,5 +1,5 @@
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useConversation } from '@11labs/react';
 import { Language } from './types';
 import { ConversationState, SessionConfig } from './conversation-types';
@@ -19,6 +19,9 @@ export const useConversationSession = (
     currentSessionData: null
   });
 
+  // Track initialization attempts
+  const initializationAttempt = useRef(0);
+
   // Event handlers for the ElevenLabs conversation
   const eventHandlers = {
     onConnect: () => {
@@ -36,6 +39,13 @@ export const useConversationSession = (
       setState(prev => ({ ...prev, isInitialized: false }));
     },
     onMessage: (message: any) => {
+      // Handle speaking state directly from events
+      if (message && message.type === 'speaking_started') {
+        setState(prev => ({ ...prev, isListening: false }));
+      } else if (message && message.type === 'speaking_stopped') {
+        setState(prev => ({ ...prev, isListening: true }));
+      }
+      
       if (onMessageHandler) {
         const shouldListen = onMessageHandler(message);
         if (typeof shouldListen === 'boolean') {
@@ -48,12 +58,29 @@ export const useConversationSession = (
   // Initialize conversation with event handlers
   const conversation = useConversation(eventHandlers);
 
+  // Monitor connection state
+  useEffect(() => {
+    if (conversation.status === 'connected') {
+      console.log("Conversation status changed to connected");
+      setState(prev => ({ ...prev, isInitialized: true }));
+    } else if (conversation.status === 'disconnected') {
+      console.log("Conversation status changed to disconnected");
+      setState(prev => ({ ...prev, isInitialized: false }));
+    }
+  }, [conversation.status]);
+
+  // Monitor speaking state
+  useEffect(() => {
+    setState(prev => ({ ...prev, isSpeaking: conversation.isSpeaking }));
+  }, [conversation.isSpeaking]);
+
   // Start a new conversation session
   const startSession = useCallback(async (language: Language) => {
     try {
       console.log("Starting ElevenLabs session with language:", language);
+      initializationAttempt.current += 1;
       
-      if (conversation.status === 'disconnected') {
+      if (conversation.status !== 'connected') {
         const sessionConfig: SessionConfig = { 
           agentId,
           overrides: {
@@ -75,8 +102,10 @@ export const useConversationSession = (
           }
         }));
         console.log("ElevenLabs session started successfully");
+        return true;
       } else {
         console.log("ElevenLabs session already connected:", conversation.status);
+        return true;
       }
     } catch (error) {
       console.error('Failed to start ElevenLabs conversation:', error);
@@ -110,6 +139,7 @@ export const useConversationSession = (
     startSession,
     endSession,
     updateLanguage,
-    togglePause
+    togglePause,
+    initializationAttempt: initializationAttempt.current
   };
 };

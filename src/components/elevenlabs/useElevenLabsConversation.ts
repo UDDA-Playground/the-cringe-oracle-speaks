@@ -12,10 +12,12 @@ import { useLanguage } from '@/context/LanguageContext';
 export const useElevenLabsConversation = (
   agentId: string, 
   email?: string,
-  updateListeningState?: (isListening: boolean) => void
+  updateListeningState?: (isListening: boolean) => void,
+  updateSpeakingState?: (isSpeaking: boolean) => void
 ) => {
   const [userEmail, setUserEmail] = useState<string | undefined>(email);
   const { language } = useLanguage();
+  const [initError, setInitError] = useState<Error | null>(null);
   
   // Use the analytics hook
   const {
@@ -30,7 +32,8 @@ export const useElevenLabsConversation = (
   const { handleMessage } = useSimplifiedMessageHandler({
     trackUserMessage,
     trackAssistantMessage,
-    updateListeningState
+    updateListeningState,
+    updateSpeakingState
   });
 
   // Setup message handler callback for conversation actions
@@ -55,6 +58,7 @@ export const useElevenLabsConversation = (
         console.log("Auto-starting conversation after delay");
         conversationState.startConversation().catch(err => {
           console.error("Failed to auto-start conversation:", err);
+          setInitError(err);
         });
       }
     }, 1000);
@@ -72,6 +76,7 @@ export const useElevenLabsConversation = (
   return {
     ...conversationState,
     sessionId,
-    transcript
+    transcript,
+    initError
   };
 };
