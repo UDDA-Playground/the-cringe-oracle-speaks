@@ -74,9 +74,9 @@ const ConversationControls: React.FC<ConversationControlsProps> = ({
           {/* Show mini sound waves when user is speaking */}
           {isListening && !isSpeaking && 
             <div className="absolute bottom-[-15px] left-1/2 transform -translate-x-1/2 flex items-end justify-center gap-1 h-3">
-              <div className={`w-0.5 h-1 bg-${accentColor}/60 rounded-full animate-soundwave1`}></div>
-              <div className={`w-0.5 h-2 bg-${accentColor}/60 rounded-full animate-soundwave3`}></div>
-              <div className={`w-0.5 h-1 bg-${accentColor}/60 rounded-full animate-soundwave2`}></div>
+              <div className={`w-0.5 h-1 bg-${accentColor}-500/60 rounded-full animate-soundwave1`}></div>
+              <div className={`w-0.5 h-2 bg-${accentColor}-500/60 rounded-full animate-soundwave3`}></div>
+              <div className={`w-0.5 h-1 bg-${accentColor}-500/60 rounded-full animate-soundwave2`}></div>
             </div>
           }
         </div>

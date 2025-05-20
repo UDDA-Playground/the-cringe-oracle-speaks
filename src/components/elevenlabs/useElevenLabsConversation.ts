@@ -27,10 +27,20 @@ export const useElevenLabsConversation = (agentId: string, email?: string) => {
   useEffect(() => {
     if (conversationState.conversation) {
       // Attach the message handler to the conversation
-      const originalEventHandlers = conversationState.conversation['_eventHandlers'] || {};
+      const eventHandlers = conversationState.conversation['_eventHandlers'] || {};
+      
+      // Store existing handlers if any
+      const existingOnMessage = eventHandlers.onMessage;
+      
+      // Set up new message handler
       conversationState.conversation['_eventHandlers'] = {
-        ...originalEventHandlers,
+        ...eventHandlers,
         onMessage: (message: any) => {
+          // Call existing handler if available
+          if (existingOnMessage) {
+            existingOnMessage(message);
+          }
+          
           // Process the message
           handleMessage(message);
           

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useElevenLabsConversation } from './elevenlabs/useElevenLabsConversation';
 import { useConversationStyles } from './elevenlabs/useConversationStyles';
 import { useFloatingWidgetConfig } from './elevenlabs/useFloatingWidgetConfig';
@@ -25,6 +25,9 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
   // State for email
   const [email, setEmail] = useState("");
   
+  // State for initialization timeout
+  const [initTimedOut, setInitTimedOut] = useState(false);
+  
   // Get conversation management
   const {
     conversation,
@@ -35,6 +38,17 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
     isPaused,
     isListening
   } = useElevenLabsConversation(agentId, email);
+
+  // Set a timeout to show a message if initialization takes too long
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isInitialized) {
+        setInitTimedOut(true);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [isInitialized]);
 
   // CSS classes for the container
   const containerClasses = `elevenlabs-widget-container ${className}`;
@@ -55,7 +69,21 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
           onEmailChange={setEmail}
         />
       ) : (
-        <div className="elevenlabs-loading">Initializing voice conversation...</div>
+        <div className="elevenlabs-loading">
+          {initTimedOut ? 
+            <div>
+              <p>Voice conversation initialization is taking longer than expected.</p>
+              <button 
+                className="mt-2 bg-blue-500 text-white px-3 py-1 rounded-md"
+                onClick={() => window.location.reload()}
+              >
+                Refresh Page
+              </button>
+            </div>
+            : 
+            "Initializing voice conversation..."
+          }
+        </div>
       )}
     </div>
   );

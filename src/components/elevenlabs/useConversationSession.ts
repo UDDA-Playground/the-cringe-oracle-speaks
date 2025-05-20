@@ -20,12 +20,15 @@ export const useConversationSession = (
   // Set up conversation event handlers
   const eventHandlers: ConversationEventHandlers = {
     onConnect: () => {
-      setState(prev => ({ ...prev, isListening: true }));
+      setState(prev => ({ ...prev, isInitialized: true, isListening: true }));
       if (onConnect) onConnect();
     },
     onDisconnect: () => {
       setState(prev => ({ ...prev, isPaused: false, isListening: false }));
       if (onDisconnect) onDisconnect();
+    },
+    onError: (error) => {
+      console.error("ElevenLabs conversation error:", error);
     }
   };
 
