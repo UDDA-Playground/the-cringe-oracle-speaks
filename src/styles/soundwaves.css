@@ -1,0 +1,10 @@
+
+@keyframes soundWave {
+  0% { height: 2px; }
+  50% { height: 12px; }
+  100% { height: 2px; }
+}
+
+.animate-soundwaves {
+  animation: soundWave 1s infinite ease-in-out;
+}

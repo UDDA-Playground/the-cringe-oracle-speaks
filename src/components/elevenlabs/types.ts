@@ -28,17 +28,6 @@ export interface ConversationData {
   userEmail?: string;
 }
 
-// Message format types for ElevenLabs API responses
-export interface MessageFormat1 {
-  source: 'user' | 'assistant';
-  message: string;
-}
-
-export interface MessageFormat2 {
-  type: 'final_transcript' | 'llm_response' | string;
-  text: string | unknown;
-}
-
 // Define interface for Window with ElevenLabs settings
 declare global {
   interface Window {
