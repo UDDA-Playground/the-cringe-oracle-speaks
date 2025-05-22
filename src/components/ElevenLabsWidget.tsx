@@ -1,7 +1,14 @@
 
 import React from 'react';
 import ElevenlabsConversation from './elevenlabs/ElevenlabsConversation';
-import { ElevenLabsWidgetProps } from './elevenlabs/types';
+
+interface ElevenLabsWidgetProps {
+  agentId: string;
+  className?: string;
+  pageTitle?: string;
+  preventFloatingWidget?: boolean;
+  accentColor?: string;
+}
 
 /**
  * A React-friendly wrapper for the ElevenLabs Conversational AI

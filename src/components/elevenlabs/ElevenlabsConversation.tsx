@@ -4,8 +4,7 @@ import { Mic, MicOff, MessageSquare, Send, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useLanguage } from '@/context/LanguageContext';
-import useElevenlabsConversation, { Message } from '@/hooks/useElevenlabsConversation';
-import AudioPlayer from './AudioPlayer';
+import useElevenlabsConversation from '@/hooks/useElevenlabsConversation';
 import SoundWavesNative from './SoundWavesNative';
 
 interface ElevenlabsConversationProps {
@@ -27,11 +26,9 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
   
   // Initialize conversation hook
   const {
-    messages,
     isListening,
     isSpeaking,
     isProcessing,
-    audioBlob,
     toggleListening,
     stopSpeaking,
     resetConversation,
@@ -41,24 +38,6 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
     initialSystemPrompt: initialPrompt,
     gender: 'female'
   });
-  
-  // Auto-play audio when audioBlob changes
-  useEffect(() => {
-    if (audioBlob && audioRef.current) {
-      const url = URL.createObjectURL(audioBlob);
-      audioRef.current.src = url;
-      audioRef.current.play().catch(err => {
-        console.error('Failed to play audio:', err);
-      });
-      
-      return () => {
-        URL.revokeObjectURL(url);
-      };
-    }
-  }, [audioBlob]);
-  
-  // Filter messages to only show user and assistant messages (not system)
-  const displayMessages = messages.filter(msg => msg.role === 'user' || msg.role === 'assistant');
   
   // Button color based on accent
   const buttonColor = `bg-${accentColor}-500 hover:bg-${accentColor}-600`;
@@ -77,57 +56,36 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
       {/* Hidden audio element for playing speech */}
       <audio ref={audioRef} className="hidden" />
       
-      {/* Message display area */}
-      <div className="flex-1 p-4 overflow-y-auto space-y-4">
-        {displayMessages.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-gray-400">
-            <div className="text-center">
-              <MessageSquare className="mx-auto h-12 w-12 mb-2" />
-              <p>{language === 'sv' ? 'Starta en konversation' : 'Start a conversation'}</p>
+      {/* Voice conversation visualization area */}
+      <div className="flex-1 p-4 overflow-y-auto flex items-center justify-center">
+        <div className="text-center">
+          <div className="mb-4 relative">
+            <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mx-auto">
+              {isListening && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <SoundWavesNative isActive={true} color={accentColor} />
+                </div>
+              )}
+              {isSpeaking && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <SoundWavesNative isActive={true} color={accentColor} />
+                </div>
+              )}
+              <MessageSquare className="h-12 w-12 text-gray-400" />
             </div>
           </div>
-        ) : (
-          displayMessages.map((message) => (
-            <div 
-              key={message.id}
-              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              <div 
-                className={`max-w-[80%] p-3 rounded-lg ${
-                  message.role === 'user' 
-                    ? `bg-${accentColor}-100 text-gray-800` 
-                    : 'bg-gray-100 text-gray-800'
-                } relative`}
-              >
-                <p>{message.content}</p>
-                
-                {/* Audio player for assistant messages */}
-                {message.role === 'assistant' && message.audioBlob && (
-                  <div className="mt-2">
-                    <AudioPlayer 
-                      audioBlob={message.audioBlob}
-                      autoPlay={false}
-                    />
-                    {message === messages[messages.length - 1] && isSpeaking && (
-                      <SoundWavesNative isActive={true} color={accentColor} />
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))
-        )}
-        
-        {isProcessing && (
-          <div className="flex justify-start">
-            <div className="bg-gray-100 p-3 rounded-lg flex items-center space-x-2">
-              <Loader2 className="animate-spin h-4 w-4" />
-              <span className="text-sm text-gray-600">
-                {language === 'sv' ? 'Bearbetar...' : 'Processing...'}
-              </span>
-            </div>
-          </div>
-        )}
+          
+          <p className="text-gray-500">
+            {isProcessing ? 
+              (language === 'sv' ? 'Bearbetar...' : 'Processing...') :
+              isListening ? 
+                (language === 'sv' ? 'Lyssnar...' : 'Listening...') :
+                isSpeaking ?
+                  (language === 'sv' ? 'Talar...' : 'Speaking...') :
+                  (language === 'sv' ? 'Klicka på mikrofonknappen för att prata' : 'Click the microphone button to talk')
+            }
+          </p>
+        </div>
       </div>
       
       {/* Controls */}

@@ -72,10 +72,24 @@ export const useElevenlabsConversation = ({
     }
     
     // Create audio element for TTS playback
-    audioElementRef.current = new Audio();
-    audioElementRef.current.onended = () => {
-      setIsSpeaking(false);
-    };
+    if (!audioElementRef.current) {
+      audioElementRef.current = new Audio();
+      
+      audioElementRef.current.onended = () => {
+        console.log("Audio playback ended");
+        setIsSpeaking(false);
+      };
+      
+      audioElementRef.current.onplay = () => {
+        console.log("Audio playback started");
+        setIsSpeaking(true);
+      };
+      
+      audioElementRef.current.onerror = (e) => {
+        console.error("Audio playback error:", e);
+        setIsSpeaking(false);
+      };
+    }
     
     return () => {
       if (recognitionRef.current) {
@@ -134,7 +148,7 @@ export const useElevenlabsConversation = ({
       console.log("Using voice ID:", voiceId);
       
       const audioBlob = await textToSpeech(mockAssistantResponse, voiceId);
-      console.log("Generated audio blob:", audioBlob ? "Success" : "Failed");
+      console.log("Generated audio blob:", audioBlob ? `Success (${audioBlob.size} bytes)` : "Failed");
       
       // Add assistant message with audio
       const assistantMessage: Message = {
@@ -149,24 +163,7 @@ export const useElevenlabsConversation = ({
       if (audioBlob) {
         // Play the audio
         setAudioBlob(audioBlob);
-        setIsSpeaking(true);
-        
-        if (audioElementRef.current) {
-          const audioUrl = URL.createObjectURL(audioBlob);
-          audioElementRef.current.src = audioUrl;
-          audioElementRef.current.onended = () => {
-            setIsSpeaking(false);
-            URL.revokeObjectURL(audioUrl);
-          };
-          
-          try {
-            await audioElementRef.current.play();
-            console.log("Audio playback started");
-          } catch (error) {
-            console.error("Failed to play audio:", error);
-            setIsSpeaking(false);
-          }
-        }
+        playAudio(audioBlob);
       }
     } catch (error) {
       console.error('Error processing message:', error);
@@ -175,6 +172,42 @@ export const useElevenlabsConversation = ({
       setIsProcessing(false);
     }
   }, [language, gender]);
+  
+  // Helper function to play audio blob
+  const playAudio = useCallback((blob: Blob) => {
+    if (!audioElementRef.current) {
+      audioElementRef.current = new Audio();
+      
+      audioElementRef.current.onended = () => {
+        console.log("Audio playback ended");
+        setIsSpeaking(false);
+      };
+      
+      audioElementRef.current.onplay = () => {
+        console.log("Audio playback started");
+        setIsSpeaking(true);
+      };
+    }
+    
+    const url = URL.createObjectURL(blob);
+    console.log("Playing audio from URL:", url);
+    
+    audioElementRef.current.src = url;
+    audioElementRef.current.onended = () => {
+      setIsSpeaking(false);
+      URL.revokeObjectURL(url);
+    };
+    
+    audioElementRef.current.play()
+      .then(() => {
+        console.log("Audio playback started successfully");
+      })
+      .catch(error => {
+        console.error("Error playing audio:", error);
+        setIsSpeaking(false);
+        URL.revokeObjectURL(url);
+      });
+  }, []);
   
   // Mock AI response - replace with actual API call
   const mockAIResponse = async (userInput: string, lang: string): Promise<string> => {

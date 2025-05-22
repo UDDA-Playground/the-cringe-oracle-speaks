@@ -30,19 +30,23 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   useEffect(() => {
     if (audioBlob) {
       const url = URL.createObjectURL(audioBlob);
+      console.log("Created URL from blob:", url);
       setAudioSrc(url);
       
       // Auto-play if specified
       if (autoPlay && audioRef.current) {
+        console.log("Auto-playing audio");
         audioRef.current.play().catch(error => {
           console.error('Error auto-playing audio:', error);
         });
       }
       
       return () => {
+        console.log("Revoking object URL:", url);
         URL.revokeObjectURL(url);
       };
     } else if (audioUrl) {
+      console.log("Using audio URL:", audioUrl);
       setAudioSrc(audioUrl);
     }
   }, [audioBlob, audioUrl, autoPlay]);
@@ -52,10 +56,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     if (!audioRef.current) return;
 
     if (isPlaying) {
+      console.log("Pausing audio");
       audioRef.current.pause();
       setIsPlaying(false);
       if (onPause) onPause();
     } else {
+      console.log("Playing audio");
       audioRef.current.play().catch(error => {
         console.error('Error playing audio:', error);
       });
@@ -75,6 +81,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
   // Handle audio end event
   const handleAudioEnd = () => {
+    console.log("Audio playback ended");
     setIsPlaying(false);
     setProgress(0);
     if (onEnd) onEnd();
@@ -85,8 +92,15 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     const audio = audioRef.current;
     if (!audio) return;
     
-    const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
+    const handlePlay = () => {
+      console.log("Audio play event");
+      setIsPlaying(true);
+    };
+    
+    const handlePause = () => {
+      console.log("Audio pause event");
+      setIsPlaying(false);
+    };
     
     audio.addEventListener('play', handlePlay);
     audio.addEventListener('pause', handlePause);
