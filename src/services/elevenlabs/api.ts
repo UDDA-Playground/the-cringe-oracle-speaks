@@ -45,6 +45,7 @@ export const getVoices = async () => {
     }
 
     const data = await response.json();
+    console.log("Available voices:", data.voices);
     return data.voices;
   } catch (error) {
     return handleApiError(error, 'Failed to fetch voices');
@@ -60,6 +61,9 @@ export const textToSpeech = async (
   model: string = 'eleven_turbo_v2'
 ) => {
   try {
+    console.log(`Converting text to speech with voice ${voiceId} using model ${model}`);
+    console.log(`Text: "${text}"`);
+    
     const response = await fetch(`${API_BASE_URL}/text-to-speech/${voiceId}`, {
       method: 'POST',
       headers: {
@@ -77,11 +81,15 @@ export const textToSpeech = async (
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const errorText = await response.text();
+      console.error(`ElevenLabs API error (${response.status}):`, errorText);
+      throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
     }
 
     // Return audio blob
-    return await response.blob();
+    const blob = await response.blob();
+    console.log("Received audio blob of size:", blob.size);
+    return blob;
   } catch (error) {
     handleApiError(error, 'Text-to-speech conversion failed');
     return null;

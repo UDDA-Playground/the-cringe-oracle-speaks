@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, MessageSquare, Send, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useLanguage } from '@/context/LanguageContext';
 import useElevenlabsConversation, { Message } from '@/hooks/useElevenlabsConversation';
 import AudioPlayer from './AudioPlayer';
+import SoundWavesNative from './SoundWavesNative';
 
 interface ElevenlabsConversationProps {
   agentId: string;
@@ -22,6 +23,7 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
 }) => {
   const { t, language } = useLanguage();
   const [textInput, setTextInput] = useState('');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   
   // Initialize conversation hook
   const {
@@ -40,6 +42,21 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
     gender: 'female'
   });
   
+  // Auto-play audio when audioBlob changes
+  useEffect(() => {
+    if (audioBlob && audioRef.current) {
+      const url = URL.createObjectURL(audioBlob);
+      audioRef.current.src = url;
+      audioRef.current.play().catch(err => {
+        console.error('Failed to play audio:', err);
+      });
+      
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    }
+  }, [audioBlob]);
+  
   // Filter messages to only show user and assistant messages (not system)
   const displayMessages = messages.filter(msg => msg.role === 'user' || msg.role === 'assistant');
   
@@ -57,6 +74,9 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
   
   return (
     <div className={`flex flex-col h-full bg-white rounded-lg shadow ${className}`}>
+      {/* Hidden audio element for playing speech */}
+      <audio ref={audioRef} className="hidden" />
+      
       {/* Message display area */}
       <div className="flex-1 p-4 overflow-y-auto space-y-4">
         {displayMessages.length === 0 ? (
@@ -77,17 +97,21 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
                   message.role === 'user' 
                     ? `bg-${accentColor}-100 text-gray-800` 
                     : 'bg-gray-100 text-gray-800'
-                }`}
+                } relative`}
               >
                 <p>{message.content}</p>
                 
                 {/* Audio player for assistant messages */}
                 {message.role === 'assistant' && message.audioBlob && (
-                  <AudioPlayer 
-                    audioBlob={message.audioBlob}
-                    className="mt-2"
-                    autoPlay={isSpeaking}
-                  />
+                  <div className="mt-2">
+                    <AudioPlayer 
+                      audioBlob={message.audioBlob}
+                      autoPlay={false}
+                    />
+                    {message === messages[messages.length - 1] && isSpeaking && (
+                      <SoundWavesNative isActive={true} color={accentColor} />
+                    )}
+                  </div>
                 )}
               </div>
             </div>
@@ -112,7 +136,7 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
           <Button
             type="button"
             onClick={toggleListening}
-            className={`${isListening ? 'bg-red-500 hover:bg-red-600' : buttonColor} mr-2`}
+            className={`${isListening ? 'bg-red-500 hover:bg-red-600' : buttonColor} mr-2 relative`}
           >
             {isListening ? <MicOff size={18} /> : <Mic size={18} />}
             <span className="ml-2">
@@ -121,6 +145,11 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
                 : (language === 'sv' ? 'Börja lyssna' : 'Start listening')
               }
             </span>
+            {isListening && (
+              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+                <SoundWavesNative isActive={true} color={accentColor} />
+              </span>
+            )}
           </Button>
           
           <Button

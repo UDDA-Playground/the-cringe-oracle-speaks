@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Play, Pause, Volume2 } from 'lucide-react';
 
 interface AudioPlayerProps {
@@ -24,9 +24,28 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [audioSrc, setAudioSrc] = useState<string>('');
 
-  // Create object URL from blob if provided
-  const audioSrc = audioBlob ? URL.createObjectURL(audioBlob) : audioUrl;
+  // Create object URL from blob when blob changes
+  useEffect(() => {
+    if (audioBlob) {
+      const url = URL.createObjectURL(audioBlob);
+      setAudioSrc(url);
+      
+      // Auto-play if specified
+      if (autoPlay && audioRef.current) {
+        audioRef.current.play().catch(error => {
+          console.error('Error auto-playing audio:', error);
+        });
+      }
+      
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    } else if (audioUrl) {
+      setAudioSrc(audioUrl);
+    }
+  }, [audioBlob, audioUrl, autoPlay]);
 
   // Toggle play/pause
   const togglePlayback = () => {
@@ -61,14 +80,22 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     if (onEnd) onEnd();
   };
 
-  // Clean up object URL when component unmounts or src changes
-  React.useEffect(() => {
+  // Monitor play state from audio element events
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+    
     return () => {
-      if (audioBlob && audioSrc) {
-        URL.revokeObjectURL(audioSrc);
-      }
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
     };
-  }, [audioBlob, audioSrc]);
+  }, []);
 
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
@@ -94,7 +121,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         src={audioSrc}
         onTimeUpdate={updateProgress}
         onEnded={handleAudioEnd}
-        autoPlay={autoPlay}
         className="hidden"
       />
     </div>

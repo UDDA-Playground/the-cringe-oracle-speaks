@@ -37,6 +37,7 @@ export const useElevenlabsConversation = ({
   
   // Add speech recognition
   const recognitionRef = useRef<any>(null);
+  const audioElementRef = useRef<HTMLAudioElement | null>(null);
   
   // Initialize speech recognition if available
   useEffect(() => {
@@ -70,9 +71,20 @@ export const useElevenlabsConversation = ({
       };
     }
     
+    // Create audio element for TTS playback
+    audioElementRef.current = new Audio();
+    audioElementRef.current.onended = () => {
+      setIsSpeaking(false);
+    };
+    
     return () => {
       if (recognitionRef.current) {
         recognitionRef.current.stop();
+      }
+      
+      if (audioElementRef.current) {
+        audioElementRef.current.pause();
+        audioElementRef.current = null;
       }
     };
   }, [language]);
@@ -115,10 +127,14 @@ export const useElevenlabsConversation = ({
       // Here you would typically call your backend API to process the message
       // For this example, we'll mock a response
       const mockAssistantResponse = await mockAIResponse(userMessage.content, language);
+      console.log("Generated response:", mockAssistantResponse);
       
       // Generate audio for the assistant response
       const voiceId = getVoiceId(language === 'sv' ? 'sv' : 'en', gender);
+      console.log("Using voice ID:", voiceId);
+      
       const audioBlob = await textToSpeech(mockAssistantResponse, voiceId);
+      console.log("Generated audio blob:", audioBlob ? "Success" : "Failed");
       
       // Add assistant message with audio
       const assistantMessage: Message = {
@@ -131,8 +147,26 @@ export const useElevenlabsConversation = ({
       setMessages(prev => [...prev, assistantMessage]);
       
       if (audioBlob) {
+        // Play the audio
         setAudioBlob(audioBlob);
         setIsSpeaking(true);
+        
+        if (audioElementRef.current) {
+          const audioUrl = URL.createObjectURL(audioBlob);
+          audioElementRef.current.src = audioUrl;
+          audioElementRef.current.onended = () => {
+            setIsSpeaking(false);
+            URL.revokeObjectURL(audioUrl);
+          };
+          
+          try {
+            await audioElementRef.current.play();
+            console.log("Audio playback started");
+          } catch (error) {
+            console.error("Failed to play audio:", error);
+            setIsSpeaking(false);
+          }
+        }
       }
     } catch (error) {
       console.error('Error processing message:', error);
@@ -177,6 +211,10 @@ export const useElevenlabsConversation = ({
   
   // Stop speaking
   const stopSpeaking = useCallback(() => {
+    if (audioElementRef.current) {
+      audioElementRef.current.pause();
+      audioElementRef.current.currentTime = 0;
+    }
     setIsSpeaking(false);
     setAudioBlob(null);
   }, []);
@@ -187,6 +225,10 @@ export const useElevenlabsConversation = ({
     setIsSpeaking(false);
     setIsListening(false);
     setAudioBlob(null);
+    if (audioElementRef.current) {
+      audioElementRef.current.pause();
+      audioElementRef.current.currentTime = 0;
+    }
     conversationId.current = uuidv4();
     if (onConversationEnd) onConversationEnd();
   }, [onConversationEnd]);
