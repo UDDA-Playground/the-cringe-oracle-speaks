@@ -10,4 +10,7 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export const useLanguage = () => useContext(LanguageContext);
 
+// Re-export LanguageProvider from LanguageProvider.tsx
+export { LanguageProvider } from './LanguageProvider';
+
 export default LanguageContext;
