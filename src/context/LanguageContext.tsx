@@ -6,7 +6,7 @@ import LanguageContext, { useLanguage } from './LanguageContext';
 import LanguageProvider from './LanguageProvider';
 import { Language } from './languageTypes';
 
-export { LanguageProvider, useLanguage };
+export { useLanguage, LanguageProvider };
 export type { Language };
 
 export default LanguageContext;
