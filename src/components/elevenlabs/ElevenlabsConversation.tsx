@@ -94,19 +94,25 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
           <Button
             type="button"
             onClick={toggleListening}
-            className={`${isListening ? 'bg-red-500 hover:bg-red-600' : buttonColor} mr-2 relative`}
+            className={`${isListening ? 'bg-red-500 hover:bg-red-600' : buttonColor} mr-2 relative flex items-center justify-center`}
           >
-            {isListening ? <MicOff size={18} /> : <Mic size={18} />}
-            <span className="ml-2">
-              {isListening 
-                ? (language === 'sv' ? 'Sluta lyssna' : 'Stop listening')
-                : (language === 'sv' ? 'Börja lyssna' : 'Start listening')
-              }
-            </span>
-            {isListening && (
-              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-                <SoundWavesNative isActive={true} color={accentColor} />
-              </span>
+            {isListening ? (
+              <>
+                <MicOff size={18} className="mr-2" />
+                <span>Stop</span>
+              </>
+            ) : isSpeaking ? (
+              <>
+                <div className="flex items-center justify-center">
+                  <SoundWavesNative isActive={true} color="white" className="relative -mb-1" />
+                  <span className="ml-2">Speaking...</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <Mic size={18} className="mr-2" />
+                <span>Start Conversation</span>
+              </>
             )}
           </Button>
           
@@ -115,7 +121,7 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
             onClick={resetConversation}
             variant="outline"
           >
-            {language === 'sv' ? 'Återställ' : 'Reset'}
+            Delete Everything
           </Button>
         </div>
         
