@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Brain, Heart, Users } from 'lucide-react';
@@ -37,6 +36,7 @@ const HeroSection: React.FC = () => {
                   ? 'En stödjande AI-mentor som hjälper unga att navigera känslor, relationer, identitet och personlig utveckling genom engagerande, evidensbaserade samtal.'
                   : 'A supportive AI mentor that helps young people navigate emotions, relationships, identity, and personal growth through engaging, evidence-based conversations.'}
               </p>
+              
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
