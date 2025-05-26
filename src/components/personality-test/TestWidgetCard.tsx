@@ -7,7 +7,7 @@ const TestWidgetCard: React.FC = () => {
   return (
     <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-purple-100 transform rotate-2 hover:rotate-0 transition-transform duration-300">
       <div className="mb-4">
-        <h2 className="font-cabinet font-bold text-2xl text-gradient bg-gradient-to-r from-purple-700 to-pink-500 bg-clip-text text-transparent">Take the Weirdness Test</h2>
+        <h2 className="font-cabinet font-bold text-2xl text-transparent bg-gradient-to-r from-purple-700 to-pink-500 bg-clip-text">Take the Weirdness Test</h2>
         <p className="text-gray-600">Fun, revealing & slightly unsettling</p>
       </div>
       
@@ -27,10 +27,11 @@ const TestWidgetCard: React.FC = () => {
       </div>
       
       {/* ElevenLabs widget - using the specified agent ID for the personality test */}
-      <div className="mb-4">
+      <div className="mb-4 min-h-[300px]">
         <ElevenLabsWidget 
           agentId="agent_01jvnb0nvbezg8btbfwdrgffqp" 
           accentColor="purple"
+          preventFloatingWidget={true}
         />
       </div>
       

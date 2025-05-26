@@ -24,7 +24,7 @@ const CtaSection: React.FC = () => {
           
           <div className="bg-white rounded-xl p-6 shadow-lg max-w-md mx-auto mb-8">
             <h3 className="text-gray-800 font-bold text-xl mb-4">Start talking now</h3>
-            <div className="w-full">
+            <div className="w-full min-h-[300px]">
               <ElevenLabsWidget 
                 agentId="agent_01jvnb0nvbezg8btbfwdrgffqp"
                 preventFloatingWidget={true}

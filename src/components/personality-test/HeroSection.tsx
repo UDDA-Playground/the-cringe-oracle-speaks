@@ -14,8 +14,8 @@ const HeroSection: React.FC = () => {
             <ArrowLeft size={16} className="mr-2" /> Back to all conversations
           </Link>
           
-          <div className="flex flex-col md:flex-row md:items-center gap-8 mb-12">
-            <div>
+          <div className="flex flex-col md:flex-row md:items-start gap-8 mb-12">
+            <div className="md:w-1/2">
               <div className="inline-block -rotate-3 bg-udda-yellow/30 px-4 py-1 rounded-lg mb-4">
                 <span className="text-udda-purple font-bold">You're weirder than you think</span>
               </div>

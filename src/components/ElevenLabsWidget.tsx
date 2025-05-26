@@ -1,6 +1,6 @@
 
 import React from 'react';
-import ElevenlabsConversation from './elevenlabs/ElevenlabsConversation';
+import SimpleElevenlabsWidget from './elevenlabs/SimpleElevenlabsWidget';
 
 interface ElevenLabsWidgetProps {
   agentId: string;
@@ -12,7 +12,7 @@ interface ElevenLabsWidgetProps {
 
 /**
  * A React-friendly wrapper for the ElevenLabs Conversational AI
- * Now using our direct API integration instead of the embedded widget
+ * Now using our simplified direct API integration
  */
 const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({ 
   agentId, 
@@ -23,9 +23,8 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
 }) => {
   return (
     <div className={`elevenlabs-widget-container ${className}`}>
-      <ElevenlabsConversation
+      <SimpleElevenlabsWidget
         agentId={agentId}
-        initialPrompt={pageTitle}
         accentColor={accentColor}
       />
     </div>
