@@ -21,31 +21,35 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
   const [textInput, setTextInput] = useState('');
   const [isInitialized, setIsInitialized] = useState(false);
   const [connectionAttempts, setConnectionAttempts] = useState(0);
+  const [lastActivity, setLastActivity] = useState<number>(Date.now());
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const lastActivityRef = useRef<number>(Date.now());
   const keepAliveIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const sessionStartedRef = useRef<boolean>(false);
   
   // ElevenLabs conversation hook
   const conversation = useConversation({
     onConnect: () => {
-      console.log('ElevenLabs connected');
+      console.log('ElevenLabs connected successfully');
       setIsInitialized(true);
       setConnectionAttempts(0);
-      lastActivityRef.current = Date.now();
+      setLastActivity(Date.now());
+      sessionStartedRef.current = true;
       
-      // Start keep-alive pings
+      // Start keep-alive pings every 30 seconds
       if (keepAliveIntervalRef.current) {
         clearInterval(keepAliveIntervalRef.current);
       }
       keepAliveIntervalRef.current = setInterval(() => {
-        lastActivityRef.current = Date.now();
-      }, 30000); // Ping every 30 seconds
+        setLastActivity(Date.now());
+        console.log('Keep-alive ping sent');
+      }, 30000);
       
       toast.success(language === 'sv' ? 'Ansluten till AI' : 'Connected to AI');
     },
     onDisconnect: () => {
       console.log('ElevenLabs disconnected');
       setIsInitialized(false);
+      sessionStartedRef.current = false;
       
       // Clear keep-alive
       if (keepAliveIntervalRef.current) {
@@ -53,8 +57,8 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
         keepAliveIntervalRef.current = null;
       }
       
-      // Attempt reconnection if it was unexpected
-      if (connectionAttempts < 3) {
+      // Only attempt reconnection if we had a successful session and haven't exceeded attempts
+      if (sessionStartedRef.current && connectionAttempts < 3) {
         const delay = Math.min(1000 * Math.pow(2, connectionAttempts), 10000);
         console.log(`Attempting reconnection in ${delay}ms (attempt ${connectionAttempts + 1})`);
         
@@ -71,10 +75,11 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
     onError: (error) => {
       console.error('ElevenLabs error:', error);
       toast.error(language === 'sv' ? 'Anslutningsfel' : 'Connection error');
+      setIsInitialized(false);
     },
     onMessage: (message) => {
-      lastActivityRef.current = Date.now();
-      console.log('ElevenLabs message:', message);
+      setLastActivity(Date.now());
+      console.log('ElevenLabs message received:', message);
     }
   });
 
@@ -109,6 +114,7 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
     try {
       console.log('Starting conversation with agent:', agentId);
       
+      // Only start if not already connected or connecting
       if (conversation.status === 'disconnected') {
         await conversation.startSession({ 
           agentId,
@@ -118,10 +124,13 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
             }
           }
         });
+      } else {
+        console.log('Conversation already active, status:', conversation.status);
       }
     } catch (error) {
       console.error('Failed to start conversation:', error);
       toast.error(language === 'sv' ? 'Kunde inte starta samtal' : 'Failed to start conversation');
+      setIsInitialized(false);
     }
   };
 
@@ -129,6 +138,7 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
   const endConversation = () => {
     console.log('Ending conversation');
     setConnectionAttempts(0);
+    sessionStartedRef.current = false;
     
     if (reconnectTimeoutRef.current) {
       clearTimeout(reconnectTimeoutRef.current);
@@ -143,13 +153,16 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
     if (conversation.status === 'connected') {
       conversation.endSession();
     }
+    
+    setIsInitialized(false);
   };
 
   // Handle text input submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (textInput.trim() && conversation.status === 'connected') {
-      lastActivityRef.current = Date.now();
+      console.log('Sending text message:', textInput);
+      setLastActivity(Date.now());
       setTextInput('');
     }
   };
@@ -173,6 +186,26 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
     </div>
   );
 
+  // Determine current status for display
+  const getStatusDisplay = () => {
+    if (conversation.status === 'connecting') {
+      return language === 'sv' ? 'Ansluter...' : 'Connecting...';
+    }
+    
+    if (conversation.status === 'connected') {
+      if (conversation.isSpeaking) {
+        return language === 'sv' ? 'AI talar...' : 'AI speaking...';
+      }
+      return language === 'sv' ? 'Redo att prata' : 'Ready to talk';
+    }
+    
+    return language === 'sv' ? 'Klicka för att starta' : 'Click to start';
+  };
+
+  const isConnecting = conversation.status === 'connecting';
+  const isConnected = conversation.status === 'connected';
+  const isDisconnected = conversation.status === 'disconnected';
+
   return (
     <div className={`flex flex-col h-full bg-white rounded-lg shadow ${className}`}>
       {/* Voice conversation visualization area */}
@@ -180,7 +213,7 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
         <div className="text-center">
           <div className="mb-4 relative">
             <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mx-auto">
-              {conversation.isSpeaking && (
+              {conversation.isSpeaking && isConnected && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <SoundWaveAnimation />
                 </div>
@@ -190,18 +223,10 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
           </div>
           
           <p className="text-gray-500">
-            {conversation.status === 'connecting' ? 
-              (language === 'sv' ? 'Ansluter...' : 'Connecting...') :
-              conversation.status === 'connected' ? 
-                (conversation.isSpeaking ? 
-                  (language === 'sv' ? 'AI talar...' : 'AI speaking...') :
-                  (language === 'sv' ? 'Redo att prata' : 'Ready to talk')
-                ) :
-                (language === 'sv' ? 'Klicka för att starta' : 'Click to start')
-            }
+            {getStatusDisplay()}
           </p>
           
-          {connectionAttempts > 0 && conversation.status === 'disconnected' && (
+          {connectionAttempts > 0 && isDisconnected && (
             <p className="text-orange-500 text-sm mt-2">
               {language === 'sv' ? `Återansluter (försök ${connectionAttempts}/3)` : `Reconnecting (${connectionAttempts}/3)`}
             </p>
@@ -212,14 +237,14 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
       {/* Controls */}
       <div className="p-4 border-t">
         <div className="flex mb-2 gap-2">
-          {conversation.status === 'disconnected' ? (
+          {isDisconnected ? (
             <Button
               type="button"
               onClick={startConversation}
               className={`${buttonColor} flex-1 relative overflow-hidden`}
-              disabled={conversation.status === 'connecting'}
+              disabled={isConnecting}
             >
-              {conversation.status === 'connecting' ? (
+              {isConnecting ? (
                 <>
                   <Loader2 size={18} className="mr-2 animate-spin" />
                   <span>{language === 'sv' ? 'Ansluter...' : 'Connecting...'}</span>
@@ -237,7 +262,7 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
               onClick={endConversation}
               className="bg-red-500 hover:bg-red-600 flex-1 relative overflow-hidden"
             >
-              {conversation.isSpeaking ? (
+              {conversation.isSpeaking && isConnected ? (
                 <>
                   <SoundWaveAnimation />
                   <span className="ml-2">{language === 'sv' ? 'AI Talar' : 'AI Speaking'}</span>
@@ -266,12 +291,12 @@ const SimpleElevenlabsWidget: React.FC<SimpleElevenlabsWidgetProps> = ({
             onChange={(e) => setTextInput(e.target.value)}
             placeholder={language === 'sv' ? 'Skriv ett meddelande...' : 'Type a message...'}
             className="mr-2"
-            disabled={conversation.status !== 'connected'}
+            disabled={!isConnected}
           />
           <Button 
             type="submit" 
             className={buttonColor}
-            disabled={!textInput.trim() || conversation.status !== 'connected'}
+            disabled={!textInput.trim() || !isConnected}
           >
             <Send size={18} />
           </Button>
