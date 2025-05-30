@@ -86,16 +86,24 @@ export const useElevenlabsConversation = ({
     try {
       const { data: { user } } = await supabase.auth.getUser();
       
+      // Convert messages to a format suitable for JSON storage
+      const messagesForStorage = messages.map(msg => ({
+        id: msg.id,
+        role: msg.role,
+        content: msg.content,
+        timestamp: Date.now()
+      }));
+      
       const conversationData = {
         session_id: conversationId.current,
         agent_id: agentId,
-        transcript: messages,
+        transcript: JSON.stringify(messagesForStorage),
         user_id: user?.id || null,
       };
 
       const { error } = await supabase
         .from('ai_conversations')
-        .insert([conversationData]);
+        .insert(conversationData);
 
       if (error) {
         console.error('Error saving conversation:', error);
