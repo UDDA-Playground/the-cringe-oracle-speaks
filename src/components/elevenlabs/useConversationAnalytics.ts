@@ -48,7 +48,7 @@ export const useConversationAnalytics = (agentId: string) => {
       };
 
       const { error } = await supabase
-        .from('ai_conversations')  // Using existing table instead of 'conversation_logs'
+        .from('ai_conversations')
         .insert([conversationData]);
 
       if (error) {
@@ -61,11 +61,36 @@ export const useConversationAnalytics = (agentId: string) => {
     }
   }, [sessionId, agentId, transcript, startTime]);
 
+  // Delete conversation data
+  const deleteConversationData = useCallback(async () => {
+    try {
+      const { error } = await supabase
+        .from('ai_conversations')
+        .delete()
+        .eq('session_id', sessionId);
+
+      if (error) {
+        console.error('Error deleting conversation data:', error);
+      } else {
+        console.log('Conversation data deleted successfully');
+      }
+    } catch (error) {
+      console.error('Failed to delete conversation data:', error);
+    }
+  }, [sessionId]);
+
+  // Reset transcript (for local state)
+  const resetTranscript = useCallback(() => {
+    setTranscript([]);
+  }, []);
+
   return {
     sessionId,
     transcript,
     trackUserMessage,
     trackAssistantMessage,
     saveConversationData,
+    deleteConversationData,
+    resetTranscript,
   };
 };

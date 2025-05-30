@@ -121,7 +121,7 @@ const ElevenlabsConversation: React.FC<ElevenlabsConversationProps> = ({
             onClick={resetConversation}
             variant="outline"
           >
-            Delete Everything
+            Delete Conversation
           </Button>
         </div>
         

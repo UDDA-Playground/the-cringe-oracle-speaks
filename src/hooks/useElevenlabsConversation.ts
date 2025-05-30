@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { useSpeechRecognition } from './useSpeechRecognition';
 import { useAudioPlayer } from './useAudioPlayer';
 import { useMessageProcessor } from './useMessageProcessor';
+import { supabase } from '@/integrations/supabase/client';
 
 export interface Message {
   id: string;
@@ -33,6 +34,7 @@ export const useElevenlabsConversation = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const conversationId = useRef(uuidv4());
+  const [conversationSaved, setConversationSaved] = useState(false);
   
   // Use the audio player hook
   const { 
@@ -72,6 +74,40 @@ export const useElevenlabsConversation = ({
     }
   }, [initialSystemPrompt, messages.length]);
   
+  // Save conversation when messages change
+  useEffect(() => {
+    if (messages.length > 1 && !conversationSaved) { // More than just system message
+      saveConversation();
+    }
+  }, [messages, conversationSaved]);
+  
+  // Save conversation to database
+  const saveConversation = useCallback(async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      const conversationData = {
+        session_id: conversationId.current,
+        agent_id: agentId,
+        transcript: messages,
+        user_id: user?.id || null,
+      };
+
+      const { error } = await supabase
+        .from('ai_conversations')
+        .insert([conversationData]);
+
+      if (error) {
+        console.error('Error saving conversation:', error);
+      } else {
+        setConversationSaved(true);
+        console.log('Conversation saved successfully');
+      }
+    } catch (error) {
+      console.error('Failed to save conversation:', error);
+    }
+  }, [agentId, messages]);
+  
   // Enhanced toggle listening with conversation start callback
   const enhancedToggleListening = useCallback(() => {
     toggleListening();
@@ -80,17 +116,40 @@ export const useElevenlabsConversation = ({
     }
   }, [toggleListening, isListening, onConversationStart]);
   
-  // Reset conversation
-  const resetConversation = useCallback(() => {
+  // Reset conversation with proper cleanup
+  const resetConversation = useCallback(async () => {
+    // Delete from database if conversation was saved
+    if (conversationSaved) {
+      try {
+        const { error } = await supabase
+          .from('ai_conversations')
+          .delete()
+          .eq('session_id', conversationId.current);
+
+        if (error) {
+          console.error('Error deleting conversation:', error);
+          toast.error('Failed to delete conversation from database');
+          return;
+        }
+      } catch (error) {
+        console.error('Failed to delete conversation:', error);
+        toast.error('Failed to delete conversation');
+        return;
+      }
+    }
+    
+    // Reset local state
     setMessages([]);
     stopSpeaking();
     setIsListening(false);
     cleanupAudio();
     conversationId.current = uuidv4();
+    setConversationSaved(false);
+    
     if (onConversationEnd) onConversationEnd();
     
-    toast.success('All conversation data has been deleted');
-  }, [stopSpeaking, setIsListening, cleanupAudio, onConversationEnd]);
+    toast.success('Conversation deleted successfully');
+  }, [stopSpeaking, setIsListening, cleanupAudio, onConversationEnd, conversationSaved]);
   
   // Add a text message manually (without speech)
   const addTextMessage = useCallback((text: string) => {
