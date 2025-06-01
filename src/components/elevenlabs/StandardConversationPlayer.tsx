@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Mic, MicOff, Play, Pause, Trash2, Send, Volume2, VolumeX, ChevronDown } from 'lucide-react';
+import { Mic, MicOff, Play, Pause, Trash2, Send, Volume2, VolumeX, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -24,8 +24,10 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
   const [textInput, setTextInput] = useState('');
   const [isMuted, setIsMuted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [audioDevices, setAudioDevices] = useState<MediaDeviceInfo[]>([]);
-  const [selectedDevice, setSelectedDevice] = useState<string>('');
+  const [audioInputDevices, setAudioInputDevices] = useState<MediaDeviceInfo[]>([]);
+  const [audioOutputDevices, setAudioOutputDevices] = useState<MediaDeviceInfo[]>([]);
+  const [selectedInputDevice, setSelectedInputDevice] = useState<string>('');
+  const [selectedOutputDevice, setSelectedOutputDevice] = useState<string>('');
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
   
   const {
@@ -40,15 +42,22 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
   const isConnecting = conversation.status === 'connecting';
   const isSpeaking = conversation.isSpeaking;
   
-  // Get available audio input devices
+  // Get available audio input and output devices
   useEffect(() => {
     const getAudioDevices = async () => {
       try {
         const devices = await navigator.mediaDevices.enumerateDevices();
         const audioInputs = devices.filter(device => device.kind === 'audioinput');
-        setAudioDevices(audioInputs);
-        if (audioInputs.length > 0 && !selectedDevice) {
-          setSelectedDevice(audioInputs[0].deviceId);
+        const audioOutputs = devices.filter(device => device.kind === 'audiooutput');
+        
+        setAudioInputDevices(audioInputs);
+        setAudioOutputDevices(audioOutputs);
+        
+        if (audioInputs.length > 0 && !selectedInputDevice) {
+          setSelectedInputDevice(audioInputs[0].deviceId);
+        }
+        if (audioOutputs.length > 0 && !selectedOutputDevice) {
+          setSelectedOutputDevice(audioOutputs[0].deviceId);
         }
       } catch (error) {
         console.error('Error getting audio devices:', error);
@@ -81,14 +90,33 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
   
   // Handle pause toggle - pauses the conversation
   const handlePauseToggle = () => {
-    setIsPaused(!isPaused);
-    // Note: Actual pause implementation would need ElevenLabs API support
-    console.log(isPaused ? 'Resuming conversation' : 'Pausing conversation');
+    if (isConnected) {
+      setIsPaused(!isPaused);
+      if (!isPaused) {
+        // Pause the conversation by stopping audio processing
+        if (mediaStream) {
+          const audioTracks = mediaStream.getAudioTracks();
+          audioTracks.forEach(track => {
+            track.enabled = false;
+          });
+        }
+        console.log('Conversation paused');
+      } else {
+        // Resume the conversation
+        if (mediaStream && !isMuted) {
+          const audioTracks = mediaStream.getAudioTracks();
+          audioTracks.forEach(track => {
+            track.enabled = true;
+          });
+        }
+        console.log('Conversation resumed');
+      }
+    }
   };
 
-  // Handle device selection
-  const handleDeviceChange = async (deviceId: string) => {
-    setSelectedDevice(deviceId);
+  // Handle input device selection
+  const handleInputDeviceChange = async (deviceId: string) => {
+    setSelectedInputDevice(deviceId);
     if (isConnected) {
       try {
         const newStream = await navigator.mediaDevices.getUserMedia({
@@ -99,16 +127,23 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
         }
         setMediaStream(newStream);
       } catch (error) {
-        console.error('Error switching audio device:', error);
+        console.error('Error switching audio input device:', error);
       }
     }
+  };
+
+  // Handle output device selection
+  const handleOutputDeviceChange = async (deviceId: string) => {
+    setSelectedOutputDevice(deviceId);
+    // Note: Output device switching would need additional audio context management
+    console.log('Output device changed to:', deviceId);
   };
 
   // Start conversation with selected audio device
   const handleStartConversation = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        audio: selectedDevice ? { deviceId: { exact: selectedDevice } } : true
+        audio: selectedInputDevice ? { deviceId: { exact: selectedInputDevice } } : true
       });
       setMediaStream(stream);
       await startConversation();
@@ -197,19 +232,19 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
             </Button>
           )}
           
-          {/* Mute microphone button with device selector */}
+          {/* Mute microphone button with input device selector */}
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className={`px-3 ${isMuted ? 'bg-red-100 text-red-600 border-red-300' : ''}`}
+                className={`px-3 ${isMuted ? 'bg-red-500 text-white border-red-500 hover:bg-red-600' : ''}`}
                 disabled={!isConnected}
               >
                 {isMuted ? <MicOff size={16} /> : <Mic size={16} />}
                 <span className="ml-1 text-xs">
                   {isMuted ? (language === 'sv' ? 'Tystad' : 'Muted') : (language === 'sv' ? 'Mikrofon' : 'Mute')}
                 </span>
-                <ChevronDown size={12} className="ml-1" />
+                <MoreHorizontal size={12} className="ml-1" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-64">
@@ -227,17 +262,17 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
                     </span>
                   </Button>
                 </div>
-                {audioDevices.length > 1 && (
+                {audioInputDevices.length > 1 && (
                   <div>
                     <label className="text-sm font-medium">
                       {language === 'sv' ? 'Välj mikrofon:' : 'Select microphone:'}
                     </label>
-                    <Select value={selectedDevice} onValueChange={handleDeviceChange}>
+                    <Select value={selectedInputDevice} onValueChange={handleInputDeviceChange}>
                       <SelectTrigger className="w-full mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {audioDevices.map((device) => (
+                        {audioInputDevices.map((device) => (
                           <SelectItem key={device.deviceId} value={device.deviceId}>
                             {device.label || `Microphone ${device.deviceId.slice(-4)}`}
                           </SelectItem>
@@ -254,20 +289,63 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
         {/* Secondary controls row - only show when connected */}
         {isConnected && (
           <div className="flex mb-2 space-x-2">
-            {/* Pause/Play button */}
-            <Button
-              onClick={handlePauseToggle}
-              variant="outline"
-              className="flex items-center"
-            >
-              {isPaused ? <Play size={16} className="mr-1" /> : <Pause size={16} className="mr-1" />}
-              <span className="text-sm">
-                {isPaused ? 
-                  (language === 'sv' ? 'Fortsätt' : 'Play') : 
-                  (language === 'sv' ? 'Pausa' : 'Pause')
-                }
-              </span>
-            </Button>
+            {/* Pause/Play button with output device selector */}
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="flex items-center"
+                >
+                  {isPaused ? <Play size={16} className="mr-1" /> : <Pause size={16} className="mr-1" />}
+                  <span className="text-sm mr-1">
+                    {isPaused ? 
+                      (language === 'sv' ? 'Fortsätt' : 'Play') : 
+                      (language === 'sv' ? 'Pausa' : 'Pause')
+                    }
+                  </span>
+                  <MoreHorizontal size={12} />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-64">
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      onClick={handlePauseToggle}
+                      variant={isPaused ? "default" : "outline"}
+                      size="sm"
+                      className="flex-1"
+                    >
+                      {isPaused ? <Play size={14} /> : <Pause size={14} />}
+                      <span className="ml-1">
+                        {isPaused ? 
+                          (language === 'sv' ? 'Fortsätt' : 'Resume') : 
+                          (language === 'sv' ? 'Pausa' : 'Pause')
+                        }
+                      </span>
+                    </Button>
+                  </div>
+                  {audioOutputDevices.length > 1 && (
+                    <div>
+                      <label className="text-sm font-medium">
+                        {language === 'sv' ? 'Välj högtalare:' : 'Select speaker:'}
+                      </label>
+                      <Select value={selectedOutputDevice} onValueChange={handleOutputDeviceChange}>
+                        <SelectTrigger className="w-full mt-1">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {audioOutputDevices.map((device) => (
+                            <SelectItem key={device.deviceId} value={device.deviceId}>
+                              {device.label || `Speaker ${device.deviceId.slice(-4)}`}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+                </div>
+              </PopoverContent>
+            </Popover>
             
             {/* Delete conversation button */}
             <Button
