@@ -1,8 +1,10 @@
 
-import React, { useState } from 'react';
-import { Mic, MicOff, Play, Pause, Trash2, Send, Volume2, VolumeX } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mic, MicOff, Play, Pause, Trash2, Send, Volume2, VolumeX, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useLanguage } from '@/context/LanguageContext';
 import { useElevenLabsConnection } from './useElevenLabsConnection';
 import SoundWavesNative from './SoundWavesNative';
@@ -22,6 +24,9 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
   const [textInput, setTextInput] = useState('');
   const [isMuted, setIsMuted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [audioDevices, setAudioDevices] = useState<MediaDeviceInfo[]>([]);
+  const [selectedDevice, setSelectedDevice] = useState<string>('');
+  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
   
   const {
     conversation,
@@ -35,6 +40,24 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
   const isConnecting = conversation.status === 'connecting';
   const isSpeaking = conversation.isSpeaking;
   
+  // Get available audio input devices
+  useEffect(() => {
+    const getAudioDevices = async () => {
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const audioInputs = devices.filter(device => device.kind === 'audioinput');
+        setAudioDevices(audioInputs);
+        if (audioInputs.length > 0 && !selectedDevice) {
+          setSelectedDevice(audioInputs[0].deviceId);
+        }
+      } catch (error) {
+        console.error('Error getting audio devices:', error);
+      }
+    };
+
+    getAudioDevices();
+  }, []);
+
   // Handle text input submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,23 +68,64 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
     }
   };
   
-  // Handle mute toggle
+  // Handle mute toggle - mutes user's microphone
   const handleMuteToggle = async () => {
-    if (isConnected) {
-      try {
-        // Mute/unmute the microphone
-        setIsMuted(!isMuted);
-        // Note: Actual mute implementation would need ElevenLabs API support
-      } catch (error) {
-        console.error('Failed to toggle mute:', error);
-      }
+    if (mediaStream) {
+      const audioTracks = mediaStream.getAudioTracks();
+      audioTracks.forEach(track => {
+        track.enabled = isMuted; // Toggle the opposite
+      });
+      setIsMuted(!isMuted);
     }
   };
   
-  // Handle pause toggle
+  // Handle pause toggle - pauses the conversation
   const handlePauseToggle = () => {
     setIsPaused(!isPaused);
     // Note: Actual pause implementation would need ElevenLabs API support
+    console.log(isPaused ? 'Resuming conversation' : 'Pausing conversation');
+  };
+
+  // Handle device selection
+  const handleDeviceChange = async (deviceId: string) => {
+    setSelectedDevice(deviceId);
+    if (isConnected) {
+      try {
+        const newStream = await navigator.mediaDevices.getUserMedia({
+          audio: { deviceId: { exact: deviceId } }
+        });
+        if (mediaStream) {
+          mediaStream.getTracks().forEach(track => track.stop());
+        }
+        setMediaStream(newStream);
+      } catch (error) {
+        console.error('Error switching audio device:', error);
+      }
+    }
+  };
+
+  // Start conversation with selected audio device
+  const handleStartConversation = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: selectedDevice ? { deviceId: { exact: selectedDevice } } : true
+      });
+      setMediaStream(stream);
+      await startConversation();
+    } catch (error) {
+      console.error('Error starting conversation:', error);
+    }
+  };
+
+  // End conversation and cleanup
+  const handleEndConversation = async () => {
+    await endConversation();
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(track => track.stop());
+      setMediaStream(null);
+    }
+    setIsPaused(false);
+    setIsMuted(false);
   };
   
   // Get button colors based on accent
@@ -103,43 +167,17 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
                     (language === 'sv' ? 'Lyssnar...' : 'Listening...')
             }
           </p>
-          
-          {/* Small control buttons row */}
-          {isConnected && (
-            <div className="flex justify-center space-x-2 mb-4">
-              {/* Pause button */}
-              <Button
-                onClick={handlePauseToggle}
-                size="icon"
-                variant="outline"
-                className="w-8 h-8 rounded-full"
-                title={isPaused ? (language === 'sv' ? 'Fortsätt' : 'Resume') : (language === 'sv' ? 'Pausa' : 'Pause')}
-              >
-                {isPaused ? <Play size={14} /> : <Pause size={14} />}
-              </Button>
-              
-              {/* Mute button */}
-              <Button
-                onClick={handleMuteToggle}
-                size="icon"
-                variant="outline"
-                className={`w-8 h-8 rounded-full ${isMuted ? 'bg-red-100 text-red-600' : ''}`}
-                title={isMuted ? (language === 'sv' ? 'Slå på mikrofon' : 'Unmute') : (language === 'sv' ? 'Tysta mikrofon' : 'Mute')}
-              >
-                {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
-              </Button>
-            </div>
-          )}
         </div>
       </div>
       
       {/* Main controls */}
       <div className="p-4 border-t">
-        <div className="flex mb-2 space-x-2">
+        {/* Primary control row */}
+        <div className="flex mb-2 space-x-2 items-center">
           {/* Main conversation button */}
           {!isConnected ? (
             <Button
-              onClick={startConversation}
+              onClick={handleStartConversation}
               className={`${getButtonColor('primary')} flex-1`}
               disabled={isConnecting}
             >
@@ -151,7 +189,7 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
             </Button>
           ) : (
             <Button
-              onClick={endConversation}
+              onClick={handleEndConversation}
               className={`${getButtonColor('danger')} flex-1`}
             >
               <MicOff size={18} className="mr-2" />
@@ -159,16 +197,89 @@ const StandardConversationPlayer: React.FC<StandardConversationPlayerProps> = ({
             </Button>
           )}
           
-          {/* Delete conversation button */}
-          <Button
-            onClick={resetConversation}
-            variant="outline"
-            className="flex items-center"
-          >
-            <Trash2 size={16} className="mr-1" />
-            {language === 'sv' ? 'Radera' : 'Delete'}
-          </Button>
+          {/* Mute microphone button with device selector */}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={`px-3 ${isMuted ? 'bg-red-100 text-red-600 border-red-300' : ''}`}
+                disabled={!isConnected}
+              >
+                {isMuted ? <MicOff size={16} /> : <Mic size={16} />}
+                <span className="ml-1 text-xs">
+                  {isMuted ? (language === 'sv' ? 'Tystad' : 'Muted') : (language === 'sv' ? 'Mikrofon' : 'Mute')}
+                </span>
+                <ChevronDown size={12} className="ml-1" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-64">
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <Button
+                    onClick={handleMuteToggle}
+                    variant={isMuted ? "destructive" : "outline"}
+                    size="sm"
+                    className="flex-1"
+                  >
+                    {isMuted ? <MicOff size={14} /> : <Mic size={14} />}
+                    <span className="ml-1">
+                      {isMuted ? (language === 'sv' ? 'Slå på' : 'Unmute') : (language === 'sv' ? 'Tysta' : 'Mute')}
+                    </span>
+                  </Button>
+                </div>
+                {audioDevices.length > 1 && (
+                  <div>
+                    <label className="text-sm font-medium">
+                      {language === 'sv' ? 'Välj mikrofon:' : 'Select microphone:'}
+                    </label>
+                    <Select value={selectedDevice} onValueChange={handleDeviceChange}>
+                      <SelectTrigger className="w-full mt-1">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {audioDevices.map((device) => (
+                          <SelectItem key={device.deviceId} value={device.deviceId}>
+                            {device.label || `Microphone ${device.deviceId.slice(-4)}`}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
+
+        {/* Secondary controls row - only show when connected */}
+        {isConnected && (
+          <div className="flex mb-2 space-x-2">
+            {/* Pause/Play button */}
+            <Button
+              onClick={handlePauseToggle}
+              variant="outline"
+              className="flex items-center"
+            >
+              {isPaused ? <Play size={16} className="mr-1" /> : <Pause size={16} className="mr-1" />}
+              <span className="text-sm">
+                {isPaused ? 
+                  (language === 'sv' ? 'Fortsätt' : 'Play') : 
+                  (language === 'sv' ? 'Pausa' : 'Pause')
+                }
+              </span>
+            </Button>
+            
+            {/* Delete conversation button */}
+            <Button
+              onClick={resetConversation}
+              variant="outline"
+              className="flex items-center"
+            >
+              <Trash2 size={16} className="mr-1" />
+              {language === 'sv' ? 'Radera' : 'Delete'}
+            </Button>
+          </div>
+        )}
         
         {/* Text input */}
         <form onSubmit={handleSubmit} className="flex space-x-2">
