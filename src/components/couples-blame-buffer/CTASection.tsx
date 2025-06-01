@@ -18,8 +18,12 @@ const CTASection: React.FC = () => {
           <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg max-w-lg mx-auto mb-8">
             <h3 className="font-cabinet font-bold text-xl mb-4 text-coral-700">Start a conversation</h3>
             
-            <div className="mb-6">
-              <ElevenLabsWidget agentId="cXEiaJLsMXO8XFzOQh8m" />
+            <div className="mb-6 h-96">
+              <ElevenLabsWidget 
+                agentId="cXEiaJLsMXO8XFzOQh8m" 
+                accentColor="coral"
+                className="h-full"
+              />
             </div>
             
             <p className="text-xs text-gray-500">

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import SimpleElevenlabsWidget from './elevenlabs/SimpleElevenlabsWidget';
+import StandardConversationPlayer from './elevenlabs/StandardConversationPlayer';
 
 interface ElevenLabsWidgetProps {
   agentId: string;
@@ -12,7 +12,7 @@ interface ElevenLabsWidgetProps {
 
 /**
  * A React-friendly wrapper for the ElevenLabs Conversational AI
- * Now using our simplified direct API integration
+ * Now using our standardized conversation player across all pages
  */
 const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({ 
   agentId, 
@@ -23,7 +23,7 @@ const ElevenLabsWidget: React.FC<ElevenLabsWidgetProps> = ({
 }) => {
   return (
     <div className={`elevenlabs-widget-container ${className}`}>
-      <SimpleElevenlabsWidget
+      <StandardConversationPlayer
         agentId={agentId}
         accentColor={accentColor}
       />
